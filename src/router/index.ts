@@ -6,7 +6,7 @@ import { useAuthStore } from "@/stores/auth";
 const router = createRouter({
     history: createWebHistory(import.meta.env.BASE_URL),
     routes: [
-        { path: '/login', component: Login, meta: { layout: Auth, guest: true, disableIfLoggedIn: true }, name: 'login' },
+        { path: '/login', component: Login, meta: { layout: Auth, guest: true }, name: 'login' },
         { path: '/register', component: Login, meta: { layout: Auth, guest: true }, name: 'register' },
 
         { path: '/', name: 'dashboard', component: () => import('../views/Dashboard.vue') },
