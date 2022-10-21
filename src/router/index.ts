@@ -1,5 +1,4 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import HomeView from '../views/HomeView.vue'
 import Login from '../views/auth/Login.vue'
 import Auth from '@/components/layouts/Auth.vue'
 import { useAuthStore } from "@/stores/auth";
@@ -7,17 +6,25 @@ import { useAuthStore } from "@/stores/auth";
 const router = createRouter({
     history: createWebHistory(import.meta.env.BASE_URL),
     routes: [
-        { path: '/login', component: Login, meta: { layout: Auth, guest: true }, name: 'login' },
+        { path: '/login', component: Login, meta: { layout: Auth, guest: true, disableIfLoggedIn: true }, name: 'login' },
+        { path: '/register', component: Login, meta: { layout: Auth, guest: true }, name: 'register' },
 
-        { path: '/', name: 'home', component: HomeView },
-        { path: '/about', name: 'about', component: () => import('../views/AboutView.vue') }
+        { path: '/', name: 'dashboard', component: () => import('../views/Dashboard.vue') },
     ]
 })
 
-router.beforeEach(to => {
+router.beforeEach((to, from, next) => {
     const authStore = useAuthStore()
 
-    if (!authStore.token && !to.meta.guest) return '/login'
+    if (!to.meta.guest) {
+        if (authStore.token) {
+            next();
+        } else {
+            next({ name: 'login' });
+        }
+    }
+
+    next();
 })
 
 export default router

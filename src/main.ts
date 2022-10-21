@@ -1,17 +1,35 @@
 import { createApp } from 'vue'
 import { createPinia } from 'pinia'
-
 import App from './App.vue'
 import router from './router'
+import axios from "axios";
+import { useAuthStore } from "@/stores/auth";
 
 import 'bootstrap/dist/css/bootstrap.min.css'
 import './assets/main.css'
 import 'bootstrap/dist/js/bootstrap.min.js'
 
-const app = createApp(App)
+axios.interceptors.response.use(response => {
+        if (response.data && response.data.errors) return Promise.reject(response.data)
 
-app.use(createPinia())
-app.use(router)
+        return response
+    }, async error => {
+        if (error.response) {
+            if (error.response.status === 401) {
+                const authStore = useAuthStore()
 
-app.mount('#app')
+                authStore.logout()
 
+                await router.push({ name: 'login' })
+            }
+        }
+
+        return Promise.reject(error)
+    }
+)
+axios.defaults.baseURL = import.meta.env.VITE_ENTERPRISE_API_URL
+axios.defaults.headers.post['Content-Type'] = 'application/json'
+
+createApp(App).use(createPinia()).use(router).mount('#app')
+
+axios.defaults.headers.common['Authorization'] = "Bearer " + useAuthStore().token;
