@@ -18,9 +18,11 @@ router.beforeEach((to, from, next) => {
 
     if (!to.meta.guest) {
         if (authStore.token) {
-            next();
+            return next();
         } else {
-            next({ name: 'login' });
+            localStorage.setItem('urlIntended', to.path)
+
+            return next({ name: 'login' });
         }
     }
 

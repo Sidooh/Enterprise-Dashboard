@@ -25,7 +25,12 @@ const submit = () => {
     if (!emailError.value && !passwordError.value) {
         useAuthStore()
             .authenticate(email.value, password.value)
-            .then(() => router.push({ name: 'dashboard' }))
+            .then(() => {
+                let urlIntended = localStorage.getItem('urlIntended') || '/';
+                localStorage.removeItem('urlIntended')
+
+                router.push({ path: urlIntended })
+            })
             .catch(() => invalidCredentials.value = true)
     }
 }
