@@ -1,6 +1,6 @@
 <template>
     <div>
-        <a href="#" @click="logout">Logout</a>
+<!--        <a href="#" @click="logout">Logout</a>-->
     </div>
 </template>
 
