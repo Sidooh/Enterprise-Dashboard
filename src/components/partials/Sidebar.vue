@@ -1,5 +1,5 @@
 <template>
-    <nav class="sidebar sidebar-expand-xl position-fixed">
+    <nav class="sidebar sidebar-expand-xl position-fixed ps-3 bg-white">
         <div class="d-flex align-items-center">
             <div class="toggle-icon-wrapper">
                 <button class="btn sidebar-toggler-humburger-icon sidebar-toggle" data-bs-toggle="tooltip"
@@ -16,23 +16,18 @@
         </div>
 
         <div class="collapse sidebar-collapse" id="sidebarCollapse">
-            <div class="sidebar-content">
+            <div class="sidebar-content scrollbar">
                 <ul class="sidebar-nav mb-3 flex-column">
                     <li class="nav-item">
                         <a class="nav-link dropdown-indicator collapsed" href="#dashboard"
                            role="button" data-bs-toggle="collapse" aria-expanded="false"
                            aria-controls="dashboard">
                             <div class="d-flex align-items-center">
-                            <span class="nav-link-icon">
-                                <svg
-                                    class="svg-inline--fa fa-chart-pie fa-w-17" aria-hidden="true" focusable="false"
-                                    data-prefix="fas" data-icon="chart-pie" role="img"
-                                    xmlns="http://www.w3.org/2000/svg"
-                                    viewBox="0 0 544 512" data-fa-i2svg="">
-                                    <path fill="currentColor"
-                                          d="M527.79 288H290.5l158.03 158.03c6.04 6.04 15.98 6.53 22.19.68 38.7-36.46 65.32-85.61 73.13-140.86 1.34-9.46-6.51-17.85-16.06-17.85zm-15.83-64.8C503.72 103.74 408.26 8.28 288.8.04 279.68-.59 272 7.1 272 16.24V240h223.77c9.14 0 16.82-7.68 16.19-16.8zM224 288V50.71c0-9.55-8.39-17.4-17.84-16.06C86.99 51.49-4.1 155.6.14 280.37 4.5 408.51 114.83 513.59 243.03 511.98c50.4-.63 96.97-16.87 135.26-44.03 7.9-5.6 8.42-17.23 1.57-24.08L224 288z"></path></svg>
-                            </span><span
-                                class="nav-link-text ps-1">Dashboard</span></div>
+                                <span class="nav-link-icon">
+                                    <font-awesome-icon :icon="faChartPie"/>
+                                </span>
+                                <span class="nav-link-text ps-1">Dashboard</span>
+                            </div>
                         </a>
                         <ul class="nav collapse" id="dashboard" style="">
                             <li class="nav-item">
@@ -57,21 +52,12 @@
                     </li>
                     <li class="nav-item">
                         <!-- label-->
-                        <div class="row navbar-vertical-label-wrapper mt-3 mb-2">
-                            <div class="col-auto navbar-vertical-label">App</div>
+                        <div class="row sidebar-label-wrapper mt-3 mb-2">
+                            <div class="col-auto sidebar-label">App</div>
                             <div class="col ps-0">
-                                <hr class="mb-0 navbar-vertical-divider">
+                                <hr class="mb-0 sidebar-divider">
                             </div>
                         </div>
-                        <a class="nav-link" href="../../../app/calendar.html" role="button">
-                            <div class="d-flex align-items-center"><span class="nav-link-icon"><svg
-                                class="svg-inline--fa fa-calendar-alt fa-w-14" aria-hidden="true" focusable="false"
-                                data-prefix="fas" data-icon="calendar-alt" role="img" xmlns="http://www.w3.org/2000/svg"
-                                viewBox="0 0 448 512" data-fa-i2svg=""><path fill="currentColor"
-                                                                             d="M0 464c0 26.5 21.5 48 48 48h352c26.5 0 48-21.5 48-48V192H0v272zm320-196c0-6.6 5.4-12 12-12h40c6.6 0 12 5.4 12 12v40c0 6.6-5.4 12-12 12h-40c-6.6 0-12-5.4-12-12v-40zm0 128c0-6.6 5.4-12 12-12h40c6.6 0 12 5.4 12 12v40c0 6.6-5.4 12-12 12h-40c-6.6 0-12-5.4-12-12v-40zM192 268c0-6.6 5.4-12 12-12h40c6.6 0 12 5.4 12 12v40c0 6.6-5.4 12-12 12h-40c-6.6 0-12-5.4-12-12v-40zm0 128c0-6.6 5.4-12 12-12h40c6.6 0 12 5.4 12 12v40c0 6.6-5.4 12-12 12h-40c-6.6 0-12-5.4-12-12v-40zM64 268c0-6.6 5.4-12 12-12h40c6.6 0 12 5.4 12 12v40c0 6.6-5.4 12-12 12H76c-6.6 0-12-5.4-12-12v-40zm0 128c0-6.6 5.4-12 12-12h40c6.6 0 12 5.4 12 12v40c0 6.6-5.4 12-12 12H76c-6.6 0-12-5.4-12-12v-40zM400 64h-48V16c0-8.8-7.2-16-16-16h-32c-8.8 0-16 7.2-16 16v48H160V16c0-8.8-7.2-16-16-16h-32c-8.8 0-16 7.2-16 16v48H48C21.5 64 0 85.5 0 112v48h448v-48c0-26.5-21.5-48-48-48z"></path></svg>
-                                <!-- <span class="fas fa-calendar-alt"></span> Font Awesome fontawesome.com --></span><span
-                                class="nav-link-text ps-1">Calendar</span></div>
-                        </a>
                         <a class="nav-link" href="../../../app/chat.html" role="button">
                             <div class="d-flex align-items-center"><span class="nav-link-icon"><svg
                                 class="svg-inline--fa fa-comments fa-w-18" aria-hidden="true" focusable="false"
@@ -81,153 +67,6 @@
                                 <!-- <span class="fas fa-comments"></span> Font Awesome fontawesome.com --></span><span
                                 class="nav-link-text ps-1">Chat</span></div>
                         </a>
-                        <a class="nav-link dropdown-indicator collapsed" href="#email" role="button"
-                           data-bs-toggle="collapse" aria-expanded="false" aria-controls="email">
-                            <div class="d-flex align-items-center"><span class="nav-link-icon"><svg
-                                class="svg-inline--fa fa-envelope-open fa-w-16" aria-hidden="true" focusable="false"
-                                data-prefix="fas" data-icon="envelope-open" role="img"
-                                xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" data-fa-i2svg=""><path
-                                fill="currentColor"
-                                d="M512 464c0 26.51-21.49 48-48 48H48c-26.51 0-48-21.49-48-48V200.724a48 48 0 0 1 18.387-37.776c24.913-19.529 45.501-35.365 164.2-121.511C199.412 29.17 232.797-.347 256 .003c23.198-.354 56.596 29.172 73.413 41.433 118.687 86.137 139.303 101.995 164.2 121.512A48 48 0 0 1 512 200.724V464zm-65.666-196.605c-2.563-3.728-7.7-4.595-11.339-1.907-22.845 16.873-55.462 40.705-105.582 77.079-16.825 12.266-50.21 41.781-73.413 41.43-23.211.344-56.559-29.143-73.413-41.43-50.114-36.37-82.734-60.204-105.582-77.079-3.639-2.688-8.776-1.821-11.339 1.907l-9.072 13.196a7.998 7.998 0 0 0 1.839 10.967c22.887 16.899 55.454 40.69 105.303 76.868 20.274 14.781 56.524 47.813 92.264 47.573 35.724.242 71.961-32.771 92.263-47.573 49.85-36.179 82.418-59.97 105.303-76.868a7.998 7.998 0 0 0 1.839-10.967l-9.071-13.196z"></path></svg>
-                                <!-- <span class="fas fa-envelope-open"></span> Font Awesome fontawesome.com --></span><span
-                                class="nav-link-text ps-1">Email</span></div>
-                        </a>
-                        <ul class="nav collapse" id="email" style="">
-                            <li class="nav-item"><a class="nav-link" href="../../../app/email/inbox.html">
-                                <div class="d-flex align-items-center"><span class="nav-link-text ps-1">Inbox</span>
-                                </div>
-                            </a><!-- more inner pages-->
-                            </li>
-                            <li class="nav-item"><a class="nav-link" href="../../../app/email/email-detail.html">
-                                <div class="d-flex align-items-center"><span
-                                    class="nav-link-text ps-1">Email detail</span></div>
-                            </a><!-- more inner pages-->
-                            </li>
-                            <li class="nav-item"><a class="nav-link" href="../../../app/email/compose.html">
-                                <div class="d-flex align-items-center"><span class="nav-link-text ps-1">Compose</span>
-                                </div>
-                            </a><!-- more inner pages-->
-                            </li>
-                        </ul>
-                        <a class="nav-link dropdown-indicator" href="#events" role="button" data-bs-toggle="collapse"
-                           aria-expanded="false" aria-controls="events">
-                            <div class="d-flex align-items-center"><span class="nav-link-icon"><svg
-                                class="svg-inline--fa fa-calendar-day fa-w-14" aria-hidden="true" focusable="false"
-                                data-prefix="fas" data-icon="calendar-day" role="img" xmlns="http://www.w3.org/2000/svg"
-                                viewBox="0 0 448 512" data-fa-i2svg=""><path fill="currentColor"
-                                                                             d="M0 464c0 26.5 21.5 48 48 48h352c26.5 0 48-21.5 48-48V192H0v272zm64-192c0-8.8 7.2-16 16-16h96c8.8 0 16 7.2 16 16v96c0 8.8-7.2 16-16 16H80c-8.8 0-16-7.2-16-16v-96zM400 64h-48V16c0-8.8-7.2-16-16-16h-32c-8.8 0-16 7.2-16 16v48H160V16c0-8.8-7.2-16-16-16h-32c-8.8 0-16 7.2-16 16v48H48C21.5 64 0 85.5 0 112v48h448v-48c0-26.5-21.5-48-48-48z"></path></svg>
-                                <!-- <span class="fas fa-calendar-day"></span> Font Awesome fontawesome.com --></span><span
-                                class="nav-link-text ps-1">Events</span></div>
-                        </a>
-                        <ul class="nav collapse" id="events">
-                            <li class="nav-item"><a class="nav-link" href="../../../app/events/create-an-event.html">
-                                <div class="d-flex align-items-center"><span
-                                    class="nav-link-text ps-1">Create an event</span></div>
-                            </a><!-- more inner pages-->
-                            </li>
-                            <li class="nav-item"><a class="nav-link" href="../../../app/events/event-detail.html">
-                                <div class="d-flex align-items-center"><span
-                                    class="nav-link-text ps-1">Event detail</span></div>
-                            </a><!-- more inner pages-->
-                            </li>
-                            <li class="nav-item"><a class="nav-link" href="../../../app/events/event-list.html">
-                                <div class="d-flex align-items-center"><span
-                                    class="nav-link-text ps-1">Event list</span></div>
-                            </a><!-- more inner pages-->
-                            </li>
-                        </ul>
-                        <a class="nav-link dropdown-indicator" href="#e-commerce" role="button"
-                           data-bs-toggle="collapse" aria-expanded="false" aria-controls="e-commerce">
-                            <div class="d-flex align-items-center"><span class="nav-link-icon"><svg
-                                class="svg-inline--fa fa-shopping-cart fa-w-18" aria-hidden="true" focusable="false"
-                                data-prefix="fas" data-icon="shopping-cart" role="img"
-                                xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512" data-fa-i2svg=""><path
-                                fill="currentColor"
-                                d="M528.12 301.319l47.273-208C578.806 78.301 567.391 64 551.99 64H159.208l-9.166-44.81C147.758 8.021 137.93 0 126.529 0H24C10.745 0 0 10.745 0 24v16c0 13.255 10.745 24 24 24h69.883l70.248 343.435C147.325 417.1 136 435.222 136 456c0 30.928 25.072 56 56 56s56-25.072 56-56c0-15.674-6.447-29.835-16.824-40h209.647C430.447 426.165 424 440.326 424 456c0 30.928 25.072 56 56 56s56-25.072 56-56c0-22.172-12.888-41.332-31.579-50.405l5.517-24.276c3.413-15.018-8.002-29.319-23.403-29.319H218.117l-6.545-32h293.145c11.206 0 20.92-7.754 23.403-18.681z"></path></svg>
-                                <!-- <span class="fas fa-shopping-cart"></span> Font Awesome fontawesome.com --></span><span
-                                class="nav-link-text ps-1">E commerce</span></div>
-                        </a>
-                        <ul class="nav collapse" id="e-commerce">
-                            <li class="nav-item"><a class="nav-link dropdown-indicator" href="#product"
-                                                    data-bs-toggle="collapse" aria-expanded="false"
-                                                    aria-controls="e-commerce">
-                                <div class="d-flex align-items-center"><span class="nav-link-text ps-1">Product</span>
-                                </div>
-                            </a><!-- more inner pages-->
-                                <ul class="nav collapse" id="product">
-                                    <li class="nav-item"><a class="nav-link"
-                                                            href="../../../app/e-commerce/product/product-list.html">
-                                        <div class="d-flex align-items-center"><span class="nav-link-text ps-1">Product list</span>
-                                        </div>
-                                    </a><!-- more inner pages-->
-                                    </li>
-                                    <li class="nav-item"><a class="nav-link"
-                                                            href="../../../app/e-commerce/product/product-grid.html">
-                                        <div class="d-flex align-items-center"><span class="nav-link-text ps-1">Product grid</span>
-                                        </div>
-                                    </a><!-- more inner pages-->
-                                    </li>
-                                    <li class="nav-item"><a class="nav-link"
-                                                            href="../../../app/e-commerce/product/product-details.html">
-                                        <div class="d-flex align-items-center"><span class="nav-link-text ps-1">Product details</span>
-                                        </div>
-                                    </a><!-- more inner pages-->
-                                    </li>
-                                </ul>
-                            </li>
-                            <li class="nav-item"><a class="nav-link dropdown-indicator" href="#orders"
-                                                    data-bs-toggle="collapse" aria-expanded="false"
-                                                    aria-controls="e-commerce">
-                                <div class="d-flex align-items-center"><span class="nav-link-text ps-1">Orders</span>
-                                </div>
-                            </a><!-- more inner pages-->
-                                <ul class="nav collapse" id="orders">
-                                    <li class="nav-item"><a class="nav-link"
-                                                            href="../../../app/e-commerce/orders/order-list.html">
-                                        <div class="d-flex align-items-center"><span class="nav-link-text ps-1">Order list</span>
-                                        </div>
-                                    </a><!-- more inner pages-->
-                                    </li>
-                                    <li class="nav-item"><a class="nav-link"
-                                                            href="../../../app/e-commerce/orders/order-details.html">
-                                        <div class="d-flex align-items-center"><span class="nav-link-text ps-1">Order details</span>
-                                        </div>
-                                    </a><!-- more inner pages-->
-                                    </li>
-                                </ul>
-                            </li>
-                            <li class="nav-item"><a class="nav-link" href="../../../app/e-commerce/customers.html">
-                                <div class="d-flex align-items-center"><span class="nav-link-text ps-1">Customers</span>
-                                </div>
-                            </a><!-- more inner pages-->
-                            </li>
-                            <li class="nav-item"><a class="nav-link"
-                                                    href="../../../app/e-commerce/customer-details.html">
-                                <div class="d-flex align-items-center"><span
-                                    class="nav-link-text ps-1">Customer details</span></div>
-                            </a><!-- more inner pages-->
-                            </li>
-                            <li class="nav-item"><a class="nav-link" href="../../../app/e-commerce/shopping-cart.html">
-                                <div class="d-flex align-items-center"><span
-                                    class="nav-link-text ps-1">Shopping cart</span></div>
-                            </a><!-- more inner pages-->
-                            </li>
-                            <li class="nav-item"><a class="nav-link" href="../../../app/e-commerce/checkout.html">
-                                <div class="d-flex align-items-center"><span class="nav-link-text ps-1">Checkout</span>
-                                </div>
-                            </a><!-- more inner pages-->
-                            </li>
-                            <li class="nav-item"><a class="nav-link" href="../../../app/e-commerce/billing.html">
-                                <div class="d-flex align-items-center"><span class="nav-link-text ps-1">Billing</span>
-                                </div>
-                            </a><!-- more inner pages-->
-                            </li>
-                            <li class="nav-item"><a class="nav-link" href="../../../app/e-commerce/invoice.html">
-                                <div class="d-flex align-items-center"><span class="nav-link-text ps-1">Invoice</span>
-                                </div>
-                            </a><!-- more inner pages-->
-                            </li>
-                        </ul>
                         <a class="nav-link dropdown-indicator" href="#e-learning" role="button"
                            data-bs-toggle="collapse" aria-expanded="false" aria-controls="e-learning">
                             <div class="d-flex align-items-center"><span class="nav-link-icon"><svg
@@ -246,45 +85,35 @@
                                                     aria-controls="e-learning">
                                 <div class="d-flex align-items-center"><span class="nav-link-text ps-1">Course</span>
                                 </div>
-                            </a><!-- more inner pages-->
+                            </a>
                                 <ul class="nav collapse" id="course">
-                                    <li class="nav-item"><a class="nav-link"
-                                                            href="../../../app/e-learning/course/course-list.html">
-                                        <div class="d-flex align-items-center"><span class="nav-link-text ps-1">Course list</span>
-                                        </div>
-                                    </a><!-- more inner pages-->
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="../../../app/e-learning/course/course-list.html">
+                                            <div class="d-flex align-items-center">
+                                                <span class="nav-link-text ps-1">Course list</span>
+                                            </div>
+                                        </a>
                                     </li>
-                                    <li class="nav-item"><a class="nav-link"
-                                                            href="../../../app/e-learning/course/course-grid.html">
-                                        <div class="d-flex align-items-center"><span class="nav-link-text ps-1">Course grid</span>
-                                        </div>
-                                    </a><!-- more inner pages-->
-                                    </li>
-                                    <li class="nav-item"><a class="nav-link"
-                                                            href="../../../app/e-learning/course/course-details.html">
-                                        <div class="d-flex align-items-center"><span class="nav-link-text ps-1">Course details</span>
-                                        </div>
-                                    </a><!-- more inner pages-->
-                                    </li>
-                                    <li class="nav-item"><a class="nav-link"
-                                                            href="../../../app/e-learning/course/create-a-course.html">
-                                        <div class="d-flex align-items-center"><span class="nav-link-text ps-1">Create a course</span>
-                                        </div>
-                                    </a><!-- more inner pages-->
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="../../../app/e-learning/course/course-grid.html">
+                                            <div class="d-flex align-items-center">
+                                                <span class="nav-link-text ps-1">Course grid</span>
+                                            </div>
+                                        </a>
                                     </li>
                                 </ul>
                             </li>
-                            <li class="nav-item"><a class="nav-link"
-                                                    href="../../../app/e-learning/student-overview.html">
-                                <div class="d-flex align-items-center"><span
-                                    class="nav-link-text ps-1">Student overview</span></div>
-                            </a><!-- more inner pages-->
+                            <li class="nav-item">
+                                <a class="nav-link" href="../../../app/e-learning/student-overview.html">
+                                    <div class="d-flex align-items-center"><span
+                                        class="nav-link-text ps-1">Student overview</span></div>
+                                </a>
                             </li>
                             <li class="nav-item"><a class="nav-link"
                                                     href="../../../app/e-learning/trainer-profile.html">
                                 <div class="d-flex align-items-center"><span
                                     class="nav-link-text ps-1">Trainer profile</span></div>
-                            </a><!-- more inner pages-->
+                            </a>
                             </li>
                         </ul>
                         <a class="nav-link" href="../../../app/kanban.html" role="button">
@@ -310,22 +139,22 @@
                             <li class="nav-item"><a class="nav-link" href="../../../app/social/feed.html">
                                 <div class="d-flex align-items-center"><span class="nav-link-text ps-1">Feed</span>
                                 </div>
-                            </a><!-- more inner pages-->
+                            </a>
                             </li>
                             <li class="nav-item"><a class="nav-link" href="../../../app/social/activity-log.html">
                                 <div class="d-flex align-items-center"><span
                                     class="nav-link-text ps-1">Activity log</span></div>
-                            </a><!-- more inner pages-->
+                            </a>
                             </li>
                             <li class="nav-item"><a class="nav-link" href="../../../app/social/notifications.html">
                                 <div class="d-flex align-items-center"><span
                                     class="nav-link-text ps-1">Notifications</span></div>
-                            </a><!-- more inner pages-->
+                            </a>
                             </li>
                             <li class="nav-item"><a class="nav-link" href="../../../app/social/followers.html">
                                 <div class="d-flex align-items-center"><span class="nav-link-text ps-1">Followers</span>
                                 </div>
-                            </a><!-- more inner pages-->
+                            </a>
                             </li>
                         </ul>
                     </li>
@@ -336,112 +165,35 @@
 </template>
 
 <script setup>
+import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
+import { faChartPie } from '@fortawesome/free-solid-svg-icons'
 import { onMounted } from "vue";
 
-let slideUp = (target, duration = 200) => {
-    target.style.transitionProperty = 'height, margin, padding';
-    target.style.transitionDuration = duration + 'ms';
-    target.style.boxSizing = 'border-box';
-    target.style.height = target.offsetHeight + 'px';
-    target.offsetHeight;
-    target.style.overflow = 'hidden';
-    target.style.height = 0;
-    target.style.paddingTop = 0;
-    target.style.paddingBottom = 0;
-    target.style.marginTop = 0;
-    target.style.marginBottom = 0;
-
-    window.setTimeout(() => {
-        target.style.display = 'none';
-        target.style.removeProperty('height');
-        target.style.removeProperty('padding-top');
-        target.style.removeProperty('padding-bottom');
-        target.style.removeProperty('margin-top');
-        target.style.removeProperty('margin-bottom');
-        target.style.removeProperty('overflow');
-        target.style.removeProperty('transition-duration');
-        target.style.removeProperty('transition-property');
-    }, duration);
-}
-let slideDown = (target, duration = 200) => {
-    target.style.removeProperty('display');
-
-    let display = window.getComputedStyle(target).display;
-
-    if (display === 'none') display = 'block';
-
-    target.style.display = display;
-
-    let height = target.offsetHeight;
-
-    target.style.overflow = 'hidden';
-    target.style.height = 0;
-    target.style.paddingTop = 0;
-    target.style.paddingBottom = 0;
-    target.style.marginTop = 0;
-    target.style.marginBottom = 0;
-    target.offsetHeight;
-    target.style.boxSizing = 'border-box';
-    target.style.transitionProperty = "height, margin, padding";
-    target.style.transitionDuration = duration + 'ms';
-    target.style.height = height + 'px';
-    target.style.removeProperty('padding-top');
-    target.style.removeProperty('padding-bottom');
-    target.style.removeProperty('margin-top');
-    target.style.removeProperty('margin-bottom');
-
-    window.setTimeout(() => {
-        target.style.removeProperty('height');
-        target.style.removeProperty('overflow');
-        target.style.removeProperty('transition-duration');
-        target.style.removeProperty('transition-property');
-    }, duration);
-}
-let slideToggle = (target, duration = 200) => {
-    return window.getComputedStyle(target).display === 'none'
-        ? slideDown(target, duration)
-        : slideUp(target, duration)
-}
-
 onMounted(() => {
-    const sidebar = document.getElementsByClassName('sidebar').item(0),
-        sidebarCollapsed = document.getElementsByClassName('sidebar collapsed')
+    let navbarVerticalToggle = document.querySelector('.sidebar-toggle');
+    let html = document.querySelector('html');
 
-    document.querySelectorAll('.sidebar-dropdown-menu').forEach(menu => slideUp(menu))
+    if (navbarVerticalToggle) {
+        navbarVerticalToggle.addEventListener('click', function (e) {
+            navbarVerticalToggle.blur();
+            html.classList.toggle('sidebar-collapsed'); // Set collapse state on localStorage
 
-    document
-        .querySelectorAll('.sidebar-menu-item.has-dropdown > a, .sidebar-dropdown-menu-item.has-dropdown > a').forEach(link => link.addEventListener('click', function (e) {
-        e.preventDefault()
+            // let isNavbarVerticalCollapsed = utils.getItemFromStore('isNavbarVerticalCollapsed');
+            // utils.setItemToStore('isNavbarVerticalCollapsed', !isNavbarVerticalCollapsed);
 
-        slideToggle(this.nextElementSibling)
+            let event = new CustomEvent('sidebar.toggle');
 
-        this.parentElement.classList.toggle('focused')
-    }))
-
-    document.getElementsByClassName('sidebar-toggle').item(0)
-        .addEventListener('click', () => {
-            sidebar.classList.toggle('collapsed')
-
-            if (sidebarCollapsed.length) {
-                sidebarCollapsed.item(0).addEventListener('mouseleave', () => {
-                    document.querySelectorAll('.sidebar-dropdown-menu').forEach(menu => slideUp(menu))
-
-                    document
-                        .querySelectorAll('.sidebar-menu-item.has-dropdown, .sidebar-dropdown-menu-item.has-dropdown')
-                        .forEach(d => d.classList.remove('focused'))
-                })
-            }
-        })
+            e.currentTarget.dispatchEvent(event);
+        });
+    }
 })
 </script>
 
 <style scoped>
-.sidebar.collapsed:hover,
 .sidebar {
     padding: 0;
     display: inline-block;
     width: 100%;
-    overflow-y: auto;
     transition: width .2s;
 }
 
@@ -550,7 +302,7 @@ onMounted(() => {
 }
 
 .sidebar .sidebar-nav .nav-item .nav-link {
-    color: var(--bs-gray-700);
+    color: var(--sidebar-link-color);
 }
 
 .sidebar .sidebar-nav .nav-link {
@@ -560,16 +312,42 @@ onMounted(() => {
     transition: all .2s ease-in-out;
 }
 
+.dropdown-indicator {
+    position: relative;
+}
+
+.dropdown-indicator:after {
+    content: "";
+    display: block;
+    position: absolute;
+    right: 5px;
+    height: .4rem;
+    width: .4rem;
+    border-right: 1px solid #5e6e82;
+    border-bottom: 1px solid #5e6e82;
+    top: 50%;
+    -webkit-transform: translateY(-50%) rotate(45deg);
+    -ms-transform: translateY(-50%) rotate(45deg);
+    transform: translateY(-50%) rotate(45deg);
+    -webkit-transition: all .2s ease-in-out;
+    -o-transition: all .2s ease-in-out;
+    transition: all .2s ease-in-out;
+    -webkit-transform-origin: center;
+    -ms-transform-origin: center;
+    transform-origin: center;
+    -webkit-transition-property: border-color, -webkit-transform;
+    transition-property: border-color, -webkit-transform;
+    -o-transition-property: transform, border-color;
+    transition-property: transform, border-color;
+    transition-property: transform, border-color, -webkit-transform;
+}
+
 .sidebar .dropdown-indicator {
     padding-right: 1rem !important;
 }
 
 .sidebar .nav-link {
     outline: none;
-}
-
-.dropdown-indicator {
-    position: relative;
 }
 
 .nav-link {
@@ -587,9 +365,54 @@ onMounted(() => {
     font-size: .875rem;
 }
 
+.nav {
+    --nav-link-padding-x: 1rem;
+    --nav-link-padding-y: 0.5rem;
+    --nav-link-color: var(--link-color);
+    --nav-link-hover-color: var(--link-hover-color);
+    --nav-link-disabled-color: #748194;
+
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-wrap: wrap;
+    flex-wrap: wrap;
+    padding-left: 0;
+    margin-bottom: 0;
+    list-style: none;
+}
+
+.sidebar .sidebar-nav .nav {
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -ms-flex-flow: column nowrap;
+    flex-flow: column nowrap;
+    font-size: .8333333333rem;
+}
+
+.sidebar .sidebar-nav .nav .nav-item .nav-link {
+    padding: .2rem .2rem .2rem 1.5rem;
+}
+
+.sidebar .sidebar-nav .nav .nav .nav-item .nav-link {
+    padding-left: 2.625rem;
+}
+
+.sidebar .sidebar-divider {
+    margin-top: .5625rem;
+}
+
 @media (min-width: 1200px) {
+    .sidebar-expand-xl .sidebar-collapse {
+        display: -webkit-box !important;
+        display: -ms-flexbox !important;
+        display: flex !important;
+        -ms-flex-preferred-size: auto;
+        flex-basis: auto;
+    }
+
     .sidebar.sidebar-expand-xl {
-        max-width: 12.625rem;
+        max-width: 15.625rem;
         top: 0;
         height: 100vh;
         margin: 0;
@@ -640,13 +463,77 @@ onMounted(() => {
         flex-direction: row;
     }
 
+    .sidebar-expand-xl .sidebar-nav .nav-link {
+        padding-right: .5rem;
+        padding-left: .5rem;
+    }
+
     .sidebar.sidebar-expand-xl .nav-link {
         padding: .35rem 0;
     }
 
-    .sidebar-expand-xl .sidebar-nav .nav-link {
-        padding-right: .5rem;
-        padding-left: .5rem;
+    .sidebar-collapsed .sidebar-brand {
+        opacity: 0;
+    }
+
+    .sidebar-collapsed .sidebar.sidebar-expand-xl {
+        z-index: 1030;
+        width: 3.125rem;
+        height: 100vh;
+    }
+
+    .sidebar.sidebar-expand-xl .sidebar-collapse {
+        margin-top: -0.3125rem;
+        -webkit-transition: width .2s ease;
+        -o-transition: width .2s ease;
+        transition: width .2s ease;
+        -webkit-transition-property: width, -webkit-box-shadow;
+        transition-property: width, -webkit-box-shadow;
+        -o-transition-property: width, box-shadow;
+        transition-property: width, box-shadow;
+        transition-property: width, box-shadow, -webkit-box-shadow;
+        display: inline-block !important;
+        width: 12.625rem;
+    }
+
+    .sidebar-collapsed .sidebar.sidebar-expand-xl .dropdown-indicator:after,
+    .sidebar-collapsed .sidebar.sidebar-expand-xl .nav-link .badge,
+    .sidebar-collapsed .sidebar.sidebar-expand-xl .nav-link-text,
+    .sidebar-collapsed .sidebar.sidebar-expand-xl .settings {
+        opacity: 0;
+        -webkit-transition: all .5s ease;
+        -o-transition: all .5s ease;
+        transition: all .5s ease;
+    }
+
+    .sidebar-collapsed .sidebar.sidebar-expand-xl .sidebar-collapse {
+        width: 3.125rem !important;
+        margin-left: -1rem;
+        overflow: hidden;
+    }
+
+    .sidebar-collapsed:not(.sidebar-collapsed-hover) .sidebar.sidebar-expand-xl .sidebar-collapse,
+    .sidebar-collapsed:not(.sidebar-collapsed-hover) .sidebar.sidebar-expand-xl .nav.collapse.show,
+    .sidebar-collapsed:not(.sidebar-collapsed-hover) .sidebar.sidebar-expand-xl .nav-link .badge,
+    .sidebar-collapsed:not(.sidebar-collapsed-hover) .sidebar.sidebar-expand-xl .settings,
+    .sidebar-collapsed:not(.sidebar-collapsed-hover) .sidebar.sidebar-expand-xl .nav-link-text {
+        display: none;
+    }
+
+    .sidebar-collapsed .sidebar.sidebar-expand-xl .sidebar-label {
+        display: none;
+        -webkit-transition: all .5s ease;
+        -o-transition: all .5s ease;
+        transition: all .5s ease;
+    }
+
+    .sidebar-collapsed .sidebar.sidebar-expand-xl .sidebar-content {
+        padding-right: 1rem;
+        padding-left: 1rem;
+    }
+
+    .sidebar-collapsed:not(.sidebar-collapsed-hover) .sidebar.sidebar-expand-xl .sidebar-divider {
+        max-width: 2rem;
     }
 }
 

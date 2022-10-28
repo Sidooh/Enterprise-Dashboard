@@ -3,3 +3,27 @@
 .container, .container-fluid, .container-sm, .container-md, .container-lg, .container-xl, .container-xxl {
     position: relative
 }
+
+.avatar {
+    position: relative;
+    display: inline-block;
+}
+
+.avatar-xl {
+    height: 2rem;
+    width: 2rem;
+}
+
+.avatar img {
+    display: block;
+}
+
+.avatar img, .avatar .avatar-name {
+    width: 100%;
+    height: 100%;
+}
+
+.avatar img {
+    -o-object-fit: cover;
+    object-fit: cover;
+}
