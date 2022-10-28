@@ -1,1 +1,5 @@
 @import "./base.css";
+
+.container, .container-fluid, .container-sm, .container-md, .container-lg, .container-xl, .container-xxl {
+    position: relative
+}
