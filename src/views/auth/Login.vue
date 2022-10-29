@@ -41,12 +41,12 @@ const submit = () => {
             <a class="d-flex align-items-center justify-content-center mb-4" href="/">
                 <img class="me-2" src="/sidooh.png" alt="" width="100">
             </a>
-            <div class="card">
+            <div class="card shadow-sm">
                 <div class="card-body p-4 p-sm-5">
                     <div class="row align-items-center justify-content-between mb-2">
                         <div class="col-auto"><h5>Sign In</h5></div>
                         <div class="col-auto fs-6 text-600">
-                            <span>or <router-link :to="{name:'register'}">Create an account</router-link></span>
+                            <small>or <router-link :to="{name:'register'}">Create an account</router-link></small>
                         </div>
                     </div>
                     <form id="sign-in">
