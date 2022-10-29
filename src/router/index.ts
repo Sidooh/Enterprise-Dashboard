@@ -7,7 +7,12 @@ const router = createRouter({
     history: createWebHistory(import.meta.env.BASE_URL),
     routes: [
         { path: '/login', component: Login, meta: { layout: Auth, guest: true }, name: 'login' },
-        { path: '/register', component: import('../views/auth/Register.vue'), meta: { layout: Auth, guest: true }, name: 'register' },
+        {
+            path: '/register',
+            component: () => import('../views/auth/Register.vue'),
+            meta: { layout: Auth, guest: true },
+            name: 'register'
+        },
 
         { path: '/', name: 'dashboard', component: () => import('../views/Dashboard.vue') },
     ]
