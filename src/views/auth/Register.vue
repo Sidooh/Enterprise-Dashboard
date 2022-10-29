@@ -100,10 +100,11 @@ const submit = () => {
 
             <article>
                 <header>
-                    <div class="progress-bar">
+                    <div class="d-flex">
                         <div class="progress-step" :class="{'active':i === state.activeStep}"
                              v-for="(step, i) in state.formSteps" :key="`step-${i}`">
-                            {{ i + 1 }}
+                            <span>{{ i + 1 }}</span>
+                            <div class="position-absolute title">{{ step.title }}</div>
                         </div>
                     </div>
                 </header>
@@ -122,10 +123,10 @@ const submit = () => {
                         </div>
 
                         <div class="actions">
-                            <button class="btn btn-sm btn-primary" @click="validateFields"
+                            <button class="btn btn-sm btn-primary" @click="nextStep"
                                     v-if="state.activeStep + 1 < state.formSteps.length - 1">Proceed
                             </button>
-                            <button class="btn btn-sm btn-primary" @click="validateFields"
+                            <button class="btn btn-sm btn-primary" @click="nextStep"
                                     v-if="state.activeStep + 1 === state.formSteps.length - 1">Done
                             </button>
                         </div>
@@ -181,7 +182,6 @@ const submit = () => {
 
 <style scoped>
 article {
-    display: flex;
     margin: 10px;
     width: calc(100% - 20px);
     max-width: 720px;
@@ -193,12 +193,10 @@ article header {
     display: flex;
     justify-content: center;
     align-items: center;
-    width: 60px;
-    height: 480px;
     background-color: #fff;
-    border-right: 2px dotted #070068;
+    border-bottom: 2px dotted #070068;
     box-shadow: 0 15px 30px rgba(0, 0, 0, .2),
-    0 10px 10px rgba(0, 0, 0, .2)
+    0 10px 10px rgba(0, 0, 0, .2);
 }
 
 .progress-step {
@@ -209,10 +207,30 @@ article header {
     width: 30px;
     height: 30px;
     border-radius: 50%;
-    margin-bottom: 20px;
+    margin: 20px 75px 30px;
     color: #fff;
     background-color: #070068;
     font-weight: bold;
+}
+
+.progress-step span {
+
+}
+
+.progress-step .title {
+    color: #070068;
+    font-weight: bold;
+}
+
+.progress-step.active ~ .progress-step .title {
+    color: #777;
+    font-weight: normal;
+}
+
+.progress-step .title {
+    bottom: -1.3rem;
+    font-size: 10pt;
+    white-space: nowrap;
 }
 
 .progress-step.active {
@@ -220,7 +238,7 @@ article header {
 }
 
 .progress-step.active ~ .progress-step {
-    color: #555;
+    color: #777;
     background-color: #ccc;
 }
 
@@ -231,9 +249,9 @@ article header {
 .progress-step:before {
     content: '';
     position: absolute;
-    top: -20px;
-    width: 2px;
-    height: 20px;
+    left: -150px;
+    width: 150px;
+    height: 2px;
     background-color: #070068;
     z-index: 10;
 }
@@ -261,12 +279,12 @@ section h2 {
 }
 
 .animate-in {
-    transform-origin: left;
+    transform-origin: top;
     animation: in .6s ease-in-out;
 }
 
 .animate-out {
-    transform-origin: bottom left;
+    transform-origin: top left;
     animation: out .6s ease-in-out;
 }
 
@@ -278,11 +296,11 @@ section h2 {
 @keyframes in {
     0% {
         opacity: 0;
-        transform: rotateY(90deg);
+        transform: rotateX(-90deg);
     }
     100% {
         opacity: 1;
-        transform: rotateY(0deg);
+        transform: rotateX(0deg);
     }
 }
 
