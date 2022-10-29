@@ -118,7 +118,7 @@ const logout = () => {
 .search-box {
     position: relative;
     width: 21rem;
-    font-size: .8333333333rem;
+    font-size: .8rem;
 }
 
 .search-box .search-input {
@@ -133,6 +133,7 @@ const logout = () => {
 
 .search-box .search-input::placeholder {
     color: var(--bs-gray-400);
+    font-size: 10pt;
 }
 
 .search-box .search-box-icon {

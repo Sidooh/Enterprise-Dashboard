@@ -16,7 +16,7 @@
         </div>
 
         <div class="collapse sidebar-collapse" id="sidebarCollapse">
-            <div class="sidebar-content scrollbar">
+            <div class="sidebar-content scrollbar d-flex justify-content-between">
                 <ul class="sidebar-nav mb-3 flex-column">
                     <li class="nav-item">
                         <router-link :to="{name:'dashboard'}" class="nav-link">
@@ -41,10 +41,18 @@
                         </a>
                         <ul class="nav collapse" id="voucher-management" style="">
                             <li class="nav-item">
-                                <a class="nav-link" href="../../../index.html">
-                                    <div class="d-flex align-items-center"><span
-                                        class="nav-link-text ps-1">Default</span></div>
-                                </a>
+                                <router-link class="nav-link" to="#">
+                                    <div class="d-flex align-items-center">
+                                        <span class="nav-link-text ps-1">Types</span>
+                                    </div>
+                                </router-link>
+                            </li>
+                            <li class="nav-item">
+                                <router-link class="nav-link" to="#">
+                                    <div class="d-flex align-items-center">
+                                        <span class="nav-link-text ps-1">Disbursement</span>
+                                    </div>
+                                </router-link>
                             </li>
                         </ul>
                         <a class="nav-link dropdown-indicator collapsed" href="#float-management"
@@ -57,37 +65,44 @@
                         </a>
                         <ul class="nav collapse" id="float-management" style="">
                             <li class="nav-item">
-                                <a class="nav-link" href="../../../index.html">
+                                <router-link class="nav-link" to="#">
                                     <div class="d-flex align-items-center">
-                                        <span class="nav-link-text ps-1">Default</span>
+                                        <span class="nav-link-text ps-1">Transactions</span>
                                     </div>
-                                </a>
+                                </router-link>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link dropdown-indicator" href="#course" data-bs-toggle="collapse"
-                                   aria-expanded="false"
-                                   aria-controls="e-learning">
-                                    <div class="d-flex align-items-center"><span
-                                        class="nav-link-text ps-1">Course</span>
+                                <router-link class="nav-link" to="#">
+                                    <div class="d-flex align-items-center">
+                                        <span class="nav-link-text ps-1">Requests</span>
                                     </div>
-                                </a>
-                                <ul class="nav collapse" id="course">
-                                    <li class="nav-item">
-                                        <a class="nav-link" href="../../../app/e-learning/course/course-list.html">
-                                            <div class="d-flex align-items-center">
-                                                <span class="nav-link-text ps-1">Course list</span>
-                                            </div>
-                                        </a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a class="nav-link" href="../../../app/e-learning/course/course-grid.html">
-                                            <div class="d-flex align-items-center">
-                                                <span class="nav-link-text ps-1">Course grid</span>
-                                            </div>
-                                        </a>
-                                    </li>
-                                </ul>
+                                </router-link>
                             </li>
+                            <!--                            <li class="nav-item">
+                                                            <a class="nav-link dropdown-indicator" href="#course" data-bs-toggle="collapse"
+                                                               aria-expanded="false"
+                                                               aria-controls="e-learning">
+                                                                <div class="d-flex align-items-center"><span
+                                                                    class="nav-link-text ps-1">Course</span>
+                                                                </div>
+                                                            </a>
+                                                            <ul class="nav collapse" id="course">
+                                                                <li class="nav-item">
+                                                                    <a class="nav-link">
+                                                                        <div class="d-flex align-items-center">
+                                                                            <span class="nav-link-text ps-1">list</span>
+                                                                        </div>
+                                                                    </a>
+                                                                </li>
+                                                                <li class="nav-item">
+                                                                    <a class="nav-link">
+                                                                        <div class="d-flex align-items-center">
+                                                                            <span class="nav-link-text ps-1">grid</span>
+                                                                        </div>
+                                                                    </a>
+                                                                </li>
+                                                            </ul>
+                                                        </li>-->
                         </ul>
 
                         <div class="row sidebar-label-wrapper mt-3 mb-2">
@@ -114,6 +129,17 @@
                         </a>
                     </li>
                 </ul>
+
+                <ul class="sidebar-nav mt-3 flex-column">
+                    <li class="nav-item">
+                        <a class="nav-link cursor-pointer" @click="logout">
+                            <div class="d-flex align-items-center">
+                                <span class="nav-link-icon"><font-awesome-icon :icon="faDoorOpen"/></span>
+                                <span class="nav-link-text ps-1">Sign Out</span>
+                            </div>
+                        </a>
+                    </li>
+                </ul>
             </div>
         </div>
     </nav>
@@ -121,8 +147,9 @@
 
 <script setup>
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
-import { faChartPie, faCloudBolt, faCoins, faIdCard, faUserAlt } from '@fortawesome/free-solid-svg-icons'
+import { faChartPie, faCloudBolt, faCoins, faDoorOpen, faIdCard, faUserAlt } from '@fortawesome/free-solid-svg-icons'
 import { onMounted } from "vue";
+import { useAuthStore } from "@/stores/auth";
 
 onMounted(() => {
     let navbarVerticalToggle = document.querySelector('.sidebar-toggle');
@@ -142,6 +169,12 @@ onMounted(() => {
         });
     }
 })
+
+const logout = () => {
+    useAuthStore().logout()
+
+    window.location.reload()
+}
 </script>
 
 <style scoped>
@@ -491,132 +524,4 @@ onMounted(() => {
         max-width: 2rem;
     }
 }
-
-
-/*.sidebar.collapsed {
-    width: 4.5rem;
-}
-
-.sidebar::-webkit-scrollbar {
-    width: .25rem;
-}
-
-.sidebar::-webkit-scrollbar-track {
-    background-color: var(--bs-gray-300);
-}
-
-.sidebar::-webkit-scrollbar-thumb {
-    background-color: var(--bs-gray-500);
-}
-
-.sidebar::-webkit-scrollbar-thumb:hover {
-    background-color: var(--bs-gray-600);
-}
-
-.sidebar.collapsed:hover .sidebar-toggle {
-    margin-left: auto;
-    margin-right: 0;
-}
-
-.sidebar.collapsed .sidebar-toggle {
-    margin: 0 auto;
-    transform: rotateZ(180deg);
-}
-
-.sidebar.collapsed:hover .sidebar-logo {
-    display: block;
-}
-
-.sidebar.collapsed .sidebar-logo {
-    display: none;
-}
-
-.sidebar-toggle {
-    cursor: pointer;
-    transition: .2s;
-}
-
-.sidebar-toggle:hover {
-    color: var(--bs-indigo)
-}
-
-.sidebar-menu {
-    list-style-type: none;
-}
-
-.sidebar-menu-item {
-    margin-bottom: .25rem;
-}
-
-.sidebar-menu-item a {
-    text-decoration: none;
-    display: flex;
-    align-items: center;
-    padding: .5rem .75rem;
-    color: var(--bs-dark);
-    border-radius: .3rem;
-    font-size: .875rem;
-    white-space: nowrap;
-}
-
-.sidebar-menu-item > a {
-    overflow: hidden;
-}
-
-.sidebar-menu-item.focused > a,
-.sidebar-menu-item > a:hover {
-    background-color: var(--bs-gray-200);
-}
-
-.sidebar-menu-item.active a {
-    background-color: var(--bs-indigo);
-    color: var(--bs-light);
-}
-
-.sidebar-menu-item-accordion {
-    transition: transform .2s;
-}
-
-.sidebar-dropdown-menu-item.focused > a .sidebar-menu-item-accordion,
-.sidebar-menu-item.focused > a .sidebar-menu-item-accordion {
-    transform: rotateZ(180deg);
-}
-
-.sidebar-menu-item-icon {
-    margin-right: .65rem;
-    font-size: 1rem;
-}
-
-.sidebar.collapsed:hover .sidebar-menu-divider,
-.sidebar-menu-divider {
-    font-size: .75rem;
-    margin: 0;
-    color: var(--bs-gray-600);
-    transition: opacity .2s;
-    opacity: 1;
-    visibility: visible;
-}
-
-.sidebar.collapsed .sidebar-menu-divider {
-    opacity: 0;
-    visibility: hidden;
-}
-
-.sidebar-dropdown-menu {
-    padding-left: 3rem;
-}
-
-.sidebar-dropdown-menu .sidebar-dropdown-menu {
-    padding-left: 1rem;
-    list-style-type: circle;
-}
-
-.sidebar-dropdown-menu-item a {
-    padding: .375rem .75rem .375rem 0;
-}
-
-.sidebar-dropdown-menu-item.focused > a,
-.sidebar-dropdown-menu-item a:hover {
-    color: var(--bs-indigo);
-}*/
 </style>
