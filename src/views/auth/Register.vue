@@ -46,7 +46,7 @@
                             </button>
                             <button class="btn btn-sm btn-primary ms-2" @click="nextStep"
                                     v-if="state.activeStep + 1 === state.formSteps.length - 1">
-                                Sign Up
+                                Finish
                                 <font-awesome-icon :icon="faUserPlus" class="ms-1"/>
                             </button>
                         </div>

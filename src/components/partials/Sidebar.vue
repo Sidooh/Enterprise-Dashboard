@@ -19,73 +19,58 @@
             <div class="sidebar-content scrollbar">
                 <ul class="sidebar-nav mb-3 flex-column">
                     <li class="nav-item">
-                        <a class="nav-link dropdown-indicator collapsed" href="#dashboard"
-                           role="button" data-bs-toggle="collapse" aria-expanded="false"
-                           aria-controls="dashboard">
+                        <router-link :to="{name:'dashboard'}" class="nav-link">
                             <div class="d-flex align-items-center">
-                                <span class="nav-link-icon">
-                                    <font-awesome-icon :icon="faChartPie"/>
-                                </span>
-                                <span class="nav-link-text ps-1">Dashboard</span>
+                                <span class="nav-link-icon"><font-awesome-icon :icon="faChartPie"/></span>
+                                <span class="nav-link-text ps-1">Home</span>
                             </div>
-                        </a>
-                        <ul class="nav collapse" id="dashboard" style="">
-                            <li class="nav-item">
-                                <a class="nav-link" href="../../../index.html">
-                                    <div class="d-flex align-items-center"><span
-                                        class="nav-link-text ps-1">Default</span></div>
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="../../../dashboard/analytics.html">
-                                    <div class="d-flex align-items-center"><span
-                                        class="nav-link-text ps-1">Analytics</span></div>
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="../../../dashboard/crm.html">
-                                    <div class="d-flex align-items-center"><span class="nav-link-text ps-1">CRM</span>
-                                    </div>
-                                </a>
-                            </li>
-                        </ul>
-                    </li>
-                    <li class="nav-item">
-                        <!-- label-->
+                        </router-link>
                         <div class="row sidebar-label-wrapper mt-3 mb-2">
                             <div class="col-auto sidebar-label">App</div>
                             <div class="col ps-0">
                                 <hr class="mb-0 sidebar-divider">
                             </div>
                         </div>
-                        <a class="nav-link" href="../../../app/chat.html" role="button">
-                            <div class="d-flex align-items-center"><span class="nav-link-icon"><svg
-                                class="svg-inline--fa fa-comments fa-w-18" aria-hidden="true" focusable="false"
-                                data-prefix="fas" data-icon="comments" role="img" xmlns="http://www.w3.org/2000/svg"
-                                viewBox="0 0 576 512" data-fa-i2svg=""><path fill="currentColor"
-                                                                             d="M416 192c0-88.4-93.1-160-208-160S0 103.6 0 192c0 34.3 14.1 65.9 38 92-13.4 30.2-35.5 54.2-35.8 54.5-2.2 2.3-2.8 5.7-1.5 8.7S4.8 352 8 352c36.6 0 66.9-12.3 88.7-25 32.2 15.7 70.3 25 111.3 25 114.9 0 208-71.6 208-160zm122 220c23.9-26 38-57.7 38-92 0-66.9-53.5-124.2-129.3-148.1.9 6.6 1.3 13.3 1.3 20.1 0 105.9-107.7 192-240 192-10.8 0-21.3-.8-31.7-1.9C207.8 439.6 281.8 480 368 480c41 0 79.1-9.2 111.3-25 21.8 12.7 52.1 25 88.7 25 3.2 0 6.1-1.9 7.3-4.8 1.3-2.9.7-6.3-1.5-8.7-.3-.3-22.4-24.2-35.8-54.5z"></path></svg>
-                                <!-- <span class="fas fa-comments"></span> Font Awesome fontawesome.com --></span><span
-                                class="nav-link-text ps-1">Chat</span></div>
+                        <a class="nav-link dropdown-indicator collapsed" href="#voucher-management"
+                           role="button" data-bs-toggle="collapse" aria-expanded="false"
+                           aria-controls="voucher-management">
+                            <div class="d-flex align-items-center">
+                                <span class="nav-link-icon"><font-awesome-icon :icon="faCloudBolt"/></span>
+                                <span class="nav-link-text ps-1">Voucher Management</span>
+                            </div>
                         </a>
-                        <a class="nav-link dropdown-indicator" href="#e-learning" role="button"
-                           data-bs-toggle="collapse" aria-expanded="false" aria-controls="e-learning">
-                            <div class="d-flex align-items-center"><span class="nav-link-icon"><svg
-                                class="svg-inline--fa fa-graduation-cap fa-w-20" aria-hidden="true" focusable="false"
-                                data-prefix="fas" data-icon="graduation-cap" role="img"
-                                xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512" data-fa-i2svg=""><path
-                                fill="currentColor"
-                                d="M622.34 153.2L343.4 67.5c-15.2-4.67-31.6-4.67-46.79 0L17.66 153.2c-23.54 7.23-23.54 38.36 0 45.59l48.63 14.94c-10.67 13.19-17.23 29.28-17.88 46.9C38.78 266.15 32 276.11 32 288c0 10.78 5.68 19.85 13.86 25.65L20.33 428.53C18.11 438.52 25.71 448 35.94 448h56.11c10.24 0 17.84-9.48 15.62-19.47L82.14 313.65C90.32 307.85 96 298.78 96 288c0-11.57-6.47-21.25-15.66-26.87.76-15.02 8.44-28.3 20.69-36.72L296.6 284.5c9.06 2.78 26.44 6.25 46.79 0l278.95-85.7c23.55-7.24 23.55-38.36 0-45.6zM352.79 315.09c-28.53 8.76-52.84 3.92-65.59 0l-145.02-44.55L128 384c0 35.35 85.96 64 192 64s192-28.65 192-64l-14.18-113.47-145.03 44.56z"></path></svg>
-                                <!-- <span class="fas fa-graduation-cap"></span> Font Awesome fontawesome.com --></span><span
-                                class="nav-link-text ps-1">E learning</span><span
-                                class="badge rounded-pill ms-2 badge-soft-success">New</span></div>
+                        <ul class="nav collapse" id="voucher-management" style="">
+                            <li class="nav-item">
+                                <a class="nav-link" href="../../../index.html">
+                                    <div class="d-flex align-items-center"><span
+                                        class="nav-link-text ps-1">Default</span></div>
+                                </a>
+                            </li>
+                        </ul>
+                        <a class="nav-link dropdown-indicator collapsed" href="#float-management"
+                           role="button" data-bs-toggle="collapse" aria-expanded="false"
+                           aria-controls="float-management">
+                            <div class="d-flex align-items-center">
+                                <span class="nav-link-icon"><font-awesome-icon :icon="faCoins"/></span>
+                                <span class="nav-link-text ps-1">Float Management</span>
+                            </div>
                         </a>
-                        <ul class="nav collapse" id="e-learning">
-                            <li class="nav-item"><a class="nav-link dropdown-indicator" href="#course"
-                                                    data-bs-toggle="collapse" aria-expanded="false"
-                                                    aria-controls="e-learning">
-                                <div class="d-flex align-items-center"><span class="nav-link-text ps-1">Course</span>
-                                </div>
-                            </a>
+                        <ul class="nav collapse" id="float-management" style="">
+                            <li class="nav-item">
+                                <a class="nav-link" href="../../../index.html">
+                                    <div class="d-flex align-items-center">
+                                        <span class="nav-link-text ps-1">Default</span>
+                                    </div>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link dropdown-indicator" href="#course" data-bs-toggle="collapse"
+                                   aria-expanded="false"
+                                   aria-controls="e-learning">
+                                    <div class="d-flex align-items-center"><span
+                                        class="nav-link-text ps-1">Course</span>
+                                    </div>
+                                </a>
                                 <ul class="nav collapse" id="course">
                                     <li class="nav-item">
                                         <a class="nav-link" href="../../../app/e-learning/course/course-list.html">
@@ -103,60 +88,30 @@
                                     </li>
                                 </ul>
                             </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="../../../app/e-learning/student-overview.html">
-                                    <div class="d-flex align-items-center"><span
-                                        class="nav-link-text ps-1">Student overview</span></div>
-                                </a>
-                            </li>
-                            <li class="nav-item"><a class="nav-link"
-                                                    href="../../../app/e-learning/trainer-profile.html">
-                                <div class="d-flex align-items-center"><span
-                                    class="nav-link-text ps-1">Trainer profile</span></div>
-                            </a>
-                            </li>
                         </ul>
-                        <a class="nav-link" href="../../../app/kanban.html" role="button">
-                            <div class="d-flex align-items-center"><span class="nav-link-icon"><svg
-                                class="svg-inline--fa fa-trello fa-w-14" aria-hidden="true" focusable="false"
-                                data-prefix="fab" data-icon="trello" role="img" xmlns="http://www.w3.org/2000/svg"
-                                viewBox="0 0 448 512" data-fa-i2svg=""><path fill="currentColor"
-                                                                             d="M392.3 32H56.1C25.1 32 0 57.1 0 88c-.1 0 0-4 0 336 0 30.9 25.1 56 56 56h336.2c30.8-.2 55.7-25.2 55.7-56V88c.1-30.8-24.8-55.8-55.6-56zM197 371.3c-.2 14.7-12.1 26.6-26.9 26.6H87.4c-14.8.1-26.9-11.8-27-26.6V117.1c0-14.8 12-26.9 26.9-26.9h82.9c14.8 0 26.9 12 26.9 26.9v254.2zm193.1-112c0 14.8-12 26.9-26.9 26.9h-81c-14.8 0-26.9-12-26.9-26.9V117.2c0-14.8 12-26.9 26.8-26.9h81.1c14.8 0 26.9 12 26.9 26.9v142.1z"></path></svg>
-                                <!-- <span class="fab fa-trello"></span> Font Awesome fontawesome.com --></span><span
-                                class="nav-link-text ps-1">Kanban</span></div>
+
+                        <div class="row sidebar-label-wrapper mt-3 mb-2">
+                            <div class="col-auto sidebar-label">User</div>
+                            <div class="col ps-0">
+                                <hr class="mb-0 sidebar-divider">
+                            </div>
+                        </div>
+                        <a class="nav-link" role="button">
+                            <div class="d-flex align-items-center">
+                                <span class="nav-link-icon">
+                                    <font-awesome-icon :icon="faUserAlt"/>
+                                </span>
+                                <span class="nav-link-text ps-1">Account</span>
+                            </div>
                         </a>
-                        <a class="nav-link dropdown-indicator" href="#social" role="button" data-bs-toggle="collapse"
-                           aria-expanded="false" aria-controls="social">
-                            <div class="d-flex align-items-center"><span class="nav-link-icon"><svg
-                                class="svg-inline--fa fa-share-alt fa-w-14" aria-hidden="true" focusable="false"
-                                data-prefix="fas" data-icon="share-alt" role="img" xmlns="http://www.w3.org/2000/svg"
-                                viewBox="0 0 448 512" data-fa-i2svg=""><path fill="currentColor"
-                                                                             d="M352 320c-22.608 0-43.387 7.819-59.79 20.895l-102.486-64.054a96.551 96.551 0 0 0 0-41.683l102.486-64.054C308.613 184.181 329.392 192 352 192c53.019 0 96-42.981 96-96S405.019 0 352 0s-96 42.981-96 96c0 7.158.79 14.13 2.276 20.841L155.79 180.895C139.387 167.819 118.608 160 96 160c-53.019 0-96 42.981-96 96s42.981 96 96 96c22.608 0 43.387-7.819 59.79-20.895l102.486 64.054A96.301 96.301 0 0 0 256 416c0 53.019 42.981 96 96 96s96-42.981 96-96-42.981-96-96-96z"></path></svg>
-                                <!-- <span class="fas fa-share-alt"></span> Font Awesome fontawesome.com --></span><span
-                                class="nav-link-text ps-1">Social</span></div>
+                        <a class="nav-link" role="button">
+                            <div class="d-flex align-items-center">
+                                <span class="nav-link-icon">
+                                    <font-awesome-icon :icon="faIdCard"/>
+                                </span>
+                                <span class="nav-link-text ps-1">Profile</span>
+                            </div>
                         </a>
-                        <ul class="nav collapse" id="social">
-                            <li class="nav-item"><a class="nav-link" href="../../../app/social/feed.html">
-                                <div class="d-flex align-items-center"><span class="nav-link-text ps-1">Feed</span>
-                                </div>
-                            </a>
-                            </li>
-                            <li class="nav-item"><a class="nav-link" href="../../../app/social/activity-log.html">
-                                <div class="d-flex align-items-center"><span
-                                    class="nav-link-text ps-1">Activity log</span></div>
-                            </a>
-                            </li>
-                            <li class="nav-item"><a class="nav-link" href="../../../app/social/notifications.html">
-                                <div class="d-flex align-items-center"><span
-                                    class="nav-link-text ps-1">Notifications</span></div>
-                            </a>
-                            </li>
-                            <li class="nav-item"><a class="nav-link" href="../../../app/social/followers.html">
-                                <div class="d-flex align-items-center"><span class="nav-link-text ps-1">Followers</span>
-                                </div>
-                            </a>
-                            </li>
-                        </ul>
                     </li>
                 </ul>
             </div>
@@ -166,7 +121,7 @@
 
 <script setup>
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
-import { faChartPie } from '@fortawesome/free-solid-svg-icons'
+import { faChartPie, faCloudBolt, faCoins, faIdCard, faUserAlt } from '@fortawesome/free-solid-svg-icons'
 import { onMounted } from "vue";
 
 onMounted(() => {
@@ -469,7 +424,7 @@ onMounted(() => {
     }
 
     .sidebar.sidebar-expand-xl .nav-link {
-        padding: .35rem 0;
+        padding: .7rem 0 .3rem;
     }
 
     .sidebar-collapsed .sidebar-brand {
