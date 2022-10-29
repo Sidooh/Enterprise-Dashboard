@@ -20,6 +20,7 @@ import Header from "@/components/partials/Header.vue";</script>
 .content {
     min-height: 100vh;
     position: relative;
+    transition: all .2s ease;
 }
 
 .content {
