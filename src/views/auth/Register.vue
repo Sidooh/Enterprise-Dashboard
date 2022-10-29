@@ -50,6 +50,13 @@
                                 <font-awesome-icon :icon="faUserPlus" class="ms-1"/>
                             </button>
                         </div>
+
+                        <div class="col-auto fs--1 text-600">
+                            <small>Already registered? </small>
+                            <small>
+                                <router-link :to="{name:'login'}">Sign In</router-link>
+                            </small>
+                        </div>
                     </div>
                 </section>
 
