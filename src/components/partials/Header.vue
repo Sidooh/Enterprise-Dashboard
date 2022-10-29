@@ -3,7 +3,7 @@
         <button class="btn navbar-toggler-humburger-icon navbar-toggler me-1 me-sm-3" type="button" data-bs-toggle="collapse" data-bs-target="#navbarVerticalCollapse" aria-controls="navbarVerticalCollapse" aria-expanded="false" aria-label="Toggle Navigation"><span class="navbar-toggle-icon"><span class="toggle-line"></span></span></button>
         <a class="navbar-brand me-1 me-sm-3" href="../../index.html">
             <div class="d-flex align-items-center">
-                <img class="me-2" src="../../assets/img/icons/spot-illustrations/falcon.png" alt="" width="40">
+                <img class="me-2" src="/sidooh.png" alt="" width="75">
             </div>
         </a>
         <ul class="navbar-nav align-items-center d-none d-lg-block">
@@ -30,78 +30,6 @@
                                 <div class="col-auto ps-0 ps-sm-3"><a class="card-link fw-normal" href="#">Mark all as read</a></div>
                             </div>
                         </div>
-                        <div class="scrollbar-overlay" style="max-height:19rem" data-simplebar="init"><div class="simplebar-wrapper" style="margin: 0px;"><div class="simplebar-height-auto-observer-wrapper"><div class="simplebar-height-auto-observer"></div></div><div class="simplebar-mask"><div class="simplebar-offset" style="right: 0px; bottom: 0px;"><div class="simplebar-content-wrapper" tabindex="0" role="region" aria-label="scrollable content" style="height: auto; overflow: hidden;"><div class="simplebar-content" style="padding: 0px;">
-                            <div class="list-group list-group-flush fw-normal fs--1">
-                                <div class="list-group-title border-bottom">NEW</div>
-                                <div class="list-group-item">
-                                    <a class="notification notification-flush notification-unread" href="#!">
-                                        <div class="notification-avatar">
-                                            <div class="avatar avatar-2xl me-3">
-                                                <img class="rounded-circle" src="../../assets/img/team/1-thumb.png" alt="">
-                                            </div>
-                                        </div>
-                                        <div class="notification-body">
-                                            <p class="mb-1"><strong>Emma Watson</strong> replied to your comment : "Hello world 😍"</p>
-                                            <span class="notification-time"><span class="me-2" role="img" aria-label="Emoji">💬</span>Just now</span>
-                                        </div>
-                                    </a>
-                                </div>
-                                <div class="list-group-item">
-                                    <a class="notification notification-flush notification-unread" href="#!">
-                                        <div class="notification-avatar">
-                                            <div class="avatar avatar-2xl me-3">
-                                                <div class="avatar-name rounded-circle"><span>AB</span></div>
-                                            </div>
-                                        </div>
-                                        <div class="notification-body">
-                                            <p class="mb-1"><strong>Albert Brooks</strong> reacted to <strong>Mia Khalifa's</strong> status</p>
-                                            <span class="notification-time"><svg class="svg-inline--fa fa-gratipay fa-w-16 me-2 text-danger" aria-hidden="true" focusable="false" data-prefix="fab" data-icon="gratipay" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512" data-fa-i2svg=""><path fill="currentColor" d="M248 8C111.1 8 0 119.1 0 256s111.1 248 248 248 248-111.1 248-248S384.9 8 248 8zm114.6 226.4l-113 152.7-112.7-152.7c-8.7-11.9-19.1-50.4 13.6-72 28.1-18.1 54.6-4.2 68.5 11.9 15.9 17.9 46.6 16.9 61.7 0 13.9-16.1 40.4-30 68.1-11.9 32.9 21.6 22.6 60 13.8 72z"></path></svg><!-- <span class="me-2 fab fa-gratipay text-danger"></span> Font Awesome fontawesome.com -->9hr</span>
-                                        </div>
-                                    </a>
-                                </div>
-                                <div class="list-group-title border-bottom">EARLIER</div>
-                                <div class="list-group-item">
-                                    <a class="notification notification-flush" href="#!">
-                                        <div class="notification-avatar">
-                                            <div class="avatar avatar-2xl me-3">
-                                                <img class="rounded-circle" src="../../assets/img/icons/weather-sm.jpg" alt="">
-                                            </div>
-                                        </div>
-                                        <div class="notification-body">
-                                            <p class="mb-1">The forecast today shows a low of 20℃ in California. See today's weather.</p>
-                                            <span class="notification-time"><span class="me-2" role="img" aria-label="Emoji">🌤️</span>1d</span>
-                                        </div>
-                                    </a>
-                                </div>
-                                <div class="list-group-item">
-                                    <a class="border-bottom-0 notification-unread  notification notification-flush" href="#!">
-                                        <div class="notification-avatar">
-                                            <div class="avatar avatar-xl me-3">
-                                                <img class="rounded-circle" src="../../assets/img/logos/oxford.png" alt="">
-                                            </div>
-                                        </div>
-                                        <div class="notification-body">
-                                            <p class="mb-1"><strong>University of Oxford</strong> created an event : "Causal Inference Hilary 2019"</p>
-                                            <span class="notification-time"><span class="me-2" role="img" aria-label="Emoji">✌️</span>1w</span>
-                                        </div>
-                                    </a>
-                                </div>
-                                <div class="list-group-item">
-                                    <a class="border-bottom-0 notification notification-flush" href="#!">
-                                        <div class="notification-avatar">
-                                            <div class="avatar avatar-xl me-3">
-                                                <img class="rounded-circle" src="../../assets/img/team/10.jpg" alt="">
-                                            </div>
-                                        </div>
-                                        <div class="notification-body">
-                                            <p class="mb-1"><strong>James Cameron</strong> invited to join the group: United Nations International Children's Fund</p>
-                                            <span class="notification-time"><span class="me-2" role="img" aria-label="Emoji">🙋‍</span>2d</span>
-                                        </div>
-                                    </a>
-                                </div>
-                            </div>
-                        </div></div></div></div><div class="simplebar-placeholder" style="width: 0px; height: 0px;"></div></div><div class="simplebar-track simplebar-horizontal" style="visibility: hidden;"><div class="simplebar-scrollbar" style="width: 0px; display: none;"></div></div><div class="simplebar-track simplebar-vertical" style="visibility: hidden;"><div class="simplebar-scrollbar" style="height: 0px; display: none;"></div></div></div>
-                        <div class="card-footer text-center border-top"><a class="card-link d-block" href="../../app/social/notifications.html">View all</a></div>
                     </div>
                 </div>
             </li>
@@ -120,7 +48,7 @@
                         <a class="dropdown-item" href="#!">Feedback</a>
                         <div class="dropdown-divider"></div>
                         <a class="dropdown-item" href="../../pages/user/settings.html">Settings</a>
-                        <a class="dropdown-item" href="../../pages/authentication/card/logout.html">Logout</a>
+                        <a class="dropdown-item cursor-pointer" @click="logout">Sign Out</a>
                     </div>
                 </div>
             </li>
@@ -128,11 +56,23 @@
     </nav>
 </template>
 
-<script setup>
+<script setup lang="ts">
+import { useAuthStore } from "@/stores/auth";
 
+const logout = () => {
+    useAuthStore().logout()
+
+    window.location.reload()
+}
 </script>
 
 <style scoped>
+.navbar-brand {
+    opacity: 0;
+}
+.sidebar-collapsed .navbar-brand {
+    opacity: 1;
+}
 .search-box {
     position: relative;
     width: 21rem;

@@ -27,3 +27,11 @@
     -o-object-fit: cover;
     object-fit: cover;
 }
+
+.cursor-pointer {
+    cursor: pointer
+}
+
+.card {
+    border: none;
+}

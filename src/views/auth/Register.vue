@@ -45,9 +45,9 @@ const submit = () => {
             <div class="card">
                 <div class="card-body p-4 p-sm-5">
                     <div class="row align-items-center justify-content-between mb-2">
-                        <div class="col-auto"><h5>Sign In</h5></div>
+                        <div class="col-auto"><h5>Sign Up</h5></div>
                         <div class="col-auto fs-6 text-600">
-                            <span>or <router-link :to="{name:'register'}">Create an account</router-link></span>
+                            <span>Have an account? <router-link :to="{name:'login'}">Sign In</router-link></span>
                         </div>
                     </div>
                     <form id="sign-in">
@@ -62,14 +62,6 @@ const submit = () => {
                                    v-model="password">
                             <span class="form-control-sm alert-danger"
                                   v-show="passwordError">min password length: 8</span>
-                        </div>
-                        <div class="row align-items-center justify-content-between">
-                            <div class="col-auto">
-                                <span class="form-control-sm alert-danger" v-show="invalidCredentials">Invalid Credentials</span>
-                            </div>
-                            <div class="col-auto">
-                                <a class="fs--1" href="/password/reset">Forgot Password?</a>
-                            </div>
                         </div>
                         <div class="d-flex justify-content-center mt-3">
                             <button type="submit" class="col btn btn-sm btn-primary ld-ext-right"
