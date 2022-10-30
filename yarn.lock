@@ -501,6 +501,24 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@tanstack/table-core@npm:8.5.21":
+  version: 8.5.21
+  resolution: "@tanstack/table-core@npm:8.5.21"
+  checksum: 73e48c230757d71e4679b178bf6ccd79f0d1cff8318f11078099d82a3b728b93e28b6625845935e6730b2f86bfc04ce7afd886b8183ab0fbf56045acad4dd892
+  languageName: node
+  linkType: hard
+
+"@tanstack/vue-table@npm:^8.5.21":
+  version: 8.5.21
+  resolution: "@tanstack/vue-table@npm:8.5.21"
+  dependencies:
+    "@tanstack/table-core": 8.5.21
+  peerDependencies:
+    vue: ^3.2.33
+  checksum: 68c2bd39789affe441b81182466cb445a917084641ae36d2594c27c2b2426a086b503f704f41c3dcbd79cfb392de119dd98aa50ce845db6cb3e18f005280d30a
+  languageName: node
+  linkType: hard
+
 "@tootallnate/once@npm:2":
   version: 2.0.0
   resolution: "@tootallnate/once@npm:2.0.0"
@@ -1140,6 +1158,7 @@ __metadata:
     "@fortawesome/free-solid-svg-icons": ^6.2.0
     "@fortawesome/vue-fontawesome": latest-3
     "@popperjs/core": ^2.11.6
+    "@tanstack/vue-table": ^8.5.21
     "@types/node": ^16.11.56
     "@vitejs/plugin-vue": ^3.0.3
     "@vitejs/plugin-vue-jsx": ^2.0.1

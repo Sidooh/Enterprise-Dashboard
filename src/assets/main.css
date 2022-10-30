@@ -35,3 +35,22 @@
 .card {
     border: none;
 }
+
+.table > :not(caption) > * > * {
+    padding: .4rem .5rem;
+    font-size: 11pt;
+}
+
+table td.actions .btn {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 9pt;
+    width: 1.7rem;
+    height: 1.7rem;
+    padding: 4px;
+}
+
+.form-select {
+    /*background-image: none;*/
+}
