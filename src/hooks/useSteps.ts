@@ -5,7 +5,7 @@ import { createMessage, getNode } from '@formkit/core'
 
 export default function useSteps() {
     const activeStep = ref('')
-    const steps = reactive<{ [x: string]: { valid: Ref, errorCount: any, blockingCount: any } }>({})
+    const steps = reactive<{ [x: string]: { title: string, valid: Ref, errorCount: any, blockingCount: any } }>({})
     const visitedSteps = ref<string[]>([]) // track visited steps
 
     // NEW: watch our activeStep and store visited steps to know when to show errors
@@ -16,7 +16,7 @@ export default function useSteps() {
         visitedSteps.value.forEach(step => {
             const node = getNode(step)
 
-            node?.walk((n) => {
+            node?.walk(n => {
                 n.store.set(
                     createMessage({
                         key: 'submitted',
@@ -39,6 +39,7 @@ export default function useSteps() {
         if (node.props.type == "group") {
             // builds an object of the top-level groups
             steps[node.name] = steps[node.name] || {}
+            steps[node.name].title = node.props.attrs.title
 
             node.on('created', () => {
                 // use 'on created' to ensure context object is available
@@ -64,6 +65,8 @@ export default function useSteps() {
             return false
         }
     }
+
+    console.log(steps)
 
     // NEW: include visitedSteps in our return
     return { activeStep, visitedSteps, steps, stepPlugin, setStep }

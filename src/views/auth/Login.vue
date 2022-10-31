@@ -9,19 +9,15 @@
                 <article>
                     <header class="shadow-sm">
                         <div class="d-flex">
-                            <div class="progress-step" :class="{'active':i === state.activeStep}"
-                                 v-for="(step, i) in state.formSteps" :key="`step-${i}`">
-                                <span>{{ String(i + 1).padStart(2, '0') }}</span>
-                                <div class="position-absolute title">{{ step.title }}</div>
-                            </div>
-                        </div>
-                    </header>
-                    <header class="shadow-sm">
-                        <div class="d-flex">
-                            <div class="progress-step" :class="{'active':activeStep === stepName}"
-                                 v-for="(step, stepName) in steps" :key="`step-${i}`">
+                            <div class="progress-step"
+                                 :class="{'active':activeStep === stepName, 'bg-danger text-light':checkStepValidity(stepName)}"
+                                 v-for="(step, stepName) in steps" :key="stepName">
                                 <span>{{ stepName }}</span>
-                                <div class="position-absolute title">{{ step.title }}</div>
+                                <div class="position-absolute title"
+                                     :class="{'text-danger':checkStepValidity(stepName)}">{{ step.title }}
+                                </div>
+                                <font-awesome-icon v-if="checkStepValidity(stepName)" :icon="faCircleExclamation"
+                                                   class="small exclaim text-danger"/>
                             </div>
                         </div>
                     </header>
@@ -32,7 +28,7 @@
                             <h2>{{ state.formSteps[state.activeStep].title }}</h2>
 
                             <section v-show="activeStep === '01'">
-                                <FormKit type="group" id="01" name="01"
+                                <FormKit type="group" id="01" name="01" title="Sign In"
                                          :config="{classes:{message:'text-danger small', input:'form-control', outer:'mb-3'}}">
                                     <FormKit type="email" name="email" placeholder="Email address"
                                              validation="required"/>
@@ -43,7 +39,7 @@
                             </section>
 
                             <section v-show="activeStep === '02'">
-                                <FormKit type="group" id="02" name="02"
+                                <FormKit type="group" id="02" name="02" title="Verification"
                                          :config="{classes:{message:'text-danger small', input:'form-control', outer:'mb-3'}}">
                                     <FormKit name="otp" placeholder="Enter verification OTP"
                                              validation="required"/>
@@ -53,20 +49,25 @@
                             <div class="mt-3 d-flex align-self-end">
                                 <FormKit type="button" input-class="btn btn-sm btn-outline-secondary"
                                          v-if="activeStep !== '01'" @click="setStep(-1)">
-                                    Back
                                     <font-awesome-icon :icon="faLeftLong" class="me-2"/>
+                                    Back
                                 </FormKit>
                                 <FormKit type="button" input-class="btn btn-sm btn-primary ms-2"
-                                         v-if="activeStep !== '02' " @click="setStep(1)">
+                                         v-if="activeStep !== '02'" @click="setStep(1)">
                                     Proceed
                                     <font-awesome-icon :icon="faRightLong" class="ms-1"/>
                                 </FormKit>
+                                <FormKit type="submit" input-class="btn btn-sm btn-primary ms-2"
+                                         v-if="activeStep === '02'" :disabled="!valid">
+                                    Verify
+                                    <font-awesome-icon :icon="faCloudversify" class="ms-1"/>
+                                </FormKit>
                             </div>
 
-                            <div class="col-auto fs--1 text-600">
-                                <small>Already registered? </small>
+                            <div class="mt-3">
+                                <small>Haven't Signed Up? </small>
                                 <small>
-                                    <router-link :to="{name:'login'}">Sign In</router-link>
+                                    <router-link :to="{name:'register'}">Sign Up</router-link>
                                 </small>
                             </div>
                         </div>
@@ -90,7 +91,8 @@
 <script setup lang="ts">
 import { reactive } from "vue";
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
-import { faLeftLong, faRightLong } from '@fortawesome/free-solid-svg-icons'
+import { faCircleExclamation, faLeftLong, faRightLong } from '@fortawesome/free-solid-svg-icons'
+import { faCloudversify } from '@fortawesome/free-brands-svg-icons'
 import type { FormKitGroupValue, FormKitNode } from "@formkit/core";
 import useSteps from "@/hooks/useSteps";
 
@@ -149,6 +151,7 @@ const { steps, visitedSteps, activeStep, setStep, stepPlugin } = useSteps()
 // NEW: submit handler, which posts to our fake backend.
 const submitApp = async (formData: FormKitGroupValue, node: FormKitNode) => {
     try {
+        console.log(formData)
         alert('Your application was submitted successfully!')
     } catch (err: any) {
         node.setErrors(err.formErrors, err.fieldErrors)

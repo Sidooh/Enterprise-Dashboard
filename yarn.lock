@@ -496,6 +496,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@fortawesome/free-brands-svg-icons@npm:^6.2.0":
+  version: 6.2.0
+  resolution: "@fortawesome/free-brands-svg-icons@npm:6.2.0"
+  dependencies:
+    "@fortawesome/fontawesome-common-types": 6.2.0
+  checksum: 402b4e102bec60b234169c878b08ab1280feededf91d54c9c080bfcae2a2b0c52e05ab3fb9192293ed5d488501335e656c726e7ba3926876277bdf8e31d34026
+  languageName: node
+  linkType: hard
+
 "@fortawesome/free-regular-svg-icons@npm:^6.2.0":
   version: 6.2.0
   resolution: "@fortawesome/free-regular-svg-icons@npm:6.2.0"
@@ -1271,6 +1280,7 @@ __metadata:
   dependencies:
     "@formkit/vue": ^1.0.0-beta.11
     "@fortawesome/fontawesome-svg-core": ^6.2.0
+    "@fortawesome/free-brands-svg-icons": ^6.2.0
     "@fortawesome/free-regular-svg-icons": ^6.2.0
     "@fortawesome/free-solid-svg-icons": ^6.2.0
     "@fortawesome/vue-fontawesome": latest-3
