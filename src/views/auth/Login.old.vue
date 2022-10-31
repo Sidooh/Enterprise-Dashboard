@@ -23,14 +23,9 @@
                         <div class="input-fields w-100">
                             <div class="mb-3" v-for="(field, i) in state.formSteps[state.activeStep].fields"
                                  :key="`field-${i}`">
-                                <input v-if="field.type !== 'file'" :type="field.type ?? 'text'"
-                                       v-model="field.value" class="form-control" :class="{'is-invalid': !field.valid}"
-                                       :placeholder="field.label" required>
-                            </div>
-                            <div class="mb-3" v-for="(f, i) in state.formSteps[state.activeStep].fields">
-                                <file-pond :key="`file-field-${i}`" v-if="f?.type === 'file'" v-model="f.value"
-                                           label-idle="Drop company registration letter here..." ref="pond"
-                                           accepted-file-types="application/pdf, application/msword"/>
+                                <FormKit :type="field?.type" v-model="field.value" :placeholder="field.label"
+                                         :name="field.name" :validation="field.validation" input-class="form-control"
+                                         message-class="text-danger small"/>
                             </div>
                         </div>
 
@@ -74,44 +69,75 @@
 </template>
 
 <script setup lang="ts">
-import { reactive } from "vue";
+import { reactive, ref } from "vue";
+import { useAuthStore } from "@/stores/auth";
+import router from "@/router";
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 import { faLeftLong, faRightLong, faUserPlus } from '@fortawesome/free-solid-svg-icons'
-import vueFilePond from 'vue-filepond';
-// Import plugins
-import FilePondPluginFileValidateType from 'filepond-plugin-file-validate-type';
-// Import styles
-import 'filepond/dist/filepond.min.css';
 
-// Create FilePond component
-const FilePond = vueFilePond(FilePondPluginFileValidateType);
+type MultiFormState = {
+    activeStep: number;
+    animation: string;
+    formSteps: {
+        title: string;
+        fields: {
+            type?: string;
+            name: string;
+            label: string;
+            value: string;
+            valid: boolean;
+            validation: string
+        }[];
+    }[];
+}
 
-
-const state = reactive({
+const state = reactive<MultiFormState>({
     activeStep: 0,
     animation: 'animate-in',
     formSteps: [
         {
-            title: 'Enterprise Details',
+            title: 'Sign In',
             fields: [
-                { label: 'Enterprise Name', value: '', valid: true, pattern: /.+/ },
-                { label: 'Country', value: '', valid: true, pattern: /.+/ },
-                { label: 'Address', value: '', valid: true, pattern: /.+/ },
-                { type: 'file', label: 'Company Registration Letter', value: '', valid: true, pattern: /.+/ },
+                {
+                    type: 'email',
+                    label: 'Email address',
+                    name: 'email',
+                    value: '',
+                    valid: true,
+                    validation: 'required|email'
+                },
+                {
+                    type: 'password',
+                    label: 'Password',
+                    name: 'password',
+                    value: '',
+                    valid: true,
+                    validation: 'required|length:8'
+                },
             ]
         },
         {
             title: 'Verification',
             fields: [
-                { label: 'Phone verification OTP', value: '', valid: true, pattern: /.+/ },
-                { label: 'Email Verification', value: '', valid: true, pattern: /.+/ }
+                { label: 'Enter verification OTP', name: 'otp', value: '', valid: true, validation: 'required' },
             ]
-        },
-        {
-            title: 'Welcome!'
         }
     ]
 })
+
+const email = ref()
+const password = ref()
+
+const emailError = ref(false)
+const passwordError = ref(false)
+const invalidCredentials = ref(false)
+
+const isEmailValid = (email: string) => {
+    const emailRegex = /^[A-z\d]+@[A-z]+(\.[A-z]+)+$/;
+    return email && email.toLowerCase().match(emailRegex)
+}
+
+const isPasswordValid = (password: string) => password && password.length >= 8
 
 const nextStep = () => {
     state.animation = 'animate-out'
@@ -131,24 +157,21 @@ const prevStep = () => {
     }, 500)
 }
 
-const validateFields = () => {
-    let valid = true;
+const submit = () => {
+    emailError.value = !isEmailValid(email.value)
+    passwordError.value = !isPasswordValid(password.value)
 
-    state.formSteps[state.activeStep].fields?.forEach(f => {
-        if (!f.pattern.test(f.value)) {
-            valid = false
-            f.valid = false
-        } else {
-            f.valid = true
-        }
-    })
+    if (!emailError.value && !passwordError.value) {
+        useAuthStore()
+            .authenticate(email.value, password.value)
+            .then(() => {
+                let urlIntended = localStorage.getItem('urlIntended') || '/';
+                localStorage.removeItem('urlIntended')
 
-    if (valid) {
-        nextStep()
-    } else {
-        state.animation = 'animate-invalid'
-
-        setTimeout(() => state.animation = '', 400)
+                router.push({ path: urlIntended })
+            })
+            .catch(() => invalidCredentials.value = true)
     }
 }
 </script>
+
