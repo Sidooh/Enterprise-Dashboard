@@ -66,8 +66,6 @@ export default function useSteps() {
         }
     }
 
-    console.log(steps)
-
     // NEW: include visitedSteps in our return
     return { activeStep, visitedSteps, steps, stepPlugin, setStep }
 }

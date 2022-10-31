@@ -22,10 +22,10 @@
                         </div>
                     </header>
 
-                    <section class="card shadow-sm" :class="state.animation">
+                    <section class="card shadow-sm">
                         <div class="card-body p-4 p-sm-5 d-flex flex-column justify-content-center align-items-center">
 
-                            <h2>{{ state.formSteps[state.activeStep].title }}</h2>
+                            <h2>Sign In</h2>
 
                             <section v-show="activeStep === '01'">
                                 <FormKit type="group" id="01" name="01" title="Sign In"
@@ -89,62 +89,11 @@
 </template>
 
 <script setup lang="ts">
-import { reactive } from "vue";
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 import { faCircleExclamation, faLeftLong, faRightLong } from '@fortawesome/free-solid-svg-icons'
 import { faCloudversify } from '@fortawesome/free-brands-svg-icons'
 import type { FormKitGroupValue, FormKitNode } from "@formkit/core";
 import useSteps from "@/hooks/useSteps";
-
-type MultiFormState = {
-    activeStep: number;
-    animation: string;
-    formSteps: {
-        title: string;
-        fields: {
-            type?: string;
-            name: string;
-            label: string;
-            value: string;
-            valid: boolean;
-            validation: string
-        }[];
-    }[];
-}
-
-const state = reactive<MultiFormState>({
-    activeStep: 0,
-    animation: 'animate-in',
-    formSteps: [
-        {
-            title: 'Sign In',
-            fields: [
-                {
-                    type: 'email',
-                    label: 'Email address',
-                    name: 'email',
-                    value: '',
-                    valid: true,
-                    validation: 'required|email'
-                },
-                {
-                    type: 'password',
-                    label: 'Password',
-                    name: 'password',
-                    value: '',
-                    valid: true,
-                    validation: 'required|length:8'
-                },
-            ]
-        },
-        {
-            title: 'Verification',
-            fields: [
-                { label: 'Enter verification OTP', name: 'otp', value: '', valid: true, validation: 'required' },
-            ]
-        }
-    ]
-})
 
 const { steps, visitedSteps, activeStep, setStep, stepPlugin } = useSteps()
 
