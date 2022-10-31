@@ -52,16 +52,16 @@
                                     <div class="row g-2">
                                         <div class="col">
                                             <FormKit type="email" name="admin_email" placeholder="Email address"
-                                                     validation="required"/>
+                                                     validation="required|email"/>
                                         </div>
                                         <div class="col">
                                             <FormKit type="tel" name="admin_phone" placeholder="Phone number"
-                                                     validation="required"/>
+                                                     validation="required|number"/>
                                         </div>
                                     </div>
 
                                     <FormKit type="password" name="password" placeholder="password"
-                                             validation="required"/>
+                                             validation="required|min:7"/>
                                 </FormKit>
                             </section>
 
@@ -96,7 +96,7 @@
                             <div class="mt-3">
                                 <small>Haven't Signed Up? </small>
                                 <small>
-                                    <router-link :to="{name:'register'}">Sign Up</router-link>
+                                    <router-link :to="{name:'login'}">Sign In</router-link>
                                 </small>
                             </div>
                         </div>

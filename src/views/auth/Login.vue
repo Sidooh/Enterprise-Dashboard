@@ -31,7 +31,7 @@
                                 <FormKit type="group" id="01" name="01" title="Sign In"
                                          :config="{classes:{message:'text-danger small', input:'form-control', outer:'mb-3'}}">
                                     <FormKit type="email" name="email" placeholder="Email address"
-                                             validation="required"/>
+                                             validation="required|email"/>
 
                                     <FormKit type="password" name="password" placeholder="password"
                                              validation="required"/>
@@ -65,7 +65,7 @@
                             </div>
 
                             <div class="mt-3">
-                                <small>Haven't Signed Up? </small>
+                                <small>Haven't Signed In? </small>
                                 <small>
                                     <router-link :to="{name:'register'}">Sign Up</router-link>
                                 </small>
