@@ -23,14 +23,9 @@
                         <div class="input-fields w-100">
                             <div class="mb-3" v-for="(field, i) in state.formSteps[state.activeStep].fields"
                                  :key="`field-${i}`">
-                                <input v-if="field.type !== 'file'" :type="field.type ?? 'text'"
+                                <input v-if="field?.type !== 'file'" :type="field?.type ?? 'text'"
                                        v-model="field.value" class="form-control" :class="{'is-invalid': !field.valid}"
                                        :placeholder="field.label" required>
-                            </div>
-                            <div class="mb-3" v-for="(f, i) in state.formSteps[state.activeStep].fields">
-                                <file-pond :key="`file-field-${i}`" v-if="f?.type === 'file'" v-model="f.value"
-                                           label-idle="Drop company registration letter here..." ref="pond"
-                                           accepted-file-types="application/pdf, application/msword"/>
                             </div>
                         </div>
 
@@ -77,8 +72,25 @@
 import { reactive, ref } from "vue";
 import { useAuthStore } from "@/stores/auth";
 import router from "@/router";
+import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
+import { faLeftLong, faRightLong, faUserPlus } from '@fortawesome/free-solid-svg-icons'
 
-const state = reactive({
+type MultiFormState = {
+    activeStep: number;
+    animation: string;
+    formSteps: {
+        title: string;
+        fields: {
+            type?: string;
+            label: string;
+            value: string;
+            valid: boolean;
+            pattern: RegExp;
+        }[];
+    }[];
+}
+
+const state = reactive<MultiFormState>({
     activeStep: 0,
     animation: 'animate-in',
     formSteps: [
@@ -111,6 +123,24 @@ const isEmailValid = (email: string) => {
 }
 
 const isPasswordValid = (password: string) => password && password.length >= 8
+
+const nextStep = () => {
+    state.animation = 'animate-out'
+
+    setTimeout(() => {
+        state.animation = 'animate-in'
+        state.activeStep++
+    }, 500)
+}
+
+const prevStep = () => {
+    state.animation = 'animate-out'
+
+    setTimeout(() => {
+        state.animation = 'animate-in'
+        state.activeStep--
+    }, 500)
+}
 
 const submit = () => {
     emailError.value = !isEmailValid(email.value)
