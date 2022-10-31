@@ -1,5 +1,4 @@
 <script setup lang="ts">
-
 import { ref } from "vue";
 import { useAuthStore } from "@/stores/auth";
 import router from "@/router";
@@ -8,9 +7,7 @@ const email = ref()
 const password = ref()
 
 const emailError = ref(false)
-/*computed(() => email.value && email.value.length > 2 && !isEmailValid(email.value))*/
 const passwordError = ref(false)
-/*computed(() => password.value && !isPasswordValid(password.value))*/
 const invalidCredentials = ref(false)
 
 const isEmailValid = (email: string) => {
@@ -25,12 +22,15 @@ const submit = () => {
     passwordError.value = !isPasswordValid(password.value)
 
     if (!emailError.value && !passwordError.value) {
-        const authStore = useAuthStore()
-
-        authStore
+        useAuthStore()
             .authenticate(email.value, password.value)
-            .then(response => router.push('/'))
-            .catch(error => invalidCredentials.value = true)
+            .then(() => {
+                let urlIntended = localStorage.getItem('urlIntended') || '/';
+                localStorage.removeItem('urlIntended')
+
+                router.push({ path: urlIntended })
+            })
+            .catch(() => invalidCredentials.value = true)
     }
 }
 </script>
@@ -41,11 +41,12 @@ const submit = () => {
             <a class="d-flex align-items-center justify-content-center mb-4" href="/">
                 <img class="me-2" src="/sidooh.png" alt="" width="100">
             </a>
-            <div class="card">
+            <div class="card shadow-sm">
                 <div class="card-body p-4 p-sm-5">
                     <div class="row align-items-center justify-content-between mb-2">
-                        <div class="col-auto">
-                            <h5>Sign In</h5>
+                        <div class="col-auto"><h5>Sign In</h5></div>
+                        <div class="col-auto fs-6 text-600">
+                            <small>or <router-link :to="{name:'register'}">Create an account</router-link></small>
                         </div>
                     </div>
                     <form id="sign-in">
@@ -53,11 +54,10 @@ const submit = () => {
                             <input class="form-control" type="email"
                                    placeholder="Email address" aria-label="" required
                                    v-model="email">
-                            <span class="form-control-sm alert-danger" v-show="emailError">email is not valid</span>
+                            <small class="form-control-sm text-danger" v-show="emailError">Invalid email address</small>
                         </div>
                         <div class="mb-3">
-                            <input class="form-control" type="password"
-                                   placeholder="Password" aria-label="" required
+                            <input class="form-control" type="password" placeholder="Password" aria-label="" required
                                    v-model="password">
                             <span class="form-control-sm alert-danger"
                                   v-show="passwordError">min password length: 8</span>
@@ -71,7 +71,8 @@ const submit = () => {
                             </div>
                         </div>
                         <div class="d-flex justify-content-center mt-3">
-                            <button type="submit" class="col btn btn-sm btn-primary ld-ext-right" @click.prevent="submit">
+                            <button type="submit" class="col btn btn-sm btn-primary ld-ext-right"
+                                    @click.prevent="submit">
                                 Sign In
                                 <span class="ld ld-ring ld-spin"></span>
                             </button>

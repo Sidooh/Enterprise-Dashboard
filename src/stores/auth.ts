@@ -9,34 +9,32 @@ export const useAuthStore = defineStore("auth", {
 
     actions: {
         async authenticate(email: string, password: string) {
-
             try {
-                const data = await axios.post("users/signin", {
-                    email,
-                    password
-                })
+                const { data: response } = await axios.post("auth/login", {
+                        email,
+                        password
+                    }),
+                    data = response.data
 
-                this.token = data.data.access_token
+                this.token = data.token
                 this.user = {
-                    token: data.data.access_token
+                    token: data.token
                 }
 
-                localStorage.setItem("TOKEN", data.data.access_token);
+                localStorage.setItem("TOKEN", data.token);
 
-                axios.defaults.headers.common['Authorization'] = "Bearer " + data.data.access_token;
+                axios.defaults.headers.common['Authorization'] = "Bearer " + data.token;
             } catch (error: any) {
                 if (error.response.status === 400 && error.response.data) {
                     throw new Error(error.response.data.errors[0].message)
                 }
             }
         },
-
         checkLocalAuth() {
             const token = localStorage.getItem("TOKEN")
 
             if (token) this.token = token
         },
-
         logout() {
             this.$reset()
 

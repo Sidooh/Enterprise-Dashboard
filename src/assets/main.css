@@ -1,1 +1,56 @@
 @import "./base.css";
+
+.container, .container-fluid, .container-sm, .container-md, .container-lg, .container-xl, .container-xxl {
+    position: relative
+}
+
+.avatar {
+    position: relative;
+    display: inline-block;
+}
+
+.avatar-xl {
+    height: 2rem;
+    width: 2rem;
+}
+
+.avatar img {
+    display: block;
+}
+
+.avatar img, .avatar .avatar-name {
+    width: 100%;
+    height: 100%;
+}
+
+.avatar img {
+    -o-object-fit: cover;
+    object-fit: cover;
+}
+
+.cursor-pointer {
+    cursor: pointer
+}
+
+.card {
+    border: none;
+}
+
+.table > :not(caption) > * > * {
+    padding: .4rem .5rem;
+    font-size: 11pt;
+}
+
+table td.actions .btn {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 9pt;
+    width: 1.7rem;
+    height: 1.7rem;
+    padding: 4px;
+}
+
+.form-select {
+    /*background-image: none;*/
+}
