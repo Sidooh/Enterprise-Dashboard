@@ -152,6 +152,7 @@ const { steps, visitedSteps, activeStep, setStep, stepPlugin } = useSteps()
 const submitApp = async (formData: FormKitGroupValue, node: FormKitNode) => {
     try {
         console.log(formData)
+
         alert('Your application was submitted successfully!')
     } catch (err: any) {
         node.setErrors(err.formErrors, err.fieldErrors)
