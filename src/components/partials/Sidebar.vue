@@ -145,7 +145,7 @@
     </nav>
 </template>
 
-<script setup>
+<script setup lang="ts">
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 import { faChartPie, faCloudBolt, faCoins, faDoorOpen, faIdCard, faUserAlt } from '@fortawesome/free-solid-svg-icons'
 import { onMounted } from "vue";
@@ -157,15 +157,15 @@ onMounted(() => {
 
     if (navbarVerticalToggle) {
         navbarVerticalToggle.addEventListener('click', function (e) {
-            navbarVerticalToggle.blur();
-            html.classList.toggle('sidebar-collapsed'); // Set collapse state on localStorage
+            // navbarVerticalToggle?.blur();
+            html?.classList.toggle('sidebar-collapsed'); // Set collapse state on localStorage
 
             // let isNavbarVerticalCollapsed = utils.getItemFromStore('isNavbarVerticalCollapsed');
             // utils.setItemToStore('isNavbarVerticalCollapsed', !isNavbarVerticalCollapsed);
 
             let event = new CustomEvent('sidebar.toggle');
 
-            e.currentTarget.dispatchEvent(event);
+            e.currentTarget?.dispatchEvent(event);
         });
     }
 })

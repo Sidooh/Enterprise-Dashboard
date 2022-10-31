@@ -79,8 +79,7 @@ import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 import { faLeftLong, faRightLong, faUserPlus } from '@fortawesome/free-solid-svg-icons'
 import vueFilePond from 'vue-filepond';
 // Import plugins
-import FilePondPluginFileValidateType
-    from 'filepond-plugin-file-validate-type/dist/filepond-plugin-file-validate-type.esm.js';
+import FilePondPluginFileValidateType from 'filepond-plugin-file-validate-type';
 // Import styles
 import 'filepond/dist/filepond.min.css';
 

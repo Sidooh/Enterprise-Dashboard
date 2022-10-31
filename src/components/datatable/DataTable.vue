@@ -85,6 +85,8 @@ import { ref } from 'vue'
 
 const props = defineProps<{ title: string, columns: any, data: any }>()
 
+const tableTitle = ref(props.title)
+
 const sorting = ref<SortingState>([])
 const rowSelection = ref({})
 const selectedRowsCount = Object.keys(rowSelection.value).length;
