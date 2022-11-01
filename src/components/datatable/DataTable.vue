@@ -77,8 +77,11 @@
                     @click="table.previousPage()">
                 <font-awesome-icon :icon="faAngleLeft" font-size="15"/>
             </button>
-            <select name="" id="" class="form-select form-select-sm w-auto mx-2 border-0 pe-4">
-                <option :value="pageSize" v-for="(pageSize, i) in [5, 10, 20, 40]" :key="i">Show {{ pageSize }}</option>
+            <select name="" id="" class="form-select form-select-sm w-auto mx-2 border-0 pe-4"
+                    v-model.number="table.getState().pagination.pageSize" @change="e => table.setPageSize(Number(e.target.value))">
+                <option :value="pageSize" v-for="(pageSize, i) in [5, 10, 20, 40]" :key="`size-${i}`">
+                    Show {{ pageSize }}
+                </option>
             </select>
             <button class="btn btn-sm btn-primary" :disabled="!table.getCanNextPage()"
                     @click="table.nextPage()">
