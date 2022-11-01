@@ -98,7 +98,7 @@ import { faCircleExclamation, faLeftLong, faRightLong } from '@fortawesome/free-
 import { faCloudversify } from '@fortawesome/free-brands-svg-icons'
 import type { FormKitGroupValue, FormKitNode } from "@formkit/core";
 import useSteps from "@/hooks/useSteps";
-import { useAuthStore } from "@/stores/auth";
+import { LoginData, useAuthStore } from "@/stores/auth";
 import { ref } from "vue";
 import router from "@/router";
 
@@ -107,7 +107,7 @@ const invalidCredentials = ref(false)
 const { steps, visitedSteps, activeStep, setStep, stepPlugin, node, checkStepValidity } = useSteps()
 
 const submitCredentials = (value: any) => {
-    let data: { email: string, password: string } = value['01'];
+    let data: LoginData = value['01'];
 
     useAuthStore()
         .authenticate(data.email, data.password)

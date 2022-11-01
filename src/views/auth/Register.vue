@@ -42,9 +42,8 @@
                                         </div>
                                     </div>
 
-                                    <file-pond v-model="file" label-idle="Drop company registration letter here..."
-                                               ref="pond" accepted-file-types="application/pdf, application/msword"/>
-
+                                    <FormKit :type="filepond" name="reg_letter" label-idle="Drop company registration letter here..."
+                                             placeholder="Phone number" validation="required"/>
                                     <hr>
 
                                     <FormKit name="admin_name" placeholder="Full Name" validation="required"/>
@@ -82,7 +81,7 @@
                                     Back
                                 </FormKit>
                                 <FormKit type="button" input-class="btn btn-sm btn-primary ms-2"
-                                         v-if="activeStep !== '02'" @click="submitCredentials(value)">
+                                         v-if="activeStep !== '02'" @click="submitCredentials(value['01'])">
                                     Proceed
                                     <font-awesome-icon :icon="faRightLong" class="ms-1"/>
                                 </FormKit>
@@ -121,29 +120,23 @@
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 import { faCircleExclamation, faLeftLong, faRightLong } from '@fortawesome/free-solid-svg-icons'
 import { faCloudversify } from '@fortawesome/free-brands-svg-icons'
-import vueFilePond from 'vue-filepond';
-// Import plugins
-import FilePondPluginFileValidateType from 'filepond-plugin-file-validate-type';
-// Import styles
-import 'filepond/dist/filepond.min.css';
 import type { FormKitGroupValue, FormKitNode } from "@formkit/core";
 import useSteps from "@/hooks/useSteps";
 import { ref } from "vue";
-import { useAuthStore } from "@/stores/auth";
+import { RegistrationData, useAuthStore } from "@/stores/auth";
 import { toast } from "@/utils/helpers";
+import { createInput } from "@formkit/vue";
+import FormKitFilePond from '@/components/FormKitFilePond.vue'
 
 // Create FilePond component
-const FilePond = vueFilePond(FilePondPluginFileValidateType);
-
+const filepond = createInput(FormKitFilePond)
 const file = ref(null)
 
 const { steps, node, visitedSteps, activeStep, setStep, stepPlugin, checkStepValidity } = useSteps()
 
-const submitCredentials = (value: any) => {
-    let data: { email: string, password: string } = value['01'];
-
+const submitCredentials = (formData: RegistrationData) => {
     useAuthStore()
-        .authenticate(data.email, data.password)
+        .register(formData)
         .then(() => {
             setStep(1)
 

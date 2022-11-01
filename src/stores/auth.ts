@@ -1,6 +1,9 @@
 import { defineStore } from "pinia";
 import axios from "axios";
 
+export type LoginData = { email: string, password: string }
+export type RegistrationData = LoginData & { name: string, country: string, address: string }
+
 export const useAuthStore = defineStore("auth", {
     state: () => ({
         token: '',
@@ -32,6 +35,9 @@ export const useAuthStore = defineStore("auth", {
                     throw new Error(error.response.data.message)
                 }
             }
+        },
+        async register(data: RegistrationData) {
+            console.log(data)
         },
         async verify(otp: string) {
             console.log(otp)
