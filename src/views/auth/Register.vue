@@ -82,7 +82,7 @@
                                     Back
                                 </FormKit>
                                 <FormKit type="button" input-class="btn btn-sm btn-primary ms-2"
-                                         v-if="activeStep !== '02'" @click="setStep(1)">
+                                         v-if="activeStep !== '02'" @click="submitCredentials(value)">
                                     Proceed
                                     <font-awesome-icon :icon="faRightLong" class="ms-1"/>
                                 </FormKit>
@@ -129,13 +129,31 @@ import 'filepond/dist/filepond.min.css';
 import type { FormKitGroupValue, FormKitNode } from "@formkit/core";
 import useSteps from "@/hooks/useSteps";
 import { ref } from "vue";
+import { useAuthStore } from "@/stores/auth";
+import { toast } from "@/utils/helpers";
 
 // Create FilePond component
 const FilePond = vueFilePond(FilePondPluginFileValidateType);
 
 const file = ref(null)
 
-const { steps, visitedSteps, activeStep, setStep, stepPlugin, checkStepValidity } = useSteps()
+const { steps, node, visitedSteps, activeStep, setStep, stepPlugin, checkStepValidity } = useSteps()
+
+const submitCredentials = (value: any) => {
+    let data: { email: string, password: string } = value['01'];
+
+    useAuthStore()
+        .authenticate(data.email, data.password)
+        .then(() => {
+            setStep(1)
+
+            if (node) node.clearErrors()
+        })
+        .catch(() => toast({
+            html: 'Unable to sign you up. Kindly contact <a href="mailto:@customersupport@sidooh.co.ke">Customer support</a>',
+            icon: 'error'
+        }))
+}
 
 // NEW: submit handler, which posts to our fake backend.
 const submitApp = async (formData: FormKitGroupValue, node?: FormKitNode) => {
