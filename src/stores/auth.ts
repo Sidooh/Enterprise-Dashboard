@@ -28,7 +28,13 @@ export const useAuthStore = defineStore("auth", {
                 if (error.response.status === 400 && error.response.data) {
                     throw new Error(error.response.data.errors[0].message)
                 }
+                if (error.response.status === 401 && error.response.data) {
+                    throw new Error(error.response.data.message)
+                }
             }
+        },
+        async verify(otp: string) {
+            console.log(otp)
         },
         checkLocalAuth() {
             const token = localStorage.getItem("TOKEN")

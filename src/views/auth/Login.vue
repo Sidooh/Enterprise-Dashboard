@@ -4,7 +4,7 @@
             <a class="d-flex align-items-center justify-content-center mb-4" href="/">
                 <img class="me-2" src="/sidooh.png" alt="" width="100">
             </a>
-            <FormKit type="form" #default="{ value, state: { valid } }" :plugins="[stepPlugin]" @submit="submitApp"
+            <FormKit type="form" #default="{ value, state: { valid } }" :plugins="[stepPlugin]" @submit="submit"
                      :actions="false">
                 <article>
                     <header class="shadow-sm">
@@ -34,7 +34,7 @@
                                              validation="required|email"/>
 
                                     <FormKit type="password" name="password" placeholder="password"
-                                             validation="required"/>
+                                             validation="required|min:8"/>
                                 </FormKit>
                             </section>
 
@@ -46,6 +46,10 @@
                                 </FormKit>
                             </section>
 
+                            <div class="text-center">
+                                <small class="text-danger" v-show="invalidCredentials">Invalid Credentials</small>
+                            </div>
+
                             <div class="mt-3 d-flex align-self-end">
                                 <FormKit type="button" input-class="btn btn-sm btn-outline-secondary"
                                          v-if="activeStep !== '01'" @click="setStep(-1)">
@@ -53,7 +57,7 @@
                                     Back
                                 </FormKit>
                                 <FormKit type="button" input-class="btn btn-sm btn-primary ms-2"
-                                         v-if="activeStep !== '02'" @click="setStep(1)">
+                                         v-if="activeStep !== '02'" @click="submitCredentials(value)">
                                     Proceed
                                     <font-awesome-icon :icon="faRightLong" class="ms-1"/>
                                 </FormKit>
@@ -94,15 +98,30 @@ import { faCircleExclamation, faLeftLong, faRightLong } from '@fortawesome/free-
 import { faCloudversify } from '@fortawesome/free-brands-svg-icons'
 import type { FormKitGroupValue, FormKitNode } from "@formkit/core";
 import useSteps from "@/hooks/useSteps";
+import { useAuthStore } from "@/stores/auth";
+import { ref } from "vue";
+
+const invalidCredentials = ref(false)
 
 const { steps, visitedSteps, activeStep, setStep, stepPlugin } = useSteps()
 
-// NEW: submit handler, which posts to our fake backend.
-const submitApp = async (formData: FormKitGroupValue, node: FormKitNode) => {
-    try {
-        console.log(formData)
+const submitCredentials = (value: any) => {
+    let data: { email: string, password: string } = value['01'];
 
-        alert('Your application was submitted successfully!')
+    useAuthStore()
+        .authenticate(data.email, data.password)
+        .then(() => setStep(1))
+        .catch(() => invalidCredentials.value = true)
+}
+
+const submit = async (formData: FormKitGroupValue, node: FormKitNode) => {
+    try {
+        node.clearErrors()
+
+        useAuthStore()
+            .verify(String(formData[1]))
+            .then(() => setStep(1))
+            .catch(() => invalidCredentials.value = true)
     } catch (err: any) {
         node.setErrors(err.formErrors, err.fieldErrors)
     }
