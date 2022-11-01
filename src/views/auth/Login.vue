@@ -100,17 +100,24 @@ import type { FormKitGroupValue, FormKitNode } from "@formkit/core";
 import useSteps from "@/hooks/useSteps";
 import { useAuthStore } from "@/stores/auth";
 import { ref } from "vue";
+import router from "@/router";
 
 const invalidCredentials = ref(false)
 
-const { steps, visitedSteps, activeStep, setStep, stepPlugin } = useSteps()
+const { steps, visitedSteps, activeStep, setStep, stepPlugin, node } = useSteps()
 
 const submitCredentials = (value: any) => {
     let data: { email: string, password: string } = value['01'];
 
     useAuthStore()
         .authenticate(data.email, data.password)
-        .then(() => setStep(1))
+        .then(() => {
+            invalidCredentials.value = false
+
+            setStep(1)
+
+            if (node) node.clearErrors()
+        })
         .catch(() => invalidCredentials.value = true)
 }
 
@@ -120,7 +127,7 @@ const submit = async (formData: FormKitGroupValue, node: FormKitNode) => {
 
         useAuthStore()
             .verify(String(formData[1]))
-            .then(() => setStep(1))
+            .then(() => router.push({ name: 'dashboard' }))
             .catch(() => invalidCredentials.value = true)
     } catch (err: any) {
         node.setErrors(err.formErrors, err.fieldErrors)

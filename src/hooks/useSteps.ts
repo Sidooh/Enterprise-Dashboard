@@ -7,6 +7,7 @@ export default function useSteps() {
     const activeStep = ref('')
     const steps = reactive<{ [x: string]: { title: string, valid: Ref, errorCount: any, blockingCount: any } }>({})
     const visitedSteps = ref<string[]>([]) // track visited steps
+    let node: FormKitNode | undefined;
 
     // NEW: watch our activeStep and store visited steps to know when to show errors
     watch(activeStep, (newStep, oldStep) => {
@@ -14,7 +15,7 @@ export default function useSteps() {
 
         // NEW: trigger showing validation on fields within all visited steps
         visitedSteps.value.forEach(step => {
-            const node = getNode(step)
+            node = getNode(step)
 
             node?.walk(n => {
                 n.store.set(
@@ -67,5 +68,5 @@ export default function useSteps() {
     }
 
     // NEW: include visitedSteps in our return
-    return { activeStep, visitedSteps, steps, stepPlugin, setStep }
+    return { activeStep, visitedSteps, steps, stepPlugin, setStep, node }
 }

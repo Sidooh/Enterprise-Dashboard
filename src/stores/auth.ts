@@ -25,7 +25,7 @@ export const useAuthStore = defineStore("auth", {
 
                 axios.defaults.headers.common['Authorization'] = "Bearer " + data.token;
             } catch (error: any) {
-                if (error.response.status === 400 && error.response.data) {
+                if ([400, 422].includes(error.response.status) && error.response.data) {
                     throw new Error(error.response.data.errors[0].message)
                 }
                 if (error.response.status === 401 && error.response.data) {
