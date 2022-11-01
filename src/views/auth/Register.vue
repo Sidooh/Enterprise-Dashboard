@@ -29,38 +29,51 @@
                             <h2>Sign Up</h2>
 
                             <section v-show="activeStep === '01'">
+                                <h5 class="text-center">Enterprise</h5>
                                 <FormKit type="group" id="01" name="01" title="Sign Up"
                                          :config="{classes:{message:'text-danger small', input:'form-control', outer:'mb-3'}}">
-                                    <FormKit name="name" placeholder="Enterprise name" validation="required"/>
+                                    <FormKit name="name" placeholder="Name" validation="required"/>
 
                                     <div class="row g-2">
                                         <div class="col">
-                                            <FormKit name="country" placeholder="Country" validation="required"/>
+                                            <FormKit name="enterprise_email" placeholder="Email address"
+                                                     validation="required" validation-label="Enterprise email"/>
                                         </div>
                                         <div class="col">
-                                            <FormKit name="address" placeholder="Address" validation="required"/>
+                                            <FormKit name="enterprise_phone" placeholder="Phone number"
+                                                     validation="required" validation-label="Enterprise phone"/>
                                         </div>
                                     </div>
 
-                                    <FormKit :type="filepond" name="reg_letter" label-idle="Drop company registration letter here..."
-                                             placeholder="Phone number" validation="required"/>
-                                    <hr>
+                                    <h5 class="text-center">Admin</h5>
 
-                                    <FormKit name="admin_name" placeholder="Full Name" validation="required"/>
+                                    <FormKit name="admin_name" placeholder="Full Name" validation="required"
+                                             validation-label="Admin full name"/>
 
                                     <div class="row g-2">
                                         <div class="col">
-                                            <FormKit type="email" name="admin_email" placeholder="Email address"
-                                                     validation="required|email"/>
+                                            <FormKit type="email" name="admin_email" placeholder="Email Address"
+                                                     validation="required|email"
+                                                     validation-label="Admin email address"/>
                                         </div>
                                         <div class="col">
                                             <FormKit type="tel" name="admin_phone" placeholder="Phone number"
-                                                     validation="required|number"/>
+                                                     validation="required|number"
+                                                     validation-label="Admin phone number"/>
                                         </div>
                                     </div>
 
-                                    <FormKit type="password" name="password" placeholder="password"
-                                             validation="required|min:7"/>
+                                    <div class="row g-2">
+                                        <div class="col">
+                                            <FormKit type="password" name="password" placeholder="Password"
+                                                     validation="required|min:7"/>
+                                        </div>
+                                        <div class="col">
+                                            <FormKit type="password" name="password_confirmation"
+                                                     placeholder="Confirm password" validation="required|confirm:password"
+                                                     validation-label="Password confirmation"/>
+                                        </div>
+                                    </div>
                                 </FormKit>
                             </section>
 
@@ -68,9 +81,9 @@
                                 <FormKit type="group" id="02" name="02" title="Verification"
                                          :config="{classes:{message:'text-danger small', input:'form-control', outer:'mb-3'}}">
                                     <FormKit name="email_otp" placeholder="Email verification OTP"
-                                             validation="required"/>
+                                             validation="required" validation-label="Email verification OTP"/>
                                     <FormKit name="phone_otp" placeholder="Phone verification OTP"
-                                             validation="required"/>
+                                             validation="required" validation-label="Phone number verification OTP"/>
                                 </FormKit>
                             </section>
 
@@ -122,15 +135,8 @@ import { faCircleExclamation, faLeftLong, faRightLong } from '@fortawesome/free-
 import { faCloudversify } from '@fortawesome/free-brands-svg-icons'
 import type { FormKitGroupValue, FormKitNode } from "@formkit/core";
 import useSteps from "@/hooks/useSteps";
-import { ref } from "vue";
 import { RegistrationData, useAuthStore } from "@/stores/auth";
 import { toast } from "@/utils/helpers";
-import { createInput } from "@formkit/vue";
-import FormKitFilePond from '@/components/FormKitFilePond.vue'
-
-// Create FilePond component
-const filepond = createInput(FormKitFilePond)
-const file = ref(null)
 
 const { steps, node, visitedSteps, activeStep, setStep, stepPlugin, checkStepValidity } = useSteps()
 
