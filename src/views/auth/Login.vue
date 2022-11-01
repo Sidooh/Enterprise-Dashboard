@@ -121,16 +121,16 @@ const submitCredentials = (value: any) => {
         .catch(() => invalidCredentials.value = true)
 }
 
-const submit = async (formData: FormKitGroupValue, node: FormKitNode) => {
+const submit = async (formData: FormKitGroupValue, node?: FormKitNode) => {
     try {
-        node.clearErrors()
+        node?.clearErrors()
 
         useAuthStore()
             .verify(String(formData[1]))
             .then(() => router.push({ name: 'dashboard' }))
             .catch(() => invalidCredentials.value = true)
     } catch (err: any) {
-        node.setErrors(err.formErrors, err.fieldErrors)
+        node?.setErrors(err.formErrors, err.fieldErrors)
     }
 }
 </script>
