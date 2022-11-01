@@ -67,6 +67,10 @@ export default function useSteps() {
         }
     }
 
+    const checkStepValidity = (stepName: string | number) => {
+        return (steps[stepName].errorCount > 0 || steps[stepName].blockingCount > 0) && visitedSteps.value.includes(String(stepName))
+    }
+
     // NEW: include visitedSteps in our return
-    return { activeStep, visitedSteps, steps, stepPlugin, setStep, node }
+    return { activeStep, visitedSteps, steps, stepPlugin, setStep, node, checkStepValidity }
 }

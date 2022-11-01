@@ -104,7 +104,7 @@ import router from "@/router";
 
 const invalidCredentials = ref(false)
 
-const { steps, visitedSteps, activeStep, setStep, stepPlugin, node } = useSteps()
+const { steps, visitedSteps, activeStep, setStep, stepPlugin, node, checkStepValidity } = useSteps()
 
 const submitCredentials = (value: any) => {
     let data: { email: string, password: string } = value['01'];
@@ -132,10 +132,6 @@ const submit = async (formData: FormKitGroupValue, node: FormKitNode) => {
     } catch (err: any) {
         node.setErrors(err.formErrors, err.fieldErrors)
     }
-}
-
-const checkStepValidity = (stepName: string) => {
-    return (steps[stepName].errorCount > 0 || steps[stepName].blockingCount > 0) && visitedSteps.value.includes(stepName)
 }
 </script>
 
