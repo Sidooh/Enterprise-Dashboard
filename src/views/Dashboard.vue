@@ -139,6 +139,14 @@ const tableData: Person[] = [
         status: 'Complicated',
         progress: 10,
     },
+    {
+        firstName: 'Lil',
+        lastName: 'Nabz',
+        age: 21,
+        visits: 20,
+        status: 'Complicated',
+        progress: 70,
+    },
 ]
 </script>
 
