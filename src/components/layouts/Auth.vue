@@ -37,6 +37,12 @@ article header {
     font-weight: bold;
 }
 
+.progress-step .exclaim {
+    position: absolute;
+    top: -.3rem;
+    right: -.3rem;
+}
+
 .progress-step span {
     font-size: 10pt;
 }
@@ -86,7 +92,7 @@ article header {
 
 section {
     width: 100%;
-    border-radius: 0;
+    border-radius: 0!important;
 }
 
 section h2 {

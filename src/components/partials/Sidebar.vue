@@ -18,7 +18,7 @@
         <div class="collapse sidebar-collapse" id="sidebarCollapse">
             <div class="sidebar-content scrollbar d-flex justify-content-between">
                 <ul class="sidebar-nav mb-3 flex-column">
-                    <li class="nav-item">
+                    <li class="nav-item accordion" id="accordionExample">
                         <router-link :to="{name:'dashboard'}" class="nav-link">
                             <div class="d-flex align-items-center">
                                 <span class="nav-link-icon"><font-awesome-icon :icon="faChartPie"/></span>
@@ -31,79 +31,112 @@
                                 <hr class="mb-0 sidebar-divider">
                             </div>
                         </div>
-                        <a class="nav-link dropdown-indicator collapsed" href="#voucher-management"
+                        <div class="accordion-item">
+                            <a class="nav-link dropdown-indicator collapsed" href="#voucher-management"
+                               role="button" data-bs-toggle="collapse" aria-expanded="false"
+                               aria-controls="voucher-management">
+                                <div class="d-flex align-items-center">
+                                    <span class="nav-link-icon"><font-awesome-icon :icon="faCloudBolt"/></span>
+                                    <span class="nav-link-text ps-1">Voucher Management</span>
+                                </div>
+                            </a>
+                            <ul class="nav accordion-collapse collapse" id="voucher-management"
+                                data-bs-parent="#accordionExample">
+                                <li class="nav-item">
+                                    <router-link class="nav-link" to="#">
+                                        <div class="d-flex align-items-center">
+                                            <span class="nav-link-text ps-1">Types</span>
+                                        </div>
+                                    </router-link>
+                                </li>
+                                <li class="nav-item">
+                                    <router-link class="nav-link" to="#">
+                                        <div class="d-flex align-items-center">
+                                            <span class="nav-link-text ps-1">Disbursement</span>
+                                        </div>
+                                    </router-link>
+                                </li>
+                            </ul>
+                        </div>
+
+                        <div class="accordion-item">
+                            <a class="nav-link dropdown-indicator collapsed" href="#float-management"
+                               role="button" data-bs-toggle="collapse" aria-expanded="false"
+                               aria-controls="float-management">
+                                <div class="d-flex align-items-center">
+                                    <span class="nav-link-icon"><font-awesome-icon :icon="faCoins"/></span>
+                                    <span class="nav-link-text ps-1">Float Management</span>
+                                </div>
+                            </a>
+                            <ul class="nav accordion-collapse collapse" id="float-management" data-bs-parent="#accordionExample">
+                                <li class="nav-item">
+                                    <router-link class="nav-link" to="#">
+                                        <div class="d-flex align-items-center">
+                                            <span class="nav-link-text ps-1">Transactions</span>
+                                        </div>
+                                    </router-link>
+                                </li>
+                                <li class="nav-item">
+                                    <router-link class="nav-link" to="#">
+                                        <div class="d-flex align-items-center">
+                                            <span class="nav-link-text ps-1">Requests</span>
+                                        </div>
+                                    </router-link>
+                                </li>
+                                <!--                            <li class="nav-item">
+                                                                <a class="nav-link dropdown-indicator" href="#course" data-bs-toggle="collapse"
+                                                                   aria-expanded="false"
+                                                                   aria-controls="e-learning">
+                                                                    <div class="d-flex align-items-center"><span
+                                                                        class="nav-link-text ps-1">Course</span>
+                                                                    </div>
+                                                                </a>
+                                                                <ul class="nav collapse" id="course">
+                                                                    <li class="nav-item">
+                                                                        <a class="nav-link">
+                                                                            <div class="d-flex align-items-center">
+                                                                                <span class="nav-link-text ps-1">list</span>
+                                                                            </div>
+                                                                        </a>
+                                                                    </li>
+                                                                    <li class="nav-item">
+                                                                        <a class="nav-link">
+                                                                            <div class="d-flex align-items-center">
+                                                                                <span class="nav-link-text ps-1">grid</span>
+                                                                            </div>
+                                                                        </a>
+                                                                    </li>
+                                                                </ul>
+                                                            </li>-->
+                            </ul>
+                        </div>
+
+                        <div class="accordion-item">
+                        <a class="nav-link dropdown-indicator collapsed" href="#account-management"
                            role="button" data-bs-toggle="collapse" aria-expanded="false"
-                           aria-controls="voucher-management">
+                           aria-controls="account-management">
                             <div class="d-flex align-items-center">
-                                <span class="nav-link-icon"><font-awesome-icon :icon="faCloudBolt"/></span>
-                                <span class="nav-link-text ps-1">Voucher Management</span>
+                                <span class="nav-link-icon"><font-awesome-icon :icon="faUsers"/></span>
+                                <span class="nav-link-text ps-1">Account Management</span>
                             </div>
                         </a>
-                        <ul class="nav collapse" id="voucher-management" style="">
+                        <ul class="nav accordion-collapse collapse" id="account-management" data-bs-parent="#accordionExample">
                             <li class="nav-item">
                                 <router-link class="nav-link" to="#">
                                     <div class="d-flex align-items-center">
-                                        <span class="nav-link-text ps-1">Types</span>
+                                        <span class="nav-link-text ps-1">Accounts</span>
                                     </div>
                                 </router-link>
                             </li>
                             <li class="nav-item">
                                 <router-link class="nav-link" to="#">
                                     <div class="d-flex align-items-center">
-                                        <span class="nav-link-text ps-1">Disbursement</span>
+                                        <span class="nav-link-text ps-1">Teams</span>
                                     </div>
                                 </router-link>
                             </li>
                         </ul>
-                        <a class="nav-link dropdown-indicator collapsed" href="#float-management"
-                           role="button" data-bs-toggle="collapse" aria-expanded="false"
-                           aria-controls="float-management">
-                            <div class="d-flex align-items-center">
-                                <span class="nav-link-icon"><font-awesome-icon :icon="faCoins"/></span>
-                                <span class="nav-link-text ps-1">Float Management</span>
-                            </div>
-                        </a>
-                        <ul class="nav collapse" id="float-management" style="">
-                            <li class="nav-item">
-                                <router-link class="nav-link" to="#">
-                                    <div class="d-flex align-items-center">
-                                        <span class="nav-link-text ps-1">Transactions</span>
-                                    </div>
-                                </router-link>
-                            </li>
-                            <li class="nav-item">
-                                <router-link class="nav-link" to="#">
-                                    <div class="d-flex align-items-center">
-                                        <span class="nav-link-text ps-1">Requests</span>
-                                    </div>
-                                </router-link>
-                            </li>
-                            <!--                            <li class="nav-item">
-                                                            <a class="nav-link dropdown-indicator" href="#course" data-bs-toggle="collapse"
-                                                               aria-expanded="false"
-                                                               aria-controls="e-learning">
-                                                                <div class="d-flex align-items-center"><span
-                                                                    class="nav-link-text ps-1">Course</span>
-                                                                </div>
-                                                            </a>
-                                                            <ul class="nav collapse" id="course">
-                                                                <li class="nav-item">
-                                                                    <a class="nav-link">
-                                                                        <div class="d-flex align-items-center">
-                                                                            <span class="nav-link-text ps-1">list</span>
-                                                                        </div>
-                                                                    </a>
-                                                                </li>
-                                                                <li class="nav-item">
-                                                                    <a class="nav-link">
-                                                                        <div class="d-flex align-items-center">
-                                                                            <span class="nav-link-text ps-1">grid</span>
-                                                                        </div>
-                                                                    </a>
-                                                                </li>
-                                                            </ul>
-                                                        </li>-->
-                        </ul>
+                        </div>
 
                         <div class="row sidebar-label-wrapper mt-3 mb-2">
                             <div class="col-auto sidebar-label">User</div>
@@ -147,7 +180,15 @@
 
 <script setup lang="ts">
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
-import { faChartPie, faCloudBolt, faCoins, faDoorOpen, faIdCard, faUserAlt } from '@fortawesome/free-solid-svg-icons'
+import {
+    faChartPie,
+    faCloudBolt,
+    faCoins,
+    faDoorOpen,
+    faIdCard,
+    faUserAlt,
+    faUsers
+} from '@fortawesome/free-solid-svg-icons'
 import { onMounted } from "vue";
 import { useAuthStore } from "@/stores/auth";
 
@@ -376,6 +417,10 @@ const logout = () => {
     -ms-flex-flow: column nowrap;
     flex-flow: column nowrap;
     font-size: .8333333333rem;
+}
+
+.sidebar .sidebar-nav .accordion-item {
+    border: none;
 }
 
 .sidebar .sidebar-nav .nav .nav-item .nav-link {

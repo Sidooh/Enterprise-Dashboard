@@ -364,6 +364,122 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@formkit/core@npm:1.0.0-beta.9-f64c966":
+  version: 1.0.0-beta.9-f64c966
+  resolution: "@formkit/core@npm:1.0.0-beta.9-f64c966"
+  dependencies:
+    "@formkit/utils": 1.0.0-beta.9-f64c966
+  checksum: bd9954f1c2e74964b17a55927d0cebf1a75518baaea1be2353413c3b4b99b7f7f567e31a7035865a4482bc0e4cb62c1ef4214e9696a4b2f5c5d72ae049e5fe86
+  languageName: node
+  linkType: hard
+
+"@formkit/dev@npm:1.0.0-beta.9-f64c966":
+  version: 1.0.0-beta.9-f64c966
+  resolution: "@formkit/dev@npm:1.0.0-beta.9-f64c966"
+  dependencies:
+    "@formkit/core": 1.0.0-beta.9-f64c966
+    "@formkit/utils": 1.0.0-beta.9-f64c966
+  checksum: b69bd70756c0dc41415def6c43cd43d9c005a95da77d763be291e45419a58824eb3a6aeffa0636b07cc93791d0d68d84f08090d8674fe93bdf7f5bb82c101177
+  languageName: node
+  linkType: hard
+
+"@formkit/i18n@npm:1.0.0-beta.9-f64c966":
+  version: 1.0.0-beta.9-f64c966
+  resolution: "@formkit/i18n@npm:1.0.0-beta.9-f64c966"
+  dependencies:
+    "@formkit/core": 1.0.0-beta.9-f64c966
+    "@formkit/utils": 1.0.0-beta.9-f64c966
+    "@formkit/validation": 1.0.0-beta.9-f64c966
+  checksum: 2117e35dba014a8ce282cb042d04009969c47f638de125275f8adbae3b5d0ad9170f59b02aeeec05f2d6b0daaa37a892042712ae93ec73cc6f0e2b105b681f1b
+  languageName: node
+  linkType: hard
+
+"@formkit/inputs@npm:1.0.0-beta.9-f64c966":
+  version: 1.0.0-beta.9-f64c966
+  resolution: "@formkit/inputs@npm:1.0.0-beta.9-f64c966"
+  dependencies:
+    "@formkit/core": 1.0.0-beta.9-f64c966
+  checksum: 054015db3ae776171f62b419ff485546bacdd1c319ae9c815565de26c96b95d25cc6a9293518d86f329f6078cd0070c1fa976a7f2155421c3e4c2d46356e2336
+  languageName: node
+  linkType: hard
+
+"@formkit/observer@npm:1.0.0-beta.9-f64c966":
+  version: 1.0.0-beta.9-f64c966
+  resolution: "@formkit/observer@npm:1.0.0-beta.9-f64c966"
+  dependencies:
+    "@formkit/core": 1.0.0-beta.9-f64c966
+    "@formkit/utils": 1.0.0-beta.9-f64c966
+  checksum: 4358245658143f4365b29dfceb9c8dba35b42f1786fd69863e696c4d3dacef1149d0bffbccbfd5038ef38bf13f97fd1b1df5ad0cf12214dc7970e264376d747d
+  languageName: node
+  linkType: hard
+
+"@formkit/rules@npm:1.0.0-beta.9-f64c966":
+  version: 1.0.0-beta.9-f64c966
+  resolution: "@formkit/rules@npm:1.0.0-beta.9-f64c966"
+  dependencies:
+    "@formkit/core": 1.0.0-beta.9-f64c966
+    "@formkit/utils": 1.0.0-beta.9-f64c966
+    "@formkit/validation": 1.0.0-beta.9-f64c966
+  checksum: cd3b64e49878a01a48cec9a43f0b25463535fa64460892cc9d7d2b768e9a0729e3c3b54b9db33ee35adc1e4bc2b6a3e972752d28dabce2f79c90922044825f22
+  languageName: node
+  linkType: hard
+
+"@formkit/themes@npm:1.0.0-beta.9-f64c966":
+  version: 1.0.0-beta.9-f64c966
+  resolution: "@formkit/themes@npm:1.0.0-beta.9-f64c966"
+  dependencies:
+    "@formkit/core": 1.0.0-beta.9-f64c966
+  peerDependencies:
+    tailwindcss: ^3.0.0
+    unocss: ^0.31.0
+    windicss: ^3.0.0
+  peerDependenciesMeta:
+    tailwindcss:
+      optional: true
+    unocss:
+      optional: true
+    windicss:
+      optional: true
+  checksum: f855ec0a67af776e5d3064ed9a11eb6fbd113eca7036531690fbb7354d62e2baef11c80e9f5da1891645b33bec413a4b0955608ad7eae12b831d60c491c0853c
+  languageName: node
+  linkType: hard
+
+"@formkit/utils@npm:1.0.0-beta.9-f64c966":
+  version: 1.0.0-beta.9-f64c966
+  resolution: "@formkit/utils@npm:1.0.0-beta.9-f64c966"
+  checksum: 9670088c1a1cc5929dd9a1663145688302d46661631be863858bdb8dd69e64a68bb640c6973e77c9247e46c9a5e7dd37445593e41573afee3d077dfd0e6f5574
+  languageName: node
+  linkType: hard
+
+"@formkit/validation@npm:1.0.0-beta.9-f64c966":
+  version: 1.0.0-beta.9-f64c966
+  resolution: "@formkit/validation@npm:1.0.0-beta.9-f64c966"
+  dependencies:
+    "@formkit/core": 1.0.0-beta.9-f64c966
+    "@formkit/observer": 1.0.0-beta.9-f64c966
+  checksum: b41486ab8105720d6e8fab47a32ab73ab561ebf33f35437011521846df4e0cf4896fe1493e988dc7e75375a18bc0ebfc2af08f93d9d3cc450e0756d3ff18f4ad
+  languageName: node
+  linkType: hard
+
+"@formkit/vue@npm:^1.0.0-beta.11":
+  version: 1.0.0-beta.9-f64c966
+  resolution: "@formkit/vue@npm:1.0.0-beta.9-f64c966"
+  dependencies:
+    "@formkit/core": 1.0.0-beta.9-f64c966
+    "@formkit/dev": 1.0.0-beta.9-f64c966
+    "@formkit/i18n": 1.0.0-beta.9-f64c966
+    "@formkit/inputs": 1.0.0-beta.9-f64c966
+    "@formkit/observer": 1.0.0-beta.9-f64c966
+    "@formkit/rules": 1.0.0-beta.9-f64c966
+    "@formkit/themes": 1.0.0-beta.9-f64c966
+    "@formkit/utils": 1.0.0-beta.9-f64c966
+    "@formkit/validation": 1.0.0-beta.9-f64c966
+  peerDependencies:
+    vue: ^3.2.1
+  checksum: 328461a9fe784c4bdb16820d9c968d6206e85b0d62debb423304b5aa35ee3a3c4c3d98927f0aa02ac17acfd1fbcaa6328342842e5874a74fae348fb8a24b668f
+  languageName: node
+  linkType: hard
+
 "@fortawesome/fontawesome-common-types@npm:6.2.0":
   version: 6.2.0
   resolution: "@fortawesome/fontawesome-common-types@npm:6.2.0"
@@ -377,6 +493,15 @@ __metadata:
   dependencies:
     "@fortawesome/fontawesome-common-types": 6.2.0
   checksum: 3bae680cba4098bc3a6aee04e655e0c6b6bab2d78e6709dc0a44d106f57a09bc2fd979310108777a373df301273a2a276739056f8984cd8bc5a50d37338c5380
+  languageName: node
+  linkType: hard
+
+"@fortawesome/free-brands-svg-icons@npm:^6.2.0":
+  version: 6.2.0
+  resolution: "@fortawesome/free-brands-svg-icons@npm:6.2.0"
+  dependencies:
+    "@fortawesome/fontawesome-common-types": 6.2.0
+  checksum: 402b4e102bec60b234169c878b08ab1280feededf91d54c9c080bfcae2a2b0c52e05ab3fb9192293ed5d488501335e656c726e7ba3926876277bdf8e31d34026
   languageName: node
   linkType: hard
 
@@ -1153,7 +1278,9 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "enterprise-dashboard@workspace:."
   dependencies:
+    "@formkit/vue": ^1.0.0-beta.11
     "@fortawesome/fontawesome-svg-core": ^6.2.0
+    "@fortawesome/free-brands-svg-icons": ^6.2.0
     "@fortawesome/free-regular-svg-icons": ^6.2.0
     "@fortawesome/free-solid-svg-icons": ^6.2.0
     "@fortawesome/vue-fontawesome": latest-3
@@ -1171,7 +1298,7 @@ __metadata:
     pinia: ^2.0.21
     simplebar: ^5.3.9
     typescript: ~4.7.4
-    vite: ^3.0.9
+    vite: ^3.2.2
     vue: ^3.2.38
     vue-filepond: ^7.0.3
     vue-router: ^4.1.5
@@ -2451,7 +2578,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"postcss@npm:^8.1.10, postcss@npm:^8.4.16":
+"postcss@npm:^8.1.10, postcss@npm:^8.4.18":
   version: 8.4.18
   resolution: "postcss@npm:8.4.18"
   dependencies:
@@ -2563,9 +2690,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"rollup@npm:~2.78.0":
-  version: 2.78.1
-  resolution: "rollup@npm:2.78.1"
+"rollup@npm:^2.79.1":
+  version: 2.79.1
+  resolution: "rollup@npm:2.79.1"
   dependencies:
     fsevents: ~2.3.2
   dependenciesMeta:
@@ -2573,7 +2700,7 @@ __metadata:
       optional: true
   bin:
     rollup: dist/bin/rollup
-  checksum: 9034814383ca5bdb4bea6d499270aeb31cdb0bb884f81b0c6a1d19c63cc973f040e6ee09b7af8a7169dd231c090f4b44ef8b99c4bfdf884aceeb3dcefb8cfa14
+  checksum: 6a2bf167b3587d4df709b37d149ad0300692cc5deb510f89ac7bdc77c8738c9546ae3de9322b0968e1ed2b0e984571f5f55aae28fa7de4cfcb1bc5402a4e2be6
   languageName: node
   linkType: hard
 
@@ -2979,19 +3106,20 @@ __metadata:
   languageName: node
   linkType: hard
 
-"vite@npm:^3.0.9":
-  version: 3.1.8
-  resolution: "vite@npm:3.1.8"
+"vite@npm:^3.2.2":
+  version: 3.2.2
+  resolution: "vite@npm:3.2.2"
   dependencies:
     esbuild: ^0.15.9
     fsevents: ~2.3.2
-    postcss: ^8.4.16
+    postcss: ^8.4.18
     resolve: ^1.22.1
-    rollup: ~2.78.0
+    rollup: ^2.79.1
   peerDependencies:
     less: "*"
     sass: "*"
     stylus: "*"
+    sugarss: "*"
     terser: ^5.4.0
   dependenciesMeta:
     fsevents:
@@ -3003,11 +3131,13 @@ __metadata:
       optional: true
     stylus:
       optional: true
+    sugarss:
+      optional: true
     terser:
       optional: true
   bin:
     vite: bin/vite.js
-  checksum: 982696ad134577dd9915c4c3548ad36ddcf5dc6d341058548a670a13d860e4cdaaf2b320a59221f178018df089d148b9980e9a344316bef12b698a1c1abc7390
+  checksum: 7197ac91c612dda922367a95afa1b210353d6168d41845c186e2217bda1328d17b021b93d8089e336f9533b94645ae5dca18bb10937759f559c87006dd957fcd
   languageName: node
   linkType: hard
 

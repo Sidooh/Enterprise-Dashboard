@@ -4,159 +4,138 @@
             <a class="d-flex align-items-center justify-content-center mb-4" href="/">
                 <img class="me-2" src="/sidooh.png" alt="" width="100">
             </a>
-
-            <article>
-                <header class="shadow-sm">
-                    <div class="d-flex">
-                        <div class="progress-step" :class="{'active':i === state.activeStep}"
-                             v-for="(step, i) in state.formSteps" :key="`step-${i}`">
-                            <span>{{ String(i + 1).padStart(2, '0') }}</span>
-                            <div class="position-absolute title">{{ step.title }}</div>
-                        </div>
-                    </div>
-                </header>
-
-                <section class="card shadow-sm" :class="state.animation">
-                    <div class="card-body p-4 p-sm-5 d-flex flex-column justify-content-center align-items-center">
-                        <h2>{{ state.formSteps[state.activeStep].title }}</h2>
-
-                        <div class="input-fields w-100">
-                            <div class="mb-3" v-for="(field, i) in state.formSteps[state.activeStep].fields"
-                                 :key="`field-${i}`">
-                                <input v-if="field?.type !== 'file'" :type="field?.type ?? 'text'"
-                                       v-model="field.value" class="form-control" :class="{'is-invalid': !field.valid}"
-                                       :placeholder="field.label" required>
+            <FormKit type="form" #default="{ value, state: { valid } }" :plugins="[stepPlugin]" @submit="submit"
+                     :actions="false">
+                <article>
+                    <header class="shadow-sm">
+                        <div class="d-flex">
+                            <div class="progress-step"
+                                 :class="{'active':activeStep === stepName, 'bg-danger text-light':checkStepValidity(stepName)}"
+                                 v-for="(step, stepName) in steps" :key="stepName">
+                                <span>{{ stepName }}</span>
+                                <div class="position-absolute title"
+                                     :class="{'text-danger':checkStepValidity(stepName)}">{{ step.title }}
+                                </div>
+                                <font-awesome-icon v-if="checkStepValidity(stepName)" :icon="faCircleExclamation"
+                                                   class="small exclaim text-danger"/>
                             </div>
                         </div>
+                    </header>
 
-                        <div class="mt-3 align-self-end">
-                            <button class="btn btn-sm btn-outline-secondary" @click="prevStep"
-                                    v-if="state.activeStep > 0 && state.activeStep <= state.formSteps.length - 2">
-                                <font-awesome-icon :icon="faLeftLong" class="me-2"/>
-                                Back
-                            </button>
-                            <button class="btn btn-sm btn-primary ms-2" @click="nextStep"
-                                    v-if="state.activeStep + 1 < state.formSteps.length - 1">Proceed
-                                <font-awesome-icon :icon="faRightLong" class="ms-2"/>
-                            </button>
-                            <button class="btn btn-sm btn-primary ms-2" @click="nextStep"
-                                    v-if="state.activeStep + 1 === state.formSteps.length - 1">
-                                Finish
-                                <font-awesome-icon :icon="faUserPlus" class="ms-1"/>
-                            </button>
-                        </div>
+                    <section class="card shadow-sm">
+                        <div class="card-body p-4 p-sm-5 d-flex flex-column justify-content-center align-items-center">
 
-                        <div class="col-auto fs--1 text-600">
-                            <small>Already registered? </small>
-                            <small>
-                                <router-link :to="{name:'login'}">Sign In</router-link>
-                            </small>
+                            <h2>Sign In</h2>
+
+                            <section v-show="activeStep === '01'">
+                                <FormKit type="group" id="01" name="01" title="Sign In"
+                                         :config="{classes:{message:'text-danger small', input:'form-control', outer:'mb-3'}}">
+                                    <FormKit type="email" name="email" placeholder="Email address"
+                                             validation="required|email"/>
+
+                                    <FormKit type="password" name="password" placeholder="password"
+                                             validation="required|min:8"/>
+                                </FormKit>
+                            </section>
+
+                            <section v-show="activeStep === '02'">
+                                <FormKit type="group" id="02" name="02" title="Verification"
+                                         :config="{classes:{message:'text-danger small', input:'form-control', outer:'mb-3'}}">
+                                    <FormKit name="otp" placeholder="Enter verification OTP"
+                                             validation="required"/>
+                                </FormKit>
+                            </section>
+
+                            <div class="text-center">
+                                <small class="text-danger" v-show="invalidCredentials">Invalid Credentials</small>
+                            </div>
+
+                            <div class="mt-3 d-flex align-self-end">
+                                <FormKit type="button" input-class="btn btn-sm btn-outline-secondary"
+                                         v-if="activeStep !== '01'" @click="setStep(-1)">
+                                    <font-awesome-icon :icon="faLeftLong" class="me-2"/>
+                                    Back
+                                </FormKit>
+                                <FormKit type="button" input-class="btn btn-sm btn-primary ms-2"
+                                         v-if="activeStep !== '02'" @click="submitCredentials(value)">
+                                    Proceed
+                                    <font-awesome-icon :icon="faRightLong" class="ms-1"/>
+                                </FormKit>
+                                <FormKit type="submit" input-class="btn btn-sm btn-primary ms-2"
+                                         v-if="activeStep === '02'" :disabled="!valid">
+                                    Verify
+                                    <font-awesome-icon :icon="faCloudversify" class="ms-1"/>
+                                </FormKit>
+                            </div>
+
+                            <div class="mt-3">
+                                <small>Haven't Signed In? </small>
+                                <small>
+                                    <router-link :to="{name:'register'}">Sign Up</router-link>
+                                </small>
+                            </div>
                         </div>
+                    </section>
+
+                    <div class="position-relative mt-4">
+                        <hr/>
+                        <div class="text-center">🌟</div>
                     </div>
-                </section>
 
-                <div class="position-relative mt-4">
-                    <hr/>
-                    <div class="text-center">🌟</div>
-                </div>
-
-                <div class="text-center">
-                    <i><small class="text-center opacity-75">Sidooh, Makes You Money with Every Purchase!</small></i>
-                </div>
-            </article>
+                    <div class="text-center">
+                        <i><small class="text-center opacity-75">Sidooh, Makes You Money with Every
+                            Purchase!</small></i>
+                    </div>
+                </article>
+            </FormKit>
         </div>
     </div>
 </template>
 
 <script setup lang="ts">
-import { reactive, ref } from "vue";
-import { useAuthStore } from "@/stores/auth";
-import router from "@/router";
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
-import { faLeftLong, faRightLong, faUserPlus } from '@fortawesome/free-solid-svg-icons'
+import { faCircleExclamation, faLeftLong, faRightLong } from '@fortawesome/free-solid-svg-icons'
+import { faCloudversify } from '@fortawesome/free-brands-svg-icons'
+import type { FormKitGroupValue, FormKitNode } from "@formkit/core";
+import useSteps from "@/hooks/useSteps";
+import { useAuthStore } from "@/stores/auth";
+import { ref } from "vue";
+import router from "@/router";
 
-type MultiFormState = {
-    activeStep: number;
-    animation: string;
-    formSteps: {
-        title: string;
-        fields: {
-            type?: string;
-            label: string;
-            value: string;
-            valid: boolean;
-            pattern: RegExp;
-        }[];
-    }[];
-}
-
-const state = reactive<MultiFormState>({
-    activeStep: 0,
-    animation: 'animate-in',
-    formSteps: [
-        {
-            title: 'Sign In',
-            fields: [
-                { type: 'email', label: 'Email address', value: '', valid: true, pattern: /.+/ },
-                { type: 'password', label: 'Password', value: '', valid: true, pattern: /.+/ },
-            ]
-        },
-        {
-            title: 'Verification',
-            fields: [
-                { label: 'Phone verification OTP', value: '', valid: true, pattern: /.+/ },
-            ]
-        }
-    ]
-})
-
-const email = ref()
-const password = ref()
-
-const emailError = ref(false)
-const passwordError = ref(false)
 const invalidCredentials = ref(false)
 
-const isEmailValid = (email: string) => {
-    const emailRegex = /^[A-z\d]+@[A-z]+(\.[A-z]+)+$/;
-    return email && email.toLowerCase().match(emailRegex)
+const { steps, visitedSteps, activeStep, setStep, stepPlugin, node } = useSteps()
+
+const submitCredentials = (value: any) => {
+    let data: { email: string, password: string } = value['01'];
+
+    useAuthStore()
+        .authenticate(data.email, data.password)
+        .then(() => {
+            invalidCredentials.value = false
+
+            setStep(1)
+
+            if (node) node.clearErrors()
+        })
+        .catch(() => invalidCredentials.value = true)
 }
 
-const isPasswordValid = (password: string) => password && password.length >= 8
+const submit = async (formData: FormKitGroupValue, node: FormKitNode) => {
+    try {
+        node.clearErrors()
 
-const nextStep = () => {
-    state.animation = 'animate-out'
-
-    setTimeout(() => {
-        state.animation = 'animate-in'
-        state.activeStep++
-    }, 500)
-}
-
-const prevStep = () => {
-    state.animation = 'animate-out'
-
-    setTimeout(() => {
-        state.animation = 'animate-in'
-        state.activeStep--
-    }, 500)
-}
-
-const submit = () => {
-    emailError.value = !isEmailValid(email.value)
-    passwordError.value = !isPasswordValid(password.value)
-
-    if (!emailError.value && !passwordError.value) {
         useAuthStore()
-            .authenticate(email.value, password.value)
-            .then(() => {
-                let urlIntended = localStorage.getItem('urlIntended') || '/';
-                localStorage.removeItem('urlIntended')
-
-                router.push({ path: urlIntended })
-            })
+            .verify(String(formData[1]))
+            .then(() => router.push({ name: 'dashboard' }))
             .catch(() => invalidCredentials.value = true)
+    } catch (err: any) {
+        node.setErrors(err.formErrors, err.fieldErrors)
     }
+}
+
+const checkStepValidity = (stepName: string) => {
+    return (steps[stepName].errorCount > 0 || steps[stepName].blockingCount > 0) && visitedSteps.value.includes(stepName)
 }
 </script>
 
