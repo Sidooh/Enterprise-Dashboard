@@ -195,5 +195,9 @@ const table = useVueTable({
 </script>
 
 <style scoped>
-
+.search-box {
+    font-size: .8333333333rem;
+    position: relative;
+    width: 21rem;
+}
 </style>
