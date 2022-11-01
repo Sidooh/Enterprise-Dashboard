@@ -135,7 +135,7 @@ const FilePond = vueFilePond(FilePondPluginFileValidateType);
 
 const file = ref(null)
 
-const { steps, visitedSteps, activeStep, setStep, stepPlugin } = useSteps()
+const { steps, visitedSteps, activeStep, setStep, stepPlugin, checkStepValidity } = useSteps()
 
 // NEW: submit handler, which posts to our fake backend.
 const submitApp = async (formData: FormKitGroupValue, node: FormKitNode) => {
@@ -146,9 +146,5 @@ const submitApp = async (formData: FormKitGroupValue, node: FormKitNode) => {
     } catch (err: any) {
         node.setErrors(err.formErrors, err.fieldErrors)
     }
-}
-
-const checkStepValidity = (stepName: string) => {
-    return (steps[stepName].errorCount > 0 || steps[stepName].blockingCount > 0) && visitedSteps.value.includes(stepName)
 }
 </script>
