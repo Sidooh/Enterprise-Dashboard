@@ -10,7 +10,6 @@ import 'bootstrap/dist/css/bootstrap.min.css'
 import './assets/main.css'
 import 'bootstrap/dist/js/bootstrap.min.js'
 
-
 axios.interceptors.response.use(response => {
         if (response.data && response.data.errors) return Promise.reject(response.data)
 

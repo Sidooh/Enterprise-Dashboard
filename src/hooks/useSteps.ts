@@ -72,5 +72,5 @@ export default function useSteps() {
     }
 
     // NEW: include visitedSteps in our return
-    return { activeStep, visitedSteps, steps, stepPlugin, setStep, node, checkStepValidity }
+    return { activeStep, visitedSteps, steps, stepPlugin, setStep, checkStepValidity }
 }

@@ -5,7 +5,7 @@
                 <img class="me-2" src="/sidooh.png" alt="" width="100">
             </a>
             <FormKit type="form" #default="{ value, state: { valid } }" :plugins="[stepPlugin]" @submit="submit"
-                     :actions="false">
+                     :actions="false" :incomplete-message="false">
                 <article>
                     <header class="shadow-sm">
                         <div class="d-flex">
@@ -41,8 +41,7 @@
                             <section v-show="activeStep === '02'">
                                 <FormKit type="group" id="02" name="02" title="Verification"
                                          :config="{classes:{message:'text-danger small', input:'form-control', outer:'mb-3'}}">
-                                    <FormKit name="otp" placeholder="Enter verification OTP"
-                                             validation="required"/>
+                                    <FormKit name="otp" placeholder="Enter verification OTP" validation="required"/>
                                 </FormKit>
                             </section>
 
@@ -57,8 +56,8 @@
                                     Back
                                 </FormKit>
                                 <FormKit type="button" input-class="btn btn-sm btn-primary ms-2"
-                                         v-if="activeStep !== '02'" @click="submitCredentials(value)">
-                                    Proceed
+                                         v-if="activeStep !== '02'" @click="e => submitCredentials(value['01'], e)">
+                                    Sign In
                                     <font-awesome-icon :icon="faRightLong" class="ms-1"/>
                                 </FormKit>
                                 <FormKit type="submit" input-class="btn btn-sm btn-primary ms-2"
@@ -97,26 +96,38 @@ import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 import { faCircleExclamation, faLeftLong, faRightLong } from '@fortawesome/free-solid-svg-icons'
 import { faCloudversify } from '@fortawesome/free-brands-svg-icons'
 import type { FormKitGroupValue, FormKitNode } from "@formkit/core";
+import { getNode } from "@formkit/core";
 import useSteps from "@/hooks/useSteps";
 import { LoginData, useAuthStore } from "@/stores/auth";
 import { ref } from "vue";
-import router from "@/router";
 
 const invalidCredentials = ref(false)
 
-const { steps, visitedSteps, activeStep, setStep, stepPlugin, node, checkStepValidity } = useSteps()
+const { steps, visitedSteps, activeStep, setStep, stepPlugin, checkStepValidity } = useSteps()
 
-const submitCredentials = (value: any) => {
-    let data: LoginData = value['01'];
+const submitCredentials = (formData: LoginData, e: any) => {
+    const node = getNode(activeStep.value)
+
+    if(!node) return
+
+    if (!steps[activeStep.value].valid) {
+        node.submit()
+
+        return
+    }
+
+    node.props.disabled = true
+    e.target.disabled = true
+
+    console.log(e.target, node.props, node.context?.state)
+    // return
 
     useAuthStore()
-        .authenticate(data.email, data.password)
+        .authenticate(formData.email, formData.password)
         .then(() => {
             invalidCredentials.value = false
 
             setStep(1)
-
-            if (node) node.clearErrors()
         })
         .catch(() => invalidCredentials.value = true)
 }
@@ -125,10 +136,13 @@ const submit = async (formData: FormKitGroupValue, node?: FormKitNode) => {
     try {
         node?.clearErrors()
 
-        useAuthStore()
-            .verify(String(formData[1]))
-            .then(() => router.push({ name: 'dashboard' }))
-            .catch(() => invalidCredentials.value = true)
+        const res = await useAuthStore().verify(String(formData[1]))
+
+        alert('Logged in!')
+            // .then(() => {
+            //     setTimeout(() => router.push({ name: 'dashboard' }), 2000)
+            // })
+            // .catch(() => invalidCredentials.value = true)
     } catch (err: any) {
         node?.setErrors(err.formErrors, err.fieldErrors)
     }
