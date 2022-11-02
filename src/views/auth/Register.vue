@@ -24,7 +24,7 @@
                     </header>
 
                     <section class="card shadow-sm">
-                        <div class="card-body p-4 d-flex flex-column justify-content-center align-items-center">
+                        <div class="card-body p-4 p-sm-5 d-flex flex-column justify-content-center align-items-center">
 
                             <h2>Sign Up</h2>
 
