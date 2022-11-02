@@ -37,7 +37,13 @@ export const useAuthStore = defineStore("auth", {
             }
         },
         async register(data: RegistrationData) {
-            console.log(data)
+            try {
+                console.log(data)
+            } catch (error: any) {
+                if ([400, 422].includes(error.response.status) && error.response.data) {
+                    throw new Error(error.response.data.errors[0].message)
+                }
+            }
         },
         async verify(otp: string) {
             console.log(otp)

@@ -109,7 +109,7 @@
                             <div class="mt-3">
                                 <small>Haven't Signed Up? </small>
                                 <small>
-                                    <router-link :to="{name:'login'}">Sign In</router-link>
+                                    <a href="/login">Sign In</a>
                                 </small>
                             </div>
                         </div>

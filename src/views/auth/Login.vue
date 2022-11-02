@@ -70,7 +70,7 @@
                             <div class="mt-3">
                                 <small>Haven't Signed In? </small>
                                 <small>
-                                    <router-link :to="{name:'register'}">Sign Up</router-link>
+                                    <a href="/register">Sign Up</a>
                                 </small>
                             </div>
                         </div>
@@ -100,6 +100,7 @@ import { getNode } from "@formkit/core";
 import useSteps from "@/hooks/useSteps";
 import { LoginData, useAuthStore } from "@/stores/auth";
 import { ref } from "vue";
+import router from "@/router";
 
 const invalidCredentials = ref(false)
 
@@ -108,19 +109,16 @@ const { steps, visitedSteps, activeStep, setStep, stepPlugin, checkStepValidity 
 const submitCredentials = (formData: LoginData, e: any) => {
     const node = getNode(activeStep.value)
 
-    if(!node) return
+    if (!node) return
 
     if (!steps[activeStep.value].valid) {
-        node.submit()
+        node?.submit()
 
         return
     }
 
-    node.props.disabled = true
+    if (node) node.props.disabled = true
     e.target.disabled = true
-
-    console.log(e.target, node.props, node.context?.state)
-    // return
 
     useAuthStore()
         .authenticate(formData.email, formData.password)
@@ -133,16 +131,16 @@ const submitCredentials = (formData: LoginData, e: any) => {
 }
 
 const submit = async (formData: FormKitGroupValue, node?: FormKitNode) => {
+    if (node) node.props.disabled = true
+
     try {
         node?.clearErrors()
 
-        const res = await useAuthStore().verify(String(formData[1]))
-
-        alert('Logged in!')
-            // .then(() => {
-            //     setTimeout(() => router.push({ name: 'dashboard' }), 2000)
-            // })
-            // .catch(() => invalidCredentials.value = true)
+        await useAuthStore().verify((Object.values(formData)[1] as { otp: string }).otp)
+            .then(() => {
+                router.push({ name: 'dashboard' })
+            })
+            .catch(() => invalidCredentials.value = true)
     } catch (err: any) {
         node?.setErrors(err.formErrors, err.fieldErrors)
     }
