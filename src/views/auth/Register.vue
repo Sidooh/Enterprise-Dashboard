@@ -5,8 +5,8 @@
                 <img class="me-2" src="/sidooh.png" alt="" width="100">
             </a>
 
-            <FormKit type="form" #default="{ value, state: { valid } }" :plugins="[stepPlugin]" @submit="submitApp"
-                     :actions="false">
+            <FormKit type="form" ref="form" #default="{ value, state: { valid } }" :plugins="[stepPlugin]"
+                     @submit="submitApp" :actions="false" :incomplete-message="false">
                 <article>
                     <header class="shadow-sm">
                         <div class="d-flex">
@@ -29,7 +29,7 @@
                             <h2>Sign Up</h2>
 
                             <section v-show="activeStep === '01'">
-                                <h5 class="text-center">Enterprise</h5>
+                                <h6 class="mb-0 mt-3">Enterprise</h6>
                                 <FormKit type="group" id="01" name="01" title="Sign Up"
                                          :config="{classes:{message:'text-danger small', input:'form-control', outer:'mb-3'}}">
                                     <FormKit name="name" placeholder="Name" validation="required"/>
@@ -45,7 +45,7 @@
                                         </div>
                                     </div>
 
-                                    <h5 class="text-center">Admin</h5>
+                                    <h6 class="mb-0 mt-3">Admin</h6>
 
                                     <FormKit name="admin_name" placeholder="Full Name" validation="required"
                                              validation-label="Admin full name"/>
@@ -70,7 +70,8 @@
                                         </div>
                                         <div class="col">
                                             <FormKit type="password" name="password_confirmation"
-                                                     placeholder="Confirm password" validation="required|confirm:password"
+                                                     placeholder="Confirm password"
+                                                     validation="required|confirm:password"
                                                      validation-label="Password confirmation"/>
                                         </div>
                                     </div>
@@ -134,6 +135,7 @@ import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 import { faCircleExclamation, faLeftLong, faRightLong } from '@fortawesome/free-solid-svg-icons'
 import { faCloudversify } from '@fortawesome/free-brands-svg-icons'
 import type { FormKitGroupValue, FormKitNode } from "@formkit/core";
+import { getNode } from "@formkit/core";
 import useSteps from "@/hooks/useSteps";
 import { RegistrationData, useAuthStore } from "@/stores/auth";
 import { toast } from "@/utils/helpers";
@@ -141,12 +143,16 @@ import { toast } from "@/utils/helpers";
 const { steps, node, visitedSteps, activeStep, setStep, stepPlugin, checkStepValidity } = useSteps()
 
 const submitCredentials = (formData: RegistrationData) => {
+    if (!steps[activeStep.value].valid) {
+        getNode(activeStep.value)?.submit()
+
+        return
+    }
+
     useAuthStore()
         .register(formData)
         .then(() => {
             setStep(1)
-
-            if (node) node.clearErrors()
         })
         .catch(() => toast({
             html: 'Unable to sign you up. Kindly contact <a href="mailto:@customersupport@sidooh.co.ke">Customer support</a>',
@@ -154,7 +160,6 @@ const submitCredentials = (formData: RegistrationData) => {
         }))
 }
 
-// NEW: submit handler, which posts to our fake backend.
 const submitApp = async (formData: FormKitGroupValue, node?: FormKitNode) => {
     try {
         console.log(formData)
