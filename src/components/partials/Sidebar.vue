@@ -19,147 +19,64 @@
             <div class="sidebar-content scrollbar d-flex justify-content-between">
                 <ul class="sidebar-nav mb-3 flex-column">
                     <li class="nav-item accordion" id="accordionExample">
-                        <router-link :to="{name:'dashboard'}" class="nav-link">
-                            <div class="d-flex align-items-center">
-                                <span class="nav-link-icon"><font-awesome-icon :icon="faChartPie"/></span>
-                                <span class="nav-link-text ps-1">Home</span>
-                            </div>
-                        </router-link>
-                        <div class="row sidebar-label-wrapper mt-3 mb-2">
-                            <div class="col-auto sidebar-label">App</div>
-                            <div class="col ps-0">
-                                <hr class="mb-0 sidebar-divider">
-                            </div>
-                        </div>
-                        <div class="accordion-item">
-                            <a class="nav-link dropdown-indicator collapsed" href="#voucher-management"
-                               role="button" data-bs-toggle="collapse" aria-expanded="false"
-                               aria-controls="voucher-management">
-                                <div class="d-flex align-items-center">
-                                    <span class="nav-link-icon"><font-awesome-icon :icon="faCloudBolt"/></span>
-                                    <span class="nav-link-text ps-1">Voucher Management</span>
+                        <div v-for="(link, i) in navLinks" :key="`nav-link-${i}`">
+                            <div v-if="link.label" class="row sidebar-label-wrapper mt-3 mb-2">
+                                <div class="col-auto sidebar-label">{{ link.label }}</div>
+                                <div class="col ps-0">
+                                    <hr class="mb-0 sidebar-divider">
                                 </div>
-                            </a>
-                            <ul class="nav accordion-collapse collapse" id="voucher-management"
-                                data-bs-parent="#accordionExample">
-                                <li class="nav-item">
-                                    <router-link class="nav-link" to="#">
-                                        <div class="d-flex align-items-center">
-                                            <span class="nav-link-text ps-1">Types</span>
-                                        </div>
-                                    </router-link>
-                                </li>
-                                <li class="nav-item">
-                                    <router-link class="nav-link" to="#">
-                                        <div class="d-flex align-items-center">
-                                            <span class="nav-link-text ps-1">Disbursement</span>
-                                        </div>
-                                    </router-link>
-                                </li>
-                            </ul>
-                        </div>
-
-                        <div class="accordion-item">
-                            <a class="nav-link dropdown-indicator collapsed" href="#float-management"
-                               role="button" data-bs-toggle="collapse" aria-expanded="false"
-                               aria-controls="float-management">
-                                <div class="d-flex align-items-center">
-                                    <span class="nav-link-icon"><font-awesome-icon :icon="faCoins"/></span>
-                                    <span class="nav-link-text ps-1">Float Management</span>
-                                </div>
-                            </a>
-                            <ul class="nav accordion-collapse collapse" id="float-management" data-bs-parent="#accordionExample">
-                                <li class="nav-item">
-                                    <router-link class="nav-link" to="#">
-                                        <div class="d-flex align-items-center">
-                                            <span class="nav-link-text ps-1">Transactions</span>
-                                        </div>
-                                    </router-link>
-                                </li>
-                                <li class="nav-item">
-                                    <router-link class="nav-link" to="#">
-                                        <div class="d-flex align-items-center">
-                                            <span class="nav-link-text ps-1">Requests</span>
-                                        </div>
-                                    </router-link>
-                                </li>
-                                <!--                            <li class="nav-item">
-                                                                <a class="nav-link dropdown-indicator" href="#course" data-bs-toggle="collapse"
-                                                                   aria-expanded="false"
-                                                                   aria-controls="e-learning">
-                                                                    <div class="d-flex align-items-center"><span
-                                                                        class="nav-link-text ps-1">Course</span>
-                                                                    </div>
-                                                                </a>
-                                                                <ul class="nav collapse" id="course">
-                                                                    <li class="nav-item">
-                                                                        <a class="nav-link">
-                                                                            <div class="d-flex align-items-center">
-                                                                                <span class="nav-link-text ps-1">list</span>
-                                                                            </div>
-                                                                        </a>
-                                                                    </li>
-                                                                    <li class="nav-item">
-                                                                        <a class="nav-link">
-                                                                            <div class="d-flex align-items-center">
-                                                                                <span class="nav-link-text ps-1">grid</span>
-                                                                            </div>
-                                                                        </a>
-                                                                    </li>
-                                                                </ul>
-                                                            </li>-->
-                            </ul>
-                        </div>
-
-                        <div class="accordion-item">
-                        <a class="nav-link dropdown-indicator collapsed" href="#account-management"
-                           role="button" data-bs-toggle="collapse" aria-expanded="false"
-                           aria-controls="account-management">
-                            <div class="d-flex align-items-center">
-                                <span class="nav-link-icon"><font-awesome-icon :icon="faUsers"/></span>
-                                <span class="nav-link-text ps-1">Account Management</span>
                             </div>
-                        </a>
-                        <ul class="nav accordion-collapse collapse" id="account-management" data-bs-parent="#accordionExample">
-                            <li class="nav-item">
-                                <router-link class="nav-link" to="#">
+
+                            <div v-for="(child, i) in link.children" :key="`child-${i}`">
+                                <div v-if="child.children">
+                                    <div class="accordion-item">
+                                        <a class="nav-link dropdown-indicator collapsed"
+                                           :href="`#${child.name.replace(/ +/g, '')}`"
+                                           role="button" data-bs-toggle="collapse" aria-expanded="false">
+                                            <div class="d-flex align-items-center">
+                                                <span class="nav-link-icon">
+                                                    <font-awesome-icon :icon="child.icon"/>
+                                                </span>
+                                                <span class="nav-link-text ps-1">{{ child.name }}</span>
+                                            </div>
+                                        </a>
+
+                                        <ul class="nav accordion-collapse collapse" :id="child.name.replace(/ +/g, '')"
+                                            data-bs-parent="#accordionExample">
+                                            <li v-for="(gChild, i) in child.children" :key="`g-child-${i}`"
+                                                class="nav-item">
+                                                <a class="nav-link" :class="{'dropdown-indicator': gChild.children}"
+                                                   data-bs-toggle="collapse"
+                                                   :href="`#${gChild.name.replace(/ +/g, '')}`">
+                                                    <div class="d-flex align-items-center">
+                                                        <span class="nav-link-text ps-1">{{ gChild.name }}</span>
+                                                    </div>
+                                                </a>
+                                                <ul v-if="gChild.children" class="nav collapse"
+                                                    :id="gChild.name.replace(/ +/g, '')">
+                                                    <li class="nav-item" v-for="(ggChild, i) in gChild.children"
+                                                        :key="`gg-child-${i}`">
+                                                        <a class="nav-link">
+                                                            <div class="d-flex align-items-center">
+                                                                <span class="nav-link-text ps-1">
+                                                                    {{ ggChild.name }}
+                                                                </span>
+                                                            </div>
+                                                        </a>
+                                                    </li>
+                                                </ul>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <router-link v-else :to="{name:child.label}" class="nav-link">
                                     <div class="d-flex align-items-center">
-                                        <span class="nav-link-text ps-1">Accounts</span>
+                                        <span class="nav-link-icon"><font-awesome-icon :icon="child.icon"/></span>
+                                        <span class="nav-link-text ps-1">{{ child.name }}</span>
                                     </div>
                                 </router-link>
-                            </li>
-                            <li class="nav-item">
-                                <router-link class="nav-link" to="#">
-                                    <div class="d-flex align-items-center">
-                                        <span class="nav-link-text ps-1">Teams</span>
-                                    </div>
-                                </router-link>
-                            </li>
-                        </ul>
-                        </div>
-
-                        <div class="row sidebar-label-wrapper mt-3 mb-2">
-                            <div class="col-auto sidebar-label">User</div>
-                            <div class="col ps-0">
-                                <hr class="mb-0 sidebar-divider">
                             </div>
                         </div>
-                        <a class="nav-link" role="button">
-                            <div class="d-flex align-items-center">
-                                <span class="nav-link-icon">
-                                    <font-awesome-icon :icon="faUserAlt"/>
-                                </span>
-                                <span class="nav-link-text ps-1">Account</span>
-                            </div>
-                        </a>
-                        <a class="nav-link" role="button">
-                            <div class="d-flex align-items-center">
-                                <span class="nav-link-icon">
-                                    <font-awesome-icon :icon="faIdCard"/>
-                                </span>
-                                <span class="nav-link-text ps-1">Profile</span>
-                            </div>
-                        </a>
                     </li>
                 </ul>
 
@@ -191,6 +108,103 @@ import {
 } from '@fortawesome/free-solid-svg-icons'
 import { onMounted } from "vue";
 import { useAuthStore } from "@/stores/auth";
+
+const navLinks = [
+    {
+        children: [
+            {
+                name: 'Dashboard',
+                icon: faChartPie,
+            }
+        ]
+    },
+    {
+        label: 'App',
+        children: [
+            {
+                name: 'Voucher Management',
+                active: true,
+                icon: faCloudBolt,
+                children: [
+                    {
+                        name: 'Types',
+                        to: '/',
+                        exact: true,
+                        active: true
+                    },
+                    {
+                        name: 'Disbursement',
+                        to: '/',
+                        exact: true,
+                        active: true
+                    },
+                ]
+            },
+            {
+                name: 'Float Management',
+                active: true,
+                icon: faCoins,
+                children: [
+                    {
+                        name: 'Transactions',
+                        to: '/',
+                        exact: true,
+                        active: true
+                    },
+                    {
+                        name: 'Requests',
+                        to: '/',
+                        exact: true,
+                        active: true
+                    },
+                    {
+                        name: 'Course',
+                        children: [
+                            {
+                                name: 'list'
+                            },
+                            {
+                                name: 'grid'
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                name: 'Account Management',
+                active: true,
+                icon: faUsers,
+                children: [
+                    {
+                        name: 'Accounts',
+                        to: '/',
+                        exact: true,
+                        active: true
+                    },
+                    {
+                        name: 'Teams',
+                        to: '/',
+                        exact: true,
+                        active: true
+                    },
+                ]
+            },
+        ]
+    },
+    {
+        label: 'User',
+        children: [
+            {
+                name: 'Account',
+                icon: faUserAlt,
+            },
+            {
+                name: 'Profile',
+                icon: faIdCard,
+            }
+        ]
+    }
+]
 
 onMounted(() => {
     let navbarVerticalToggle = document.querySelector('.sidebar-toggle');

@@ -1,14 +1,57 @@
 <script setup lang="ts"></script>
 
 <template>
-    <main id="top" class="main">
-        <div class="container" data-layout="container">
-            <router-view/>
+    <div class="row no-gutters vh-100">
+        <router-view/>
+        <div class="d-none d-md-flex h-100 justify-content-center align-items-center col-sm-6 bg-auth">
+            <a class="d-flex flex-column align-items-center text-decoration-none" href="/">
+                <img class="me-2" src="/sidooh.png" alt="" width="500">
+                <span class="service-name">Enterprise</span>
+            </a>
         </div>
-    </main>
+    </div>
 </template>
 
 <style>
+.step-header {
+    display: flex;
+    align-items: center;
+}
+
+.step-header .step {
+    width: 2rem;
+    height: 1rem;
+    background-color: #0F1B4C;
+    margin: 1rem .3rem 0;
+    border-radius: 1rem;
+}
+
+.step-header .step.active {
+    width: 4rem;
+}
+
+.step-header .step.active ~ .step {
+    color: #777;
+    background-color: #ddd;
+}
+
+.step-header .step .exclaim {
+    position: absolute;
+    top: -.4rem;
+    right: -.4rem;
+}
+
+.bg-auth {
+    /*background-color: #0F1B4C;*/
+    background-color: gold;
+}
+
+.service-name {
+    font-family: 'Pacifico', cursive;
+    font-size: 30pt;
+    color: #fff;
+}
+
 article {
     margin: 10px;
     width: calc(100% - 20px);
@@ -63,10 +106,6 @@ article header {
     white-space: nowrap;
 }
 
-.progress-step.active {
-    background-color: #070068;
-}
-
 .progress-step.active ~ .progress-step {
     color: #777;
     background-color: #ccc;
@@ -92,14 +131,13 @@ article header {
 
 section {
     width: 100%;
-    border-radius: 0!important;
+    border-radius: 0 !important;
 }
 
 section h2 {
     font-size: 1.6rem;
     color: #070068;
     margin: 0;
-    padding: .75rem;
 }
 
 .animate-in {

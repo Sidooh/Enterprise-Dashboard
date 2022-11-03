@@ -50,10 +50,17 @@ table td.actions .btn {
     height: 1.7rem;
     padding: 4px;
 }
+
+.no-gutters {
+    margin-right: 0;
+    margin-left: 0;
+}
+
 .formkit-input {
     display: flex;
     align-items: center;
 }
+
 [data-type=submit] .formkit-input::before {
     box-sizing: border-box;
     content: "";
@@ -62,8 +69,9 @@ table td.actions .btn {
     height: 1.28571428em;
     border: 0 solid transparent;
     border-radius: 1.28571428em;
-    transition: width .25s,border .25s,margin-right .25s;
+    transition: width .25s, border .25s, margin-right .25s;
 }
+
 [data-loading] [data-type="submit"] .formkit-input::before {
     -webkit-animation: rotate 0.5s linear infinite;
     animation: rotate 0.5s linear infinite;

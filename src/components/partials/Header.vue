@@ -98,10 +98,12 @@ const logout = () => {
 
 <style scoped>
 .navbar-brand {
+    display: none;
     opacity: 0;
 }
 
 .sidebar-collapsed .navbar-brand {
+    display: block;
     opacity: 1;
 }
 
