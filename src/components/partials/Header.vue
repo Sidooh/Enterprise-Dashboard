@@ -89,11 +89,7 @@
 <script setup lang="ts">
 import { useAuthStore } from "@/stores/auth";
 
-const logout = () => {
-    useAuthStore().logout()
-
-    window.location.reload()
-}
+const logout = () => useAuthStore().logout()
 </script>
 
 <style scoped>

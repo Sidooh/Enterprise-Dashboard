@@ -108,8 +108,9 @@ import {
 } from '@fortawesome/free-solid-svg-icons'
 import { onMounted } from "vue";
 import { useAuthStore } from "@/stores/auth";
+import { NavLinkType } from "@/utils/types";
 
-const navLinks = [
+const navLinks: NavLinkType[] = [
     {
         children: [
             {
@@ -129,13 +130,11 @@ const navLinks = [
                     {
                         name: 'Types',
                         to: '/',
-                        exact: true,
                         active: true
                     },
                     {
                         name: 'Disbursement',
                         to: '/',
-                        exact: true,
                         active: true
                     },
                 ]
@@ -148,23 +147,23 @@ const navLinks = [
                     {
                         name: 'Transactions',
                         to: '/',
-                        exact: true,
                         active: true
                     },
                     {
                         name: 'Requests',
                         to: '/',
-                        exact: true,
                         active: true
                     },
                     {
                         name: 'Course',
                         children: [
                             {
-                                name: 'list'
+                                name: 'list',
+                                to: '#'
                             },
                             {
-                                name: 'grid'
+                                name: 'grid',
+                                to: '#'
                             }
                         ]
                     }
@@ -178,13 +177,11 @@ const navLinks = [
                     {
                         name: 'Accounts',
                         to: '/',
-                        exact: true,
                         active: true
                     },
                     {
                         name: 'Teams',
                         to: '/',
-                        exact: true,
                         active: true
                     },
                 ]
@@ -213,7 +210,9 @@ onMounted(() => {
     if (navbarVerticalToggle) {
         navbarVerticalToggle.addEventListener('click', function (e) {
             // navbarVerticalToggle?.blur();
-            html?.classList.toggle('sidebar-collapsed'); // Set collapse state on localStorage
+            html?.classList.toggle('sidebar-collapsed');
+
+            // Set collapse state on localStorage
 
             // let isNavbarVerticalCollapsed = utils.getItemFromStore('isNavbarVerticalCollapsed');
             // utils.setItemToStore('isNavbarVerticalCollapsed', !isNavbarVerticalCollapsed);
@@ -225,11 +224,7 @@ onMounted(() => {
     }
 })
 
-const logout = () => {
-    useAuthStore().logout()
-
-    window.location.reload()
-}
+const logout = () => useAuthStore().logout()
 </script>
 
 <style scoped>
