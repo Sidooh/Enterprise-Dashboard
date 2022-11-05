@@ -11,7 +11,7 @@
         </a>
         <ul class="navbar-nav align-items-center d-none d-lg-block">
             <li class="nav-item">
-                <div class="search-box" data-list="{&quot;valueNames&quot;:[&quot;title&quot;]}">
+                <div class="search-box">
                     <form class="position-relative" data-bs-toggle="search" data-bs-display="static"
                           aria-expanded="false">
                         <input class="form-control search-input fuzzy-search" type="search" placeholder="Search..."
