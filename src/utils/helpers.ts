@@ -14,3 +14,9 @@ export const toast = async (data: SweetAlertOptions) => {
 
     await Swal.fire(options);
 };
+
+export const currencyFormat = (number?: number, currency = 'KES') => number && (new Intl.NumberFormat('en-GB', {
+    style: 'currency',
+    currency,
+    maximumFractionDigits: 4
+})).format(number);
