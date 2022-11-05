@@ -48,7 +48,7 @@ export const useAuthStore = defineStore("auth", {
         async verify(otp: string) {
             console.log(otp)
 
-            return await new Promise((r) => setTimeout(r, 3000))
+            return await new Promise((r) => setTimeout(r, 1000))
         },
         checkLocalAuth() {
             const token = localStorage.getItem("TOKEN")

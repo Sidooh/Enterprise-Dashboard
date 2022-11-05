@@ -9,7 +9,7 @@
     "module": "esnext",
     "moduleResolution": "node",
     "strict": true,
-    "sourceMap": true,
+//    "sourceMap": true,
     "skipLibCheck": true,
     "isolatedModules": true,
     "esModuleInterop": true,
