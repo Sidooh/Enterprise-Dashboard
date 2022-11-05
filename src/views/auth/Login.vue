@@ -25,7 +25,7 @@
                                         <FormKit type="group" id="01" name="01" title="Sign In"
                                                  :config="{classes:{message:'text-danger small', input:'form-control', outer:'mb-3'}}">
                                             <FormKit type="email" name="email" placeholder="Email address"
-                                                     validation="required|email"/>
+                                                     validation="required"/>
 
                                             <FormKit type="password" name="password" placeholder="password"
                                                      validation="required|min:8"/>
