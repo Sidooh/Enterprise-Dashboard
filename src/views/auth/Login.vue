@@ -103,7 +103,7 @@ import router from "@/router";
 
 const invalidCredentials = ref(false)
 
-const { steps, visitedSteps, activeStep, setStep, stepPlugin, checkStepValidity } = useSteps()
+const { steps, activeStep, setStep, stepPlugin, checkStepValidity } = useSteps()
 
 const submitCredentials = (formData: LoginData, e: any) => {
     const node = getNode(activeStep.value)

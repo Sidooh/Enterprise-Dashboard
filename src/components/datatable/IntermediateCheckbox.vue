@@ -8,7 +8,7 @@
 
 type Booleanish = boolean | 'true' | 'false'
 
-const props = defineProps<{ indeterminate?: boolean, checked?: Booleanish | any[] | Set<any>, onChange: Event }>()
+const props = defineProps<{ indeterminate?: boolean, checked?: Booleanish | any[] | Set<any>, onChange: (event: any) => void }>()
 
 /*const indeterminate = ref(props.indeterminate)
 const input = ref<HTMLInputElement>()

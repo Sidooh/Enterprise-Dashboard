@@ -5,7 +5,7 @@ import { createMessage, getNode } from '@formkit/core'
 
 export default function useSteps() {
     const activeStep = ref('')
-    const steps = reactive<{ [x: string]: { title: string, valid: Ref, errorCount: any, blockingCount: any } }>({})
+    const steps = reactive<{ [x: string]: { title?: string, valid?: Ref, errorCount?: any, blockingCount?: any } }>({})
     const visitedSteps = ref<string[]>([]) // track visited steps
     let node: FormKitNode | undefined;
 

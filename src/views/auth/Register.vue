@@ -143,7 +143,7 @@ import useSteps from "@/hooks/useSteps";
 import { RegistrationData, useAuthStore } from "@/stores/auth";
 import { toast } from "@/utils/helpers";
 
-const { steps, visitedSteps, activeStep, setStep, stepPlugin, checkStepValidity } = useSteps()
+const { steps, activeStep, setStep, stepPlugin, checkStepValidity } = useSteps()
 
 const submitCredentials = (formData: RegistrationData) => {
     if (!steps[activeStep.value].valid) {

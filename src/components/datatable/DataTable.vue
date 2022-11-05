@@ -78,7 +78,7 @@
                 <font-awesome-icon :icon="faAngleLeft" font-size="15"/>
             </button>
             <select name="" id="" class="form-select form-select-sm w-auto mx-2 border-0 pe-4"
-                    v-model.number="table.getState().pagination.pageSize" @change="e => table.setPageSize(Number(e.target.value))">
+                    v-model.number="table.getState().pagination.pageSize" @change="setPageSize">
                 <option :value="pageSize" v-for="(pageSize, i) in [5, 10, 20, 40]" :key="`size-${i}`">
                     Show {{ pageSize }}
                 </option>
@@ -122,12 +122,14 @@ import IntermediateCheckbox from './IntermediateCheckbox.vue'
 import DebouncedInput from './DebouncedInput.vue'
 import { rankItem } from "@tanstack/match-sorter-utils";
 
+const setPageSize = (e: any) => table.setPageSize(Number((e.target as HTMLSelectElement)?.value))
+
 const props = defineProps<{ title: string, columns: any, data: any }>()
 
 const tableTitle = ref(props.title)
 
 const sorting = ref<SortingState>([])
-const globalFilter = ref('')
+const globalFilter = ref<string | number>('')
 const rowSelection = ref<RowSelectionState>({})
 const selectedRowsCount = Object.keys(rowSelection.value).length;
 
@@ -142,13 +144,13 @@ const fuzzyFilter: FilterFn<any> = (row, columnId, value, addMeta) => {
     return itemRank.passed;
 };
 
-const setGlobalFilter = (value: string) => globalFilter.value = value
+const setGlobalFilter = (value: string | number) => globalFilter.value = value
 
 const table = useVueTable({
     get data() {
         return props.data
     },
-    columns:props.columns,
+    columns: props.columns,
     state: {
         get sorting() {
             return sorting.value
