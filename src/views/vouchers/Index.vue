@@ -1,7 +1,7 @@
 <template>
-    <div class="card mt-3">
+    <div class="card">
         <div class="card-body">
-            <DataTable title="Latest Transactions" :columns="columns" :data="tableData"/>
+            <DataTable title="Voucher Types" :columns="columns" :data="tableData"/>
         </div>
     </div>
 </template>

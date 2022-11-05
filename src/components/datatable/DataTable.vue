@@ -107,7 +107,6 @@ import {
 } from '@fortawesome/free-solid-svg-icons'
 import type { FilterFn, RowSelectionState, SortingState } from "@tanstack/vue-table";
 import {
-    createColumnHelper,
     FlexRender,
     getCoreRowModel,
     getFacetedMinMaxValues,
@@ -132,18 +131,6 @@ const globalFilter = ref('')
 const rowSelection = ref<RowSelectionState>({})
 const selectedRowsCount = Object.keys(rowSelection.value).length;
 
-const columnHelper = createColumnHelper<{}>()
-const columns = [
-    columnHelper.accessor('id', {
-        id: 'select',
-        header: ({ table }) => {
-            ``
-        },
-        cell: info => info.getValue(),
-    }),
-    ...props.columns
-]
-
 const fuzzyFilter: FilterFn<any> = (row, columnId, value, addMeta) => {
     // Rank the item
     const itemRank = rankItem(row.getValue(columnId), value);
@@ -161,7 +148,7 @@ const table = useVueTable({
     get data() {
         return props.data
     },
-    columns,
+    columns:props.columns,
     state: {
         get sorting() {
             return sorting.value
