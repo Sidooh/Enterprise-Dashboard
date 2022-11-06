@@ -124,8 +124,8 @@ const navLinks: NavLinkType[] = [
         label: 'App',
         children: [
             {
-                name: 'Vouchers',
-                to: '/vouchers',
+                name: 'Voucher Types',
+                to: '/voucher-types',
                 active: true,
                 icon: faCloudBolt,
             },
