@@ -8,8 +8,11 @@
 
 <script setup lang="ts">
 import DataTable from "@/components/datatable/DataTable.vue";
+import StatusBadge from "@/components/StatusBadge.vue";
 import { createColumnHelper } from "@tanstack/vue-table";
 import { currencyFormat } from "@/utils/helpers";
+import { h } from "vue";
+import { Status } from "@/utils/enums";
 
 type VoucherType = {
     name: string
@@ -32,10 +35,10 @@ const columns = [
         header: () => 'Limit',
         cell: info => currencyFormat(info.getValue())
     }),
-    /*columnHelper.accessor('status', {
+    columnHelper.accessor('status', {
         header: 'Status',
-        cell: info => h(StatusBadge, { status: info.getValue() })
-    }),*/
+        cell: info => h(StatusBadge, { status: info.getValue() as Status })
+    }),
 ]
 
 const tableData: VoucherType[] = [
