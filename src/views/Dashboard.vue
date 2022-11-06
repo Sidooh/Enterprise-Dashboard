@@ -16,10 +16,10 @@
                         <div class="card-body position-relative">
                             KSH 40,000
                             <span class="cursor-pointer position-absolute top-0 end-0 me-2 mt-1" title="Top Up Float">
-                                <font-awesome-icon :icon="faCirclePlus"/>
+                                <font-awesome-icon :icon="faCirclePlus" class="text-warning"/>
                             </span>
                         </div>
-                        <div class="card-footer">
+                        <div class="card-footer bg-warning text-white border-top-0">
                             Float Amount
                         </div>
                     </div>
@@ -29,7 +29,7 @@
                         <div class="card-body">
                             500
                         </div>
-                        <div class="card-footer">
+                        <div class="card-footer bg-warning text-white border-top-0">
                             Vouchers Disbursed
                         </div>
                     </div>
@@ -39,7 +39,7 @@
                         <div class="card-body">
                             50
                         </div>
-                        <div class="card-footer">
+                        <div class="card-footer bg-warning text-white border-top-0">
                             Accounts
                         </div>
                     </div>

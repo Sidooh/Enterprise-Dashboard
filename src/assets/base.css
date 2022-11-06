@@ -18,6 +18,9 @@
     --link-hover-color: #2362b7;
 
     --scrollbar-bg: rgba(52, 64, 80, 0.6);
+
+    /*  Overrides   */
+    --bs-warning-rgb: 245, 183, 0
 }
 
 *,

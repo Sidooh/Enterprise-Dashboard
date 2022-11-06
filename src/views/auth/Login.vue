@@ -126,7 +126,12 @@ const submitCredentials = (formData: LoginData, e: any) => {
 
             setStep(1)
         })
-        .catch(() => invalidCredentials.value = true)
+        .catch(() => {
+            invalidCredentials.value = true
+
+            if (node) node.props.disabled = false
+            e.target.disabled = false
+        })
 }
 
 const submit = async (formData: FormKitGroupValue, node?: FormKitNode) => {

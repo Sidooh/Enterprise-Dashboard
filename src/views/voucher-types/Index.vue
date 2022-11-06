@@ -42,7 +42,7 @@ const columns = [
         cell: ({ row }: CellContext<VoucherType, string>) => h(
             RouterLink,
             { to: { name: 'voucher-types.vouchers', params: { id: row.original.id } } },
-            h(FontAwesomeIcon, { icon: faEye })
+            () => h(FontAwesomeIcon, { icon: faEye })
         )
     },
 ]
