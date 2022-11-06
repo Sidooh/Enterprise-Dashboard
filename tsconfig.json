@@ -6,6 +6,8 @@
     "src/**/*.vue"
   ],
   "compilerOptions": {
+    "preserveValueImports": false,
+    "importsNotUsedAsValues": "preserve",
     "lib": [
       "DOM",
       "DOM.Iterable",

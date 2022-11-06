@@ -1,6 +1,9 @@
 import { defineStore } from "pinia";
 import axios from "axios";
 
+export type LoginData = { email: string, password: string }
+export type RegistrationData = LoginData & { name: string, country: string, address: string }
+
 export const useAuthStore = defineStore("auth", {
     state: () => ({
         token: '',
@@ -33,8 +36,19 @@ export const useAuthStore = defineStore("auth", {
                 }
             }
         },
+        async register(data: RegistrationData) {
+            try {
+                console.log(data)
+            } catch (error: any) {
+                if ([400, 422].includes(error.response.status) && error.response.data) {
+                    throw new Error(error.response.data.errors[0].message)
+                }
+            }
+        },
         async verify(otp: string) {
             console.log(otp)
+
+            return await new Promise((r) => setTimeout(r, 1000))
         },
         checkLocalAuth() {
             const token = localStorage.getItem("TOKEN")
@@ -45,6 +59,8 @@ export const useAuthStore = defineStore("auth", {
             this.$reset()
 
             localStorage.removeItem('TOKEN')
+
+            window.location.reload()
         }
     }
 })

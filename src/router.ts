@@ -1,22 +1,24 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import Login from '../views/auth/Login.vue'
-import Register from '../views/auth/Register.vue'
+import Login from './views/auth/Login.vue'
+import Register from './views/auth/Register.vue'
 import Auth from '@/components/layouts/Auth.vue'
 import { useAuthStore } from "@/stores/auth";
 
 const router = createRouter({
     history: createWebHistory(import.meta.env.BASE_URL),
     routes: [
-        { path: '/login', component: Login, meta: { layout: Auth, guest: true }, name: 'login' },
+        { path: '/login', name: 'login', component: Login, meta: { layout: Auth, guest: true } },
         {
             path: '/register',
+            name: 'register',
             component: Register,
-            meta: { layout: Auth, guest: true },
-            name: 'register'
+            meta: { layout: Auth, guest: true }
         },
 
-        { path: '/', name: 'dashboard', component: () => import('../views/Dashboard.vue') },
-    ]
+        { path: '/', name: 'dashboard', component: () => import('./views/Dashboard.vue') },
+        { path: '/vouchers', name: 'vouchers', component: () => import('./views/vouchers/Index.vue') },
+    ],
+    linkActiveClass: 'nav-active'
 })
 
 router.beforeEach((to, from, next) => {

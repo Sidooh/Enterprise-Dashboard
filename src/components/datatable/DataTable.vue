@@ -6,9 +6,25 @@
             </h6>
         </div>
     </div>
+    <div class="row">
+        <div class="col-auto col-sm-6 col-lg-4">
+            <div class="search-box me-2 mb-2 d-inline-block">
+                <div class="position-relative">
+                    <DebouncedInput type="search" :query="globalFilter ?? ''" label="Search all columns..."
+                                    :on-change="setGlobalFilter" placeholder="Search..."/>
+                    <i class="bx bx-search-alt search-icon"/>
+                </div>
+            </div>
+        </div>
+    </div>
     <table class="table">
         <thead>
         <tr v-for="headerGroup in table.getHeaderGroups()" :key="headerGroup.id">
+            <th>
+                <IntermediateCheckbox :checked="table.getIsAllRowsSelected()"
+                                      :indeterminate="table.getIsSomeRowsSelected()"
+                                      :on-change="table.getToggleAllRowsSelectedHandler()"/>
+            </th>
             <th class="fw-bolder" v-for="header in headerGroup.headers" :key="header.id" :colSpan="header.colSpan"
                 :class="header.column.getCanSort() ? 'cursor-pointer select-none' : ''"
                 @click="header.column.getToggleSortingHandler()?.($event)">
@@ -25,6 +41,13 @@
         </thead>
         <tbody>
         <tr v-for="row in table.getRowModel().rows.slice(0, 10)" :key="row.id">
+            <td>
+                <div class="px-1">
+                    <IntermediateCheckbox :checked="row.getIsSelected()"
+                                          :indeterminate="row.getIsSomeSelected()"
+                                          :on-change="row.getToggleSelectedHandler()"/>
+                </div>
+            </td>
             <td v-for="cell in row.getVisibleCells()" :key="cell.id">
                 <FlexRender :render="cell.column.columnDef.cell" :props="cell.getContext()"/>
             </td>
@@ -54,8 +77,11 @@
                     @click="table.previousPage()">
                 <font-awesome-icon :icon="faAngleLeft" font-size="15"/>
             </button>
-            <select name="" id="" class="form-select form-select-sm w-auto mx-2 border-0 pe-4">
-                <option :value="pageSize" v-for="(pageSize, i) in [5, 10, 20, 40]" :key="i">Show {{ pageSize }}</option>
+            <select name="" id="" class="form-select form-select-sm w-auto mx-2 border-0 pe-4"
+                    v-model.number="table.getState().pagination.pageSize" @change="setPageSize">
+                <option :value="pageSize" v-for="(pageSize, i) in [5, 10, 20, 40]" :key="`size-${i}`">
+                    Show {{ pageSize }}
+                </option>
             </select>
             <button class="btn btn-sm btn-primary" :disabled="!table.getCanNextPage()"
                     @click="table.nextPage()">
@@ -79,43 +105,91 @@ import {
     faSortDown,
     faSortUp
 } from '@fortawesome/free-solid-svg-icons'
-import type { SortingState } from "@tanstack/vue-table";
-import { FlexRender, getCoreRowModel, getSortedRowModel, useVueTable, } from '@tanstack/vue-table'
+import type { FilterFn, RowSelectionState, SortingState } from "@tanstack/vue-table";
+import {
+    FlexRender,
+    getCoreRowModel,
+    getFacetedMinMaxValues,
+    getFacetedRowModel,
+    getFacetedUniqueValues,
+    getFilteredRowModel,
+    getPaginationRowModel,
+    getSortedRowModel,
+    useVueTable,
+} from '@tanstack/vue-table'
 import { ref } from 'vue'
+import IntermediateCheckbox from './IntermediateCheckbox.vue'
+import DebouncedInput from './DebouncedInput.vue'
+import { rankItem } from "@tanstack/match-sorter-utils";
+
+const setPageSize = (e: any) => table.setPageSize(Number((e.target as HTMLSelectElement)?.value))
 
 const props = defineProps<{ title: string, columns: any, data: any }>()
 
 const tableTitle = ref(props.title)
 
 const sorting = ref<SortingState>([])
-const rowSelection = ref({})
+const globalFilter = ref<string | number>('')
+const rowSelection = ref<RowSelectionState>({})
 const selectedRowsCount = Object.keys(rowSelection.value).length;
-const data = ref(props.data)
+
+const fuzzyFilter: FilterFn<any> = (row, columnId, value, addMeta) => {
+    // Rank the item
+    const itemRank = rankItem(row.getValue(columnId), value);
+
+    // Store the ranking info
+    addMeta(itemRank);
+
+    // Return if the item should be filtered in/out
+    return itemRank.passed;
+};
+
+const setGlobalFilter = (value: string | number) => globalFilter.value = value
 
 const table = useVueTable({
     get data() {
-        return data.value
+        return props.data
     },
     columns: props.columns,
     state: {
         get sorting() {
             return sorting.value
         },
-        rowSelection: rowSelection.value
+        get globalFilter() {
+            return globalFilter.value
+        },
+        get rowSelection() {
+            return rowSelection.value
+        }
     },
     onSortingChange: updaterOrValue => {
-        sorting.value =
-            typeof updaterOrValue === 'function'
-                ? updaterOrValue(sorting.value)
-                : updaterOrValue
+        sorting.value = typeof updaterOrValue === 'function'
+            ? updaterOrValue(sorting.value)
+            : updaterOrValue
     },
+    onRowSelectionChange: update => {
+        rowSelection.value = typeof update === 'function'
+            ? update(rowSelection.value)
+            : update
+    },
+    onGlobalFilterChange: setGlobalFilter,
+    globalFilterFn: fuzzyFilter,
     getCoreRowModel: getCoreRowModel(),
     getSortedRowModel: getSortedRowModel(),
+    getFilteredRowModel: getFilteredRowModel(),
+    getPaginationRowModel: getPaginationRowModel(),
+    getFacetedRowModel: getFacetedRowModel(),
+    getFacetedUniqueValues: getFacetedUniqueValues(),
+    getFacetedMinMaxValues: getFacetedMinMaxValues(),
     debugTable: true,
 })
 
 </script>
 
 <style scoped>
-
+.search-box {
+    font-size: .8333333333rem;
+    position: relative;
+    width: 21rem;
+}
 </style>

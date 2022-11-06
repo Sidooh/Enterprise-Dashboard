@@ -11,7 +11,7 @@
         </a>
         <ul class="navbar-nav align-items-center d-none d-lg-block">
             <li class="nav-item">
-                <div class="search-box" data-list="{&quot;valueNames&quot;:[&quot;title&quot;]}">
+                <div class="search-box">
                     <form class="position-relative" data-bs-toggle="search" data-bs-display="static"
                           aria-expanded="false">
                         <input class="form-control search-input fuzzy-search" type="search" placeholder="Search..."
@@ -89,19 +89,17 @@
 <script setup lang="ts">
 import { useAuthStore } from "@/stores/auth";
 
-const logout = () => {
-    useAuthStore().logout()
-
-    window.location.reload()
-}
+const logout = () => useAuthStore().logout()
 </script>
 
 <style scoped>
 .navbar-brand {
+    display: none;
     opacity: 0;
 }
 
 .sidebar-collapsed .navbar-brand {
+    display: block;
     opacity: 1;
 }
 

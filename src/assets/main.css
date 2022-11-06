@@ -51,6 +51,38 @@ table td.actions .btn {
     padding: 4px;
 }
 
-.form-select {
-    /*background-image: none;*/
+.no-gutters {
+    margin-right: 0;
+    margin-left: 0;
+}
+
+.formkit-input {
+    display: flex;
+    align-items: center;
+}
+
+[data-type=submit] .formkit-input::before {
+    box-sizing: border-box;
+    content: "";
+    width: 0;
+    margin-right: 0;
+    height: 1.28571428em;
+    border: 0 solid transparent;
+    border-radius: 1.28571428em;
+    transition: width .25s, border .25s, margin-right .25s;
+}
+
+[data-loading] [data-type="submit"] .formkit-input::before {
+    -webkit-animation: rotate 0.5s linear infinite;
+    animation: rotate 0.5s linear infinite;
+    width: 1.28571428em;
+    border: 0.1428571429em solid white;
+    border-right-color: transparent;
+    margin-right: 0.75em;
+}
+
+@keyframes rotate {
+    100% {
+        transform: rotate(360deg);
+    }
 }

@@ -20,8 +20,6 @@ axios.interceptors.response.use(response => {
                 const authStore = useAuthStore()
 
                 authStore.logout()
-
-                await router.push({ name: 'login' })
             }
         }
 
