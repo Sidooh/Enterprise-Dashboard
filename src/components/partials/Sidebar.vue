@@ -103,18 +103,11 @@
 
 <script setup lang="ts">
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
-import {
-    faChartPie,
-    faCloudBolt,
-    faCoins,
-    faDoorOpen,
-    faIdCard,
-    faUserAlt,
-    faUsers
-} from '@fortawesome/free-solid-svg-icons'
-import { onMounted } from "vue";
+import { faChartPie, faCloudBolt, faCoins, faDoorOpen, faIdCard, faUsers } from '@fortawesome/free-solid-svg-icons'
+import { onMounted, ref } from "vue";
 import { useAuthStore } from "@/stores/auth";
 import { NavLinkType } from "@/utils/types";
+import { getItemFromStore, setItemToStore } from "@/utils/helpers";
 
 const navLinks: NavLinkType[] = [
     {
@@ -188,11 +181,6 @@ const navLinks: NavLinkType[] = [
         label: 'User',
         children: [
             {
-                name: 'Account',
-                to: '/account',
-                icon: faUserAlt,
-            },
-            {
                 name: 'Profile',
                 to: '/profile',
                 icon: faIdCard,
@@ -201,25 +189,28 @@ const navLinks: NavLinkType[] = [
     }
 ]
 
+let isNavbarVerticalCollapsed = ref(getItemFromStore('isNavbarVerticalCollapsed'))
+const HTMLClassList = document.getElementsByTagName('html')[0].classList;
+
 onMounted(() => {
-    let navbarVerticalToggle = document.querySelector('.sidebar-toggle');
+    let navbarVerticalToggle = document.querySelector('.sidebar-toggle') as HTMLElement;
     let html = document.querySelector('html');
 
     if (navbarVerticalToggle) {
         navbarVerticalToggle.addEventListener('click', function (e) {
-            // navbarVerticalToggle?.blur();
+            navbarVerticalToggle?.blur();
             html?.classList.toggle('sidebar-collapsed');
+            isNavbarVerticalCollapsed.value = getItemFromStore('isNavbarVerticalCollapsed')
 
-            // Set collapse state on localStorage
-
-            // let isNavbarVerticalCollapsed = utils.getItemFromStore('isNavbarVerticalCollapsed');
-            // utils.setItemToStore('isNavbarVerticalCollapsed', !isNavbarVerticalCollapsed);
+            setItemToStore('isNavbarVerticalCollapsed', String(!isNavbarVerticalCollapsed.value));
 
             let event = new CustomEvent('sidebar.toggle');
 
             e.currentTarget?.dispatchEvent(event);
         });
     }
+
+    HTMLClassList[isNavbarVerticalCollapsed.value ? 'add' : 'remove']('sidebar-collapsed')
 })
 
 const logout = () => {

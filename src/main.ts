@@ -29,6 +29,12 @@ axios.interceptors.response.use(response => {
 axios.defaults.baseURL = import.meta.env.VITE_ENTERPRISE_API_URL
 axios.defaults.headers.post['Content-Type'] = 'application/json'
 
-createApp(App).use(createPinia()).use(router).use(plugin, defaultConfig).mount('#app')
+createApp(App).use(createPinia()).use(router).use(plugin, defaultConfig({
+    config: {
+        classes: {
+            message: 'text-danger small'
+        }
+    }
+})).mount('#app')
 
 axios.defaults.headers.common['Authorization'] = "Bearer " + useAuthStore().token;
