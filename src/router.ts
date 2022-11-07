@@ -36,11 +36,26 @@ const router = createRouter({
                     path: 'requests', component: () => import('@/views/float/requests/Index.vue'), children: [
                         {
                             path: ':id',
-                            name: 'float.requests.show',
+                            name: 'float.accounts.show',
                             component: () => import('@/views/float/requests/Index.vue')
                         }
                     ]
                 }
+            ]
+        },
+        {
+            path: '/accounts',
+            children: [
+                {
+                    path: 'accounts', component: () => import('@/views/float/requests/Index.vue'), children: [
+                        {
+                            path: ':id',
+                            name: 'accounts.show',
+                            component: () => import('@/views/float/requests/Index.vue')
+                        }
+                    ]
+                },
+                { path: 'teams', component: () => import('@/views/float/transactions/Index.vue') }
             ]
         },
         {

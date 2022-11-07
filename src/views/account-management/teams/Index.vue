@@ -1,7 +1,7 @@
 <template>
     <div class="card">
         <div class="card-body">
-            <DataTable title="Float Requests" :columns="columns" :data="tableData"/>
+            <DataTable title="Float Transactions" :columns="columns" :data="tableData"/>
         </div>
     </div>
 </template>
@@ -17,10 +17,10 @@ import { Status } from "@/utils/enums";
 import { RouterLink } from "vue-router";
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 import { faEye } from "@fortawesome/free-regular-svg-icons";
-import { FloatRequest } from "@/utils/types";
+import { FloatTransaction } from "@/utils/types";
 import moment from "moment";
 
-const columnHelper = createColumnHelper<FloatRequest>()
+const columnHelper = createColumnHelper<FloatTransaction>()
 const columns = [
     columnHelper.accessor('amount', {
         header: () => 'Amount',
@@ -30,45 +30,44 @@ const columns = [
         header: 'Status',
         cell: info => h(StatusBadge, { status: info.getValue() as Status })
     }),
-    columnHelper.accessor('modified_by', {
-        header: 'Modified By',
-    }),
-    columnHelper.accessor('updated_at', {
-        header: 'Approved At',
-        cell: ({ row }: CellContext<FloatRequest, string>) => h(TableDate, { date: row.original.updated_at })
+    columnHelper.accessor(row => moment(row.created_at).calendar(), {
+        header: 'Created',
+        cell: ({ row }: CellContext<FloatTransaction, string>) => h(TableDate, { date: row.original.created_at })
     }),
     {
         id: 'actions',
         header: '',
-        cell: ({ row }: CellContext<FloatRequest, string>) => h(
+        cell: ({ row }: CellContext<FloatTransaction, string>) => h(
             RouterLink,
-            { to: { name: 'float.accounts.show', params: { id: row.original.id } } },
+            { to: { name: 'voucher-types.show', params: { id: row.original.id } } },
             () => h(FontAwesomeIcon, { icon: faEye })
         )
     },
 ]
 
-const tableData: FloatRequest[] = [
+const tableData: FloatTransaction[] = [
     {
         id: 1,
-        amount: 17000,
-        status: Status.APPROVED,
-        modified_by: 'Dr. H',
-        updated_at: moment().subtract(1, 'd').toISOString()
+        amount: 7000,
+        status: Status.PENDING,
+        created_at: moment().toISOString()
     },
     {
-        id: 1,
-        amount: 73000,
-        status: Status.APPROVED,
-        modified_by: 'Lil Nabz',
-        updated_at: moment().subtract(1, 'M').toISOString()
+        id: 2,
+        amount: 7000,
+        status: Status.COMPLETED,
+        created_at: moment().subtract(7, 'd').toISOString()
     },
     {
-        id: 1,
-        amount: 27000,
-        status: Status.DECLINED,
-        modified_by: 'Sidney',
-        updated_at: moment().subtract(1, 'h').toISOString()
+        id: 3,
+        amount: 7000,
+        status: Status.FAILED,
+    },
+    {
+        id: 4,
+        amount: 7000,
+        status: Status.COMPLETED,
+        created_at: moment().subtract(3, 'm').toISOString()
     },
 ]
 </script>

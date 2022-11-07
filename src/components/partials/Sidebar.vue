@@ -58,9 +58,9 @@
                                                             :key="`gg-child-${i}`">
                                                             <router-link :to="ggChild.to" class="nav-link">
                                                                 <div class="d-flex align-items-center">
-                                                                <span class="nav-link-text ps-1">
-                                                                    {{ ggChild.name }}
-                                                                </span>
+                                                                    <span class="nav-link-text ps-1">
+                                                                        {{ ggChild.name }}
+                                                                    </span>
                                                                 </div>
                                                             </router-link>
                                                         </li>
@@ -189,12 +189,12 @@ const navLinks: NavLinkType[] = [
         children: [
             {
                 name: 'Account',
-                to:'/account',
+                to: '/account',
                 icon: faUserAlt,
             },
             {
                 name: 'Profile',
-                to:'/profile',
+                to: '/profile',
                 icon: faIdCard,
             }
         ]
@@ -352,19 +352,6 @@ const logout = () => {
     transition: all .2s ease-in-out;
 }
 
-.sidebar .accordion-item:has(ul):has(.nav-active) > a,
-.sidebar div > .nav-active {
-    background-color: #E6E5F0;
-    border-left: 2px solid var(--bs-primary);
-    padding-left: .5rem!important;
-}
-.sidebar .accordion-item:has(ul):has(.nav-active) > ul .nav-active .nav-link-text {
-    font-weight: 700!important;
-}
-.sidebar .sidebar-nav .nav .nav-item .nav-link.nav-active {
-    padding: .2rem .2rem .2rem 1.5rem!important;
-}
-
 .dropdown-indicator {
     position: relative;
 }
@@ -373,7 +360,7 @@ const logout = () => {
     content: "";
     display: block;
     position: absolute;
-    right: 5px;
+    right: .5rem;
     height: .4rem;
     width: .4rem;
     border-right: 1px solid #5e6e82;
@@ -551,6 +538,31 @@ const logout = () => {
         transition-property: width, box-shadow, -webkit-box-shadow;
         display: inline-block !important;
         width: 12.625rem;
+    }
+
+    .sidebar .accordion-item:has(ul):has(.nav-active) > a,
+    .sidebar.sidebar-expand-xl div > .nav-link.nav-active {
+        background-color: #E6E5F0;
+        border-left: 2px solid var(--bs-primary);
+        padding-left: .5rem;
+    }
+
+    .sidebar .accordion-item:has(ul):has(.nav-active) > a .nav-link-text,
+    .sidebar.sidebar-expand-xl .nav-link.nav-active .nav-link-text {
+        font-weight: 700;
+    }
+
+    .sidebar .sidebar-nav .nav .nav-item .nav-link.nav-active {
+        padding: .2rem .2rem .2rem 1.5rem;
+    }
+
+    .sidebar-collapsed .sidebar .accordion-item:has(ul):has(.nav-active) > a,
+    .sidebar-collapsed .sidebar.sidebar-expand-xl div > .nav-link.nav-active {
+        border-left: 0;
+        background-color: transparent;
+        padding-left: 0;
+        color: var(--bs-warning);
+        font-weight: 700;
     }
 
     .sidebar-collapsed .sidebar.sidebar-expand-xl .dropdown-indicator:after,
