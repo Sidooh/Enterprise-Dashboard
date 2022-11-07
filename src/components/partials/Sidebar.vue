@@ -75,7 +75,7 @@
                                         </ul>
                                     </div>
                                 </div>
-                                <router-link v-else :to="{ path: child.to ?? '/dashboard' }" class="nav-link">
+                                <router-link v-else :to="child.to" class="nav-link">
                                     <div class="d-flex align-items-center">
                                         <span class="nav-link-icon"><font-awesome-icon :icon="child.icon"/></span>
                                         <span class="nav-link-text ps-1">{{ child.name }}</span>
@@ -130,6 +130,7 @@ const navLinks: NavLinkType[] = [
             },
             {
                 name: 'Float Management',
+                to: '#',
                 active: true,
                 icon: faCoins,
                 children: [
@@ -160,6 +161,7 @@ const navLinks: NavLinkType[] = [
             },
             {
                 name: 'Account Management',
+                to: '#',
                 active: true,
                 icon: faUsers,
                 children: [

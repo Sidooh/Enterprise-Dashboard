@@ -1,9 +1,10 @@
 import type { IconProp } from "@fortawesome/fontawesome-svg-core";
 import { Status } from "@/utils/enums";
+import { RouteLocationRaw } from "vue-router";
 
 export type NavLinkChildType = {
     name: string
-    to?: string
+    to: RouteLocationRaw
     active?: boolean
     icon?: IconProp
     children?: NavLinkChildType[]
