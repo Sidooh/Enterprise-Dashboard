@@ -23,7 +23,7 @@
                                     class="card-body p-4 p-xl-5 d-flex flex-column justify-content-center align-items-center">
                                     <section v-show="activeStep === '01'">
                                         <FormKit type="group" id="01" name="01" title="Sign In"
-                                                 :config="{classes:{message:'text-danger small', input:'form-control', outer:'mb-3'}}">
+                                                 :config="{classes:{input:'form-control', outer:'mb-3'}}">
                                             <FormKit type="email" name="email" placeholder="Email address"
                                                      validation="required"/>
 
@@ -34,7 +34,7 @@
 
                                     <section v-show="activeStep === '02'">
                                         <FormKit type="group" id="02" name="02" title="Verification"
-                                                 :config="{classes:{message:'text-danger small', input:'form-control', outer:'mb-3'}}">
+                                                 :config="{classes:{input:'form-control', outer:'mb-3'}}">
                                             <FormKit name="otp" placeholder="Enter verification OTP"
                                                      validation="required"/>
                                         </FormKit>
@@ -126,7 +126,12 @@ const submitCredentials = (formData: LoginData, e: any) => {
 
             setStep(1)
         })
-        .catch(() => invalidCredentials.value = true)
+        .catch(() => {
+            invalidCredentials.value = true
+
+            if (node) node.props.disabled = false
+            e.target.disabled = false
+        })
 }
 
 const submit = async (formData: FormKitGroupValue, node?: FormKitNode) => {

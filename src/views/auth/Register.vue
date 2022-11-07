@@ -31,7 +31,7 @@
                                     <section v-show="activeStep === '01'">
                                         <h6 class="mb-0 mt-3">Enterprise</h6>
                                         <FormKit type="group" id="01" name="01" title="Sign Up"
-                                                 :config="{classes:{message:'text-danger small', input:'form-control', outer:'mb-3'}}">
+                                                 :config="{classes:{input:'form-control', outer:'mb-3'}}">
                                             <FormKit name="name" placeholder="Name" validation="required"/>
 
                                             <div class="row g-2">
@@ -80,7 +80,7 @@
 
                                     <section v-show="activeStep === '02'">
                                         <FormKit type="group" id="02" name="02" title="Verification"
-                                                 :config="{classes:{message:'text-danger small', input:'form-control', outer:'mb-3'}}">
+                                                 :config="{classes:{input:'form-control', outer:'mb-3'}}">
                                             <FormKit name="email_otp" placeholder="Email verification OTP"
                                                      validation="required" validation-label="Email verification OTP"/>
                                             <FormKit name="phone_otp" placeholder="Phone verification OTP"

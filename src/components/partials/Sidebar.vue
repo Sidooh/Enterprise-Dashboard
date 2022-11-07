@@ -45,31 +45,37 @@
                                             data-bs-parent="#accordionExample">
                                             <li v-for="(gChild, i) in child.children" :key="`g-child-${i}`"
                                                 class="nav-item">
-                                                <a class="nav-link" :class="{'dropdown-indicator': gChild.children}"
-                                                   data-bs-toggle="collapse"
-                                                   :href="`#${gChild.name.replace(/ +/g, '')}`">
+                                                <div v-if="gChild.children">
+                                                    <a class="nav-link dropdown-indicator" data-bs-toggle="collapse"
+                                                       :href="`#${gChild.name.replace(/ +/g, '')}`">
+                                                        <div class="d-flex align-items-center">
+                                                            <span class="nav-link-text ps-1">{{ gChild.name }}</span>
+                                                        </div>
+                                                    </a>
+                                                    <ul class="nav collapse"
+                                                        :id="gChild.name.replace(/ +/g, '')">
+                                                        <li class="nav-item" v-for="(ggChild, i) in gChild.children"
+                                                            :key="`gg-child-${i}`">
+                                                            <router-link :to="ggChild.to" class="nav-link">
+                                                                <div class="d-flex align-items-center">
+                                                                    <span class="nav-link-text ps-1">
+                                                                        {{ ggChild.name }}
+                                                                    </span>
+                                                                </div>
+                                                            </router-link>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                                <router-link v-else class="nav-link" :to="gChild.to">
                                                     <div class="d-flex align-items-center">
                                                         <span class="nav-link-text ps-1">{{ gChild.name }}</span>
                                                     </div>
-                                                </a>
-                                                <ul v-if="gChild.children" class="nav collapse"
-                                                    :id="gChild.name.replace(/ +/g, '')">
-                                                    <li class="nav-item" v-for="(ggChild, i) in gChild.children"
-                                                        :key="`gg-child-${i}`">
-                                                        <a class="nav-link">
-                                                            <div class="d-flex align-items-center">
-                                                                <span class="nav-link-text ps-1">
-                                                                    {{ ggChild.name }}
-                                                                </span>
-                                                            </div>
-                                                        </a>
-                                                    </li>
-                                                </ul>
+                                                </router-link>
                                             </li>
                                         </ul>
                                     </div>
                                 </div>
-                                <router-link v-else :to="{ path: child.to ?? '/dashboard' }" class="nav-link">
+                                <router-link v-else :to="child.to" class="nav-link">
                                     <div class="d-flex align-items-center">
                                         <span class="nav-link-icon"><font-awesome-icon :icon="child.icon"/></span>
                                         <span class="nav-link-text ps-1">{{ child.name }}</span>
@@ -97,18 +103,11 @@
 
 <script setup lang="ts">
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
-import {
-    faChartPie,
-    faCloudBolt,
-    faCoins,
-    faDoorOpen,
-    faIdCard,
-    faUserAlt,
-    faUsers
-} from '@fortawesome/free-solid-svg-icons'
-import { onMounted } from "vue";
+import { faChartPie, faCloudBolt, faCoins, faDoorOpen, faIdCard, faUsers } from '@fortawesome/free-solid-svg-icons'
+import { onMounted, ref } from "vue";
 import { useAuthStore } from "@/stores/auth";
 import { NavLinkType } from "@/utils/types";
+import { getItemFromStore, setItemToStore } from "@/utils/helpers";
 
 const navLinks: NavLinkType[] = [
     {
@@ -124,27 +123,28 @@ const navLinks: NavLinkType[] = [
         label: 'App',
         children: [
             {
-                name: 'Vouchers',
-                to: '/vouchers',
+                name: 'Voucher Types',
+                to: '/voucher-types',
                 active: true,
                 icon: faCloudBolt,
             },
             {
                 name: 'Float Management',
+                to: '#',
                 active: true,
                 icon: faCoins,
                 children: [
                     {
                         name: 'Transactions',
-                        to: '/',
+                        to: '/float/transactions',
                         active: true
                     },
                     {
                         name: 'Requests',
-                        to: '/',
+                        to: '/float/requests',
                         active: true
                     },
-                    {
+                    /*{
                         name: 'Course',
                         children: [
                             {
@@ -156,22 +156,23 @@ const navLinks: NavLinkType[] = [
                                 to: '#'
                             }
                         ]
-                    }
+                    }*/
                 ]
             },
             {
                 name: 'Account Management',
+                to: '#',
                 active: true,
                 icon: faUsers,
                 children: [
                     {
                         name: 'Accounts',
-                        to: '/',
+                        to: '/accounts',
                         active: true
                     },
                     {
                         name: 'Teams',
-                        to: '/',
+                        to: '/teams',
                         active: true
                     },
                 ]
@@ -182,39 +183,43 @@ const navLinks: NavLinkType[] = [
         label: 'User',
         children: [
             {
-                name: 'Account',
-                icon: faUserAlt,
-            },
-            {
                 name: 'Profile',
+                to: '/profile',
                 icon: faIdCard,
             }
         ]
     }
 ]
 
+let isNavbarVerticalCollapsed = ref(getItemFromStore('isNavbarVerticalCollapsed'))
+const HTMLClassList = document.getElementsByTagName('html')[0].classList;
+
 onMounted(() => {
-    let navbarVerticalToggle = document.querySelector('.sidebar-toggle');
+    let navbarVerticalToggle = document.querySelector('.sidebar-toggle') as HTMLElement;
     let html = document.querySelector('html');
 
     if (navbarVerticalToggle) {
         navbarVerticalToggle.addEventListener('click', function (e) {
-            // navbarVerticalToggle?.blur();
+            navbarVerticalToggle?.blur();
             html?.classList.toggle('sidebar-collapsed');
+            isNavbarVerticalCollapsed.value = getItemFromStore('isNavbarVerticalCollapsed')
 
-            // Set collapse state on localStorage
-
-            // let isNavbarVerticalCollapsed = utils.getItemFromStore('isNavbarVerticalCollapsed');
-            // utils.setItemToStore('isNavbarVerticalCollapsed', !isNavbarVerticalCollapsed);
+            setItemToStore('isNavbarVerticalCollapsed', String(!isNavbarVerticalCollapsed.value));
 
             let event = new CustomEvent('sidebar.toggle');
 
             e.currentTarget?.dispatchEvent(event);
         });
     }
+
+    HTMLClassList[isNavbarVerticalCollapsed.value ? 'add' : 'remove']('sidebar-collapsed')
 })
 
-const logout = () => useAuthStore().logout()
+const logout = () => {
+    useAuthStore().logout()
+
+    window.location.reload()
+}
 </script>
 
 <style scoped>
@@ -348,7 +353,7 @@ const logout = () => useAuthStore().logout()
     content: "";
     display: block;
     position: absolute;
-    right: 5px;
+    right: .5rem;
     height: .4rem;
     width: .4rem;
     border-right: 1px solid #5e6e82;
@@ -483,7 +488,7 @@ const logout = () => useAuthStore().logout()
     }
 
     .sidebar.sidebar-expand-xl .sidebar-content {
-        width: 12.625rem;
+        width: 13.625rem;
         height: calc(100vh - 4.3125rem);
         padding: .5rem 0 0 0;
     }
@@ -501,7 +506,7 @@ const logout = () => useAuthStore().logout()
     }
 
     .sidebar.sidebar-expand-xl .nav-link {
-        padding: .7rem 0 .3rem;
+        padding: .5rem 0 .5rem;
     }
 
     .sidebar-collapsed .sidebar-brand {
@@ -526,6 +531,31 @@ const logout = () => useAuthStore().logout()
         transition-property: width, box-shadow, -webkit-box-shadow;
         display: inline-block !important;
         width: 12.625rem;
+    }
+
+    .sidebar .accordion-item:has(ul):has(.nav-active) > a,
+    .sidebar.sidebar-expand-xl div > .nav-link.nav-active {
+        background-color: #E6E5F0;
+        border-left: 2px solid var(--bs-primary);
+        padding-left: .5rem;
+    }
+
+    .sidebar .accordion-item:has(ul):has(.nav-active) > a .nav-link-text,
+    .sidebar.sidebar-expand-xl .nav-link.nav-active .nav-link-text {
+        font-weight: 700;
+    }
+
+    .sidebar .sidebar-nav .nav .nav-item .nav-link.nav-active {
+        padding: .2rem .2rem .2rem 1.5rem;
+    }
+
+    .sidebar-collapsed .sidebar .accordion-item:has(ul):has(.nav-active) > a,
+    .sidebar-collapsed .sidebar.sidebar-expand-xl div > .nav-link.nav-active {
+        border-left: 0;
+        background-color: transparent;
+        padding-left: 0;
+        color: var(--bs-warning);
+        font-weight: 700;
     }
 
     .sidebar-collapsed .sidebar.sidebar-expand-xl .dropdown-indicator:after,

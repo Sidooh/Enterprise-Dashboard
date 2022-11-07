@@ -16,7 +16,61 @@ const router = createRouter({
         },
 
         { path: '/', name: 'dashboard', component: () => import('./views/Dashboard.vue') },
-        { path: '/vouchers', name: 'vouchers', component: () => import('./views/vouchers/Index.vue') },
+        { path: '/profile', name: 'profile', component: () => import('./views/Profile.vue') },
+        {
+            path: '/voucher-types',
+            name: 'voucher-types',
+            component: () => import('./views/voucher-types/Index.vue'),
+            children: [
+                {
+                    path: ':id',
+                    name: 'voucher-types.show',
+                    component: () => import('./views/voucher-types/Show.vue')
+                }
+            ]
+        },
+        {
+            path: '/float',
+            children: [
+                { path: 'transactions', component: () => import('@/views/float/transactions/Index.vue') },
+                {
+                    path: 'requests', component: () => import('@/views/float/requests/Index.vue'), children: [
+                        {
+                            path: ':id',
+                            name: 'float.accounts.show',
+                            component: () => import('@/views/float/requests/Index.vue')
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            path: '/accounts',
+            component: () => import('@/views/accounts/Index.vue'),
+            children: [
+                {
+                    path: ':id',
+                    name: 'accounts.show',
+                    component: () => import('@/views/accounts/Index.vue')
+                }
+            ]
+        },
+        {
+            path: '/teams',
+            component: () => import('@/views/teams/Index.vue'),
+            children: [
+                {
+                    path: ':id',
+                    name: 'teams.show',
+                    component: () => import('@/views/teams/Index.vue')
+                }
+            ]
+        },
+        {
+            path: "/:pathMatch(.*)*",
+            name: "not-found",
+            component: () => import("@/views/Dashboard.vue"),
+        },
     ],
     linkActiveClass: 'nav-active'
 })
