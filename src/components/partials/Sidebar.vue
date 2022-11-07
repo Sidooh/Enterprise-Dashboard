@@ -214,7 +214,11 @@ onMounted(() => {
     }
 })
 
-const logout = () => useAuthStore().logout()
+const logout = () => {
+    useAuthStore().logout()
+
+    window.location.reload()
+}
 </script>
 
 <style scoped>

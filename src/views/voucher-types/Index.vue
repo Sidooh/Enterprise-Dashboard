@@ -1,7 +1,7 @@
 <template>
     <div class="card">
         <div class="card-body">
-            <DataTable title="Voucher Types" :columns="columns" :data="tableData"/>
+            <DataTable title="Voucher Types" :columns="columns" :data="tableData" :on-create-row="handleCreateVoucherType"/>
         </div>
     </div>
 </template>
@@ -41,7 +41,7 @@ const columns = [
         header: '',
         cell: ({ row }: CellContext<VoucherType, string>) => h(
             RouterLink,
-            { to: { name: 'voucher-types.vouchers', params: { id: row.original.id } } },
+            { to: { name: 'voucher-types.show', params: { id: row.original.id } } },
             () => h(FontAwesomeIcon, { icon: faEye })
         )
     },
@@ -70,6 +70,10 @@ const tableData: VoucherType[] = [
         status: 'Active',
     },
 ]
+
+const handleCreateVoucherType = () => {
+    console.log('weee')
+}
 </script>
 
 <style scoped>

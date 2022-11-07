@@ -21,13 +21,17 @@ const router = createRouter({
             name: 'voucher-types',
             component: () => import('./views/voucher-types/Index.vue'),
             children: [
-                { path: ':id', component: () => import('./views/voucher-types/Show.vue') },
                 {
-                    path: ':id/vouchers',
-                    name: 'voucher-types.vouchers',
-                    component: () => import('./views/voucher-types/Vouchers.vue')
+                    path: ':id',
+                    name: 'voucher-types.show',
+                    component: () => import('./views/voucher-types/Show.vue')
                 }
             ]
+        },
+        {
+            path: "/:pathMatch(.*)*",
+            name: "not-found",
+            component: () => import("@/views/Dashboard.vue"),
         },
     ],
     linkActiveClass: 'nav-active'

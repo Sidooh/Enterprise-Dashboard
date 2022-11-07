@@ -5,6 +5,12 @@
                 {{ selectedRowsCount ? `You have selected ${selectedRowsCount} ${tableTitle}` : title }}
             </h6>
         </div>
+        <div class="col-auto">
+            <div class="d-flex align-items-center">
+                <font-awesome-icon v-if="onCreateRow" :icon="faPlusCircle" @click="onCreateRow"
+                                   class="fs-4 rounded-circle shadow-sm cursor-pointer text-primary"/>
+            </div>
+        </div>
     </div>
     <div class="row">
         <div class="col-auto col-sm-6 col-lg-4">
@@ -102,6 +108,7 @@ import {
     faAngleRight,
     faAnglesLeft,
     faAnglesRight,
+    faPlusCircle,
     faSortDown,
     faSortUp
 } from '@fortawesome/free-solid-svg-icons'
@@ -124,14 +131,14 @@ import { rankItem } from "@tanstack/match-sorter-utils";
 
 const setPageSize = (e: any) => table.setPageSize(Number((e.target as HTMLSelectElement)?.value))
 
-const props = defineProps<{ title: string, columns: any, data: any }>()
+const props = defineProps<{ title: string, columns: any, data: any, onCreateRow?: () => void; }>()
 
 const tableTitle = ref(props.title)
 
 const sorting = ref<SortingState>([])
 const globalFilter = ref<string | number>('')
 const rowSelection = ref<RowSelectionState>({})
-const selectedRowsCount = Object.keys(rowSelection.value).length;
+const selectedRowsCount = ref(Object.keys(rowSelection.value).length);
 
 const fuzzyFilter: FilterFn<any> = (row, columnId, value, addMeta) => {
     // Rank the item
