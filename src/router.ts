@@ -45,17 +45,24 @@ const router = createRouter({
         },
         {
             path: '/accounts',
+            component: () => import('@/views/accounts/Index.vue'),
             children: [
                 {
-                    path: 'accounts', component: () => import('@/views/float/requests/Index.vue'), children: [
-                        {
-                            path: ':id',
-                            name: 'accounts.show',
-                            component: () => import('@/views/float/requests/Index.vue')
-                        }
-                    ]
-                },
-                { path: 'teams', component: () => import('@/views/float/transactions/Index.vue') }
+                    path: ':id',
+                    name: 'accounts.show',
+                    component: () => import('@/views/accounts/Index.vue')
+                }
+            ]
+        },
+        {
+            path: '/teams',
+            component: () => import('@/views/teams/Index.vue'),
+            children: [
+                {
+                    path: ':id',
+                    name: 'teams.show',
+                    component: () => import('@/views/teams/Index.vue')
+                }
             ]
         },
         {

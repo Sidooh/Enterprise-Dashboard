@@ -36,3 +36,10 @@ export type FloatRequest = Model & {
     status: Status
     modified_by: string
 }
+
+export type Account = Model & {
+    name: string
+    phone: number
+    role: string
+    status: Status
+}

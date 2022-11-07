@@ -9,3 +9,11 @@ export enum Status {
     APPROVED = 'APPROVED',
     DECLINED = 'DECLINED',
 }
+
+export enum Telco {
+    AIRTEL = 'AIRTEL',
+    EQUITEL = 'EQUITEL',
+    FAIBA = 'FAIBA',
+    SAFARICOM = 'SAFARICOM',
+    TELKOM = 'TELKOM',
+}

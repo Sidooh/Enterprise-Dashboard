@@ -495,7 +495,7 @@ const logout = () => {
     }
 
     .sidebar.sidebar-expand-xl .sidebar-content {
-        width: 12.625rem;
+        width: 13.625rem;
         height: calc(100vh - 4.3125rem);
         padding: .5rem 0 0 0;
     }
