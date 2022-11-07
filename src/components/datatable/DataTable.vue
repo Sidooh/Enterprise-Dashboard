@@ -84,6 +84,7 @@
                 <font-awesome-icon :icon="faAngleLeft" font-size="15"/>
             </button>
             <select name="" id="" class="form-select form-select-sm w-auto mx-2 border-0 pe-4"
+                    :disabled="!table.getCanNextPage() && !table.getCanPreviousPage()"
                     v-model.number="table.getState().pagination.pageSize" @change="setPageSize">
                 <option :value="pageSize" v-for="(pageSize, i) in [5, 10, 20, 40]" :key="`size-${i}`">
                     Show {{ pageSize }}

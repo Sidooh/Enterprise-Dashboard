@@ -6,4 +6,6 @@ export enum Status {
     INACTIVE = 'INACTIVE',
     PAID = 'PAID',
     PENDING = 'PENDING',
+    APPROVED = 'APPROVED',
+    DECLINED = 'DECLINED',
 }

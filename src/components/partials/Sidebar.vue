@@ -45,26 +45,32 @@
                                             data-bs-parent="#accordionExample">
                                             <li v-for="(gChild, i) in child.children" :key="`g-child-${i}`"
                                                 class="nav-item">
-                                                <a class="nav-link" :class="{'dropdown-indicator': gChild.children}"
-                                                   data-bs-toggle="collapse"
-                                                   :href="`#${gChild.name.replace(/ +/g, '')}`">
-                                                    <div class="d-flex align-items-center">
-                                                        <span class="nav-link-text ps-1">{{ gChild.name }}</span>
-                                                    </div>
-                                                </a>
-                                                <ul v-if="gChild.children" class="nav collapse"
-                                                    :id="gChild.name.replace(/ +/g, '')">
-                                                    <li class="nav-item" v-for="(ggChild, i) in gChild.children"
-                                                        :key="`gg-child-${i}`">
-                                                        <a class="nav-link">
-                                                            <div class="d-flex align-items-center">
+                                                <div v-if="gChild.children">
+                                                    <a class="nav-link dropdown-indicator" data-bs-toggle="collapse"
+                                                       :href="`#${gChild.name.replace(/ +/g, '')}`">
+                                                        <div class="d-flex align-items-center">
+                                                            <span class="nav-link-text ps-1">{{ gChild.name }}</span>
+                                                        </div>
+                                                    </a>
+                                                    <ul class="nav collapse"
+                                                        :id="gChild.name.replace(/ +/g, '')">
+                                                        <li class="nav-item" v-for="(ggChild, i) in gChild.children"
+                                                            :key="`gg-child-${i}`">
+                                                            <router-link :to="ggChild.to" class="nav-link">
+                                                                <div class="d-flex align-items-center">
                                                                 <span class="nav-link-text ps-1">
                                                                     {{ ggChild.name }}
                                                                 </span>
-                                                            </div>
-                                                        </a>
-                                                    </li>
-                                                </ul>
+                                                                </div>
+                                                            </router-link>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                                <router-link v-else class="nav-link" :to="gChild.to">
+                                                    <div class="d-flex align-items-center">
+                                                        <span class="nav-link-text ps-1">{{ gChild.name }}</span>
+                                                    </div>
+                                                </router-link>
                                             </li>
                                         </ul>
                                     </div>
@@ -136,15 +142,15 @@ const navLinks: NavLinkType[] = [
                 children: [
                     {
                         name: 'Transactions',
-                        to: '/',
+                        to: '/float/transactions',
                         active: true
                     },
                     {
                         name: 'Requests',
-                        to: '/',
+                        to: '/float/requests',
                         active: true
                     },
-                    {
+                    /*{
                         name: 'Course',
                         children: [
                             {
@@ -156,7 +162,7 @@ const navLinks: NavLinkType[] = [
                                 to: '#'
                             }
                         ]
-                    }
+                    }*/
                 ]
             },
             {

@@ -1,8 +1,7 @@
 <template>
     <div class="card">
         <div class="card-body">
-            <DataTable title="Voucher Types" :columns="columns" :data="tableData"
-                       :on-create-row="handleCreateVoucherType"/>
+            <DataTable title="Float Transactions" :columns="columns" :data="tableData"/>
         </div>
     </div>
 </template>
@@ -10,6 +9,7 @@
 <script setup lang="ts">
 import DataTable from "@/components/datatable/DataTable.vue";
 import StatusBadge from "@/components/StatusBadge.vue";
+import TableDate from "@/components/TableDate.vue";
 import { CellContext, createColumnHelper } from "@tanstack/vue-table";
 import { currencyFormat } from "@/utils/helpers";
 import { h } from "vue";
@@ -17,30 +17,27 @@ import { Status } from "@/utils/enums";
 import { RouterLink } from "vue-router";
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 import { faEye } from "@fortawesome/free-regular-svg-icons";
-import { VoucherType } from "@/utils/types";
+import { FloatTransaction } from "@/utils/types";
+import moment from "moment";
 
-const columnHelper = createColumnHelper<VoucherType>()
+const columnHelper = createColumnHelper<FloatTransaction>()
 const columns = [
-    columnHelper.accessor('name', {
-        cell: info => info.getValue(),
-    }),
-    columnHelper.accessor(row => row.type, {
-        id: 'type',
-        cell: info => info.getValue(),
-        header: () => 'Type',
-    }),
-    columnHelper.accessor('limit', {
-        header: () => 'Limit',
+    columnHelper.accessor('amount', {
+        header: () => 'Amount',
         cell: info => currencyFormat(info.getValue())
     }),
     columnHelper.accessor('status', {
         header: 'Status',
         cell: info => h(StatusBadge, { status: info.getValue() as Status })
     }),
+    columnHelper.accessor(row => moment(row.created_at).calendar(), {
+        header: 'Created',
+        cell: ({ row }: CellContext<FloatTransaction, string>) => h(TableDate, { date: row.original.created_at })
+    }),
     {
         id: 'actions',
         header: '',
-        cell: ({ row }: CellContext<VoucherType, string>) => h(
+        cell: ({ row }: CellContext<FloatTransaction, string>) => h(
             RouterLink,
             { to: { name: 'voucher-types.show', params: { id: row.original.id } } },
             () => h(FontAwesomeIcon, { icon: faEye })
@@ -48,33 +45,31 @@ const columns = [
     },
 ]
 
-const tableData: VoucherType[] = [
+const tableData: FloatTransaction[] = [
     {
         id: 1,
-        name: 'Lunch',
-        type: 'Locked',
-        limit: 7000,
-        status: Status.ACTIVE,
+        amount: 7000,
+        status: Status.PENDING,
+        created_at: moment().toISOString()
     },
     {
         id: 2,
-        name: 'Lunch',
-        type: 'Locked',
-        limit: 7000,
-        status: Status.INACTIVE,
+        amount: 7000,
+        status: Status.COMPLETED,
+        created_at: moment().subtract(7, 'd').toISOString()
     },
     {
         id: 3,
-        name: 'Lunch',
-        type: 'Locked',
-        limit: 7000,
-        status: Status.ACTIVE,
+        amount: 7000,
+        status: Status.FAILED,
+    },
+    {
+        id: 4,
+        amount: 7000,
+        status: Status.COMPLETED,
+        created_at: moment().subtract(3, 'm').toISOString()
     },
 ]
-
-const handleCreateVoucherType = () => {
-    console.log('weee')
-}
 </script>
 
 <style scoped>

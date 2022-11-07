@@ -25,6 +25,7 @@
     "chart.js": "^3.9.1",
     "filepond": "^4.30.4",
     "filepond-plugin-file-validate-type": "^1.2.8",
+    "moment": "^2.29.4",
     "pinia": "^2.0.21",
     "simplebar": "^5.3.9",
     "sweetalert2": "^11.6.5",

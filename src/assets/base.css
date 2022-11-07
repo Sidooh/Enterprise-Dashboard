@@ -21,7 +21,24 @@
 
     /*  Overrides   */
     --bs-warning-rgb: 245, 183, 0;
-    --bs-primary-rgb: 15, 27, 76
+    --bs-primary-rgb: 15, 27, 76;
+
+    --badge-soft-primary-background-color: #96a7ea;
+    --badge-soft-primary-color: #040817;
+    --badge-soft-secondary-background-color: #c0cfce;
+    --badge-soft-secondary-color: #283434;
+    --badge-soft-success-background-color: #c1fdad;
+    --badge-soft-success-color: #1f7503;
+    --badge-soft-info-background-color: #d4f2ff;
+    --badge-soft-info-color: #1978a2;
+    --badge-soft-warning-background-color: #ffe495;
+    --badge-soft-warning-color: #624900;
+    --badge-soft-danger-background-color: #ffa995;
+    --badge-soft-danger-color: #621200;
+    --badge-soft-light-background-color: #fefeff;
+    --badge-soft-light-color: #9fa0a2;
+    --badge-soft-dark-background-color: #ced1d4;
+    --badge-soft-dark-color: #070f19;
 }
 
 *,

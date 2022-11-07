@@ -29,6 +29,21 @@ const router = createRouter({
             ]
         },
         {
+            path: '/float',
+            children: [
+                { path: 'transactions', component: () => import('@/views/float/transactions/Index.vue') },
+                {
+                    path: 'requests', component: () => import('@/views/float/requests/Index.vue'), children: [
+                        {
+                            path: ':id',
+                            name: 'float.requests.show',
+                            component: () => import('@/views/float/requests/Index.vue')
+                        }
+                    ]
+                }
+            ]
+        },
+        {
             path: "/:pathMatch(.*)*",
             name: "not-found",
             component: () => import("@/views/Dashboard.vue"),
