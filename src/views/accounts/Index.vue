@@ -1,7 +1,7 @@
 <template>
     <div class="card">
         <div class="card-body">
-            <DataTable title="Accounts" :columns="columns" :data="tableData"/>
+            <DataTable title="Accounts" :columns="columns" :data="tableData" :on-create-row="handleCreateAccounts"/>
         </div>
     </div>
 </template>
@@ -18,6 +18,7 @@ import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 import { faEye } from "@fortawesome/free-regular-svg-icons";
 import { Account } from "@/utils/types";
 import moment from "moment";
+import { faTrash } from "@fortawesome/free-solid-svg-icons";
 
 const columnHelper = createColumnHelper<Account>()
 const columns = [
@@ -38,11 +39,18 @@ const columns = [
     {
         id: 'actions',
         header: '',
-        cell: ({ row }: CellContext<Account, string>) => h(
-            RouterLink,
-            { to: { name: 'accounts.show', params: { id: row.original.id } } },
-            () => h(FontAwesomeIcon, { icon: faEye })
-        )
+        cell: ({ row }: CellContext<Account, string>) => h('div', { class: 'd-flex justify-content-evenly' }, [
+            h(
+                RouterLink,
+                { to: { name: 'accounts.show', params: { id: row.original.id } } },
+                () => h(FontAwesomeIcon, { icon: faEye })
+            ),
+            h(
+                RouterLink,
+                { to: { name: 'accounts.show', params: { id: row.original.id } }, class: 'text-danger' },
+                () => h(FontAwesomeIcon, { icon: faTrash })
+            )
+        ])
     },
 ]
 
@@ -72,6 +80,10 @@ const tableData: Account[] = [
         updated_at: moment().subtract(1, 'd').toISOString()
     },
 ]
+
+const handleCreateAccounts = () => {
+    console.log('weee')
+}
 </script>
 
 <style scoped>
