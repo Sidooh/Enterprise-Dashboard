@@ -43,3 +43,8 @@ export type Account = Model & {
     role: string
     status: Status
 }
+
+export type Team = Model & {
+    name: string
+    status: Status
+}
