@@ -20,6 +20,7 @@
     --scrollbar-bg: rgba(52, 64, 80, 0.6);
 
     /*  Overrides   */
+    --bs-primary:#0F1B4C;
     --bs-warning-rgb: 245, 183, 0;
     --bs-primary-rgb: 15, 27, 76;
 

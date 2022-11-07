@@ -172,12 +172,12 @@ const navLinks: NavLinkType[] = [
                 children: [
                     {
                         name: 'Accounts',
-                        to: '/',
+                        to: '/accounts',
                         active: true
                     },
                     {
                         name: 'Teams',
-                        to: '/',
+                        to: '/teams',
                         active: true
                     },
                 ]
@@ -189,10 +189,12 @@ const navLinks: NavLinkType[] = [
         children: [
             {
                 name: 'Account',
+                to:'/account',
                 icon: faUserAlt,
             },
             {
                 name: 'Profile',
+                to:'/profile',
                 icon: faIdCard,
             }
         ]
@@ -348,6 +350,19 @@ const logout = () => {
     -webkit-transition: all .2s ease-in-out;
     -o-transition: all .2s ease-in-out;
     transition: all .2s ease-in-out;
+}
+
+.sidebar .accordion-item:has(ul):has(.nav-active) > a,
+.sidebar div > .nav-active {
+    background-color: #E6E5F0;
+    border-left: 2px solid var(--bs-primary);
+    padding-left: .5rem!important;
+}
+.sidebar .accordion-item:has(ul):has(.nav-active) > ul .nav-active .nav-link-text {
+    font-weight: 700!important;
+}
+.sidebar .sidebar-nav .nav .nav-item .nav-link.nav-active {
+    padding: .2rem .2rem .2rem 1.5rem!important;
 }
 
 .dropdown-indicator {
@@ -511,7 +526,7 @@ const logout = () => {
     }
 
     .sidebar.sidebar-expand-xl .nav-link {
-        padding: .7rem 0 .3rem;
+        padding: .5rem 0 .5rem;
     }
 
     .sidebar-collapsed .sidebar-brand {
