@@ -39,6 +39,8 @@ export const useAuthStore = defineStore("auth", {
         async register(data: RegistrationData) {
             try {
                 console.log(data)
+
+                return await new Promise((r) => setTimeout(r, 2000))
             } catch (error: any) {
                 if ([400, 422].includes(error.response.status) && error.response.data) {
                     throw new Error(error.response.data.errors[0].message)

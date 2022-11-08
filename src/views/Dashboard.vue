@@ -84,6 +84,8 @@ onMounted(() => {
             }]
         },
         options: {
+            responsive:true,
+            maintainAspectRatio:false,
             plugins: {
                 legend: {
                     align: 'end',

@@ -64,9 +64,22 @@ table td.actions .btn {
     margin-left: 0;
 }
 
+
+/*===   === === === === ===  FORMKIT */
 .formkit-input {
     display: flex;
     align-items: center;
+}
+
+.formkit-messages {
+    padding-left: .5rem;
+}
+
+.formkit-message {
+    --bs-text-opacity: 1;
+    color: rgba(var(--bs-danger-rgb), var(--bs-text-opacity)) !important;
+    font-size: 75%;
+    list-style: none;
 }
 
 [data-type=submit] .formkit-input::before {
@@ -80,7 +93,8 @@ table td.actions .btn {
     transition: width .25s, border .25s, margin-right .25s;
 }
 
-[data-loading] [data-type="submit"] .formkit-input::before {
+[data-loading] [data-type="submit"] .formkit-input::before,
+[data-type="submit"] .loading.formkit-input::before {
     -webkit-animation: rotate 0.5s linear infinite;
     animation: rotate 0.5s linear infinite;
     width: 1.28571428em;
