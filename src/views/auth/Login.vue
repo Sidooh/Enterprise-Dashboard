@@ -128,6 +128,8 @@ const submitVerification = async (formData: { '02': { otp: string } }, node?: Fo
     console.log(formData)
 
     try {
+        node?.clearErrors()
+
         const res = await useAuthStore().verify(formData['02'].otp)
 
         console.log(res)
