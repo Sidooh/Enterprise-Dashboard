@@ -3,8 +3,7 @@
         <div class="container">
             <div class="d-flex justify-content-center row">
                 <div class="col-auto col-xl-7">
-                    <FormKit type="form" #default="{ value, state: { valid } }" :plugins="[stepPlugin]" @submit="submit"
-                             :actions="false" :incomplete-message="false">
+                    <FormKit type="form" :plugins="[stepPlugin]" :actions="false" :incomplete-message="false">
                         <article>
                             <section class="card shadow-sm">
                                 <div class="step-header ps-2">
@@ -22,47 +21,56 @@
                                 <div
                                     class="card-body p-4 p-xl-5 d-flex flex-column justify-content-center align-items-center">
                                     <section v-show="activeStep === '01'">
-                                        <FormKit type="group" id="01" name="01" title="Sign In"
-                                                 :config="{classes:{input:'form-control', outer:'mb-3'}}">
-                                            <FormKit type="email" name="email" placeholder="Email address"
-                                                     validation="required"/>
+                                        <FormKit type="form" #default="{ value, state: { valid } }"
+                                                 :plugins="[stepPlugin]" @submit="submitCredentials"
+                                                 :actions="false" :incomplete-message="false">
+                                            <FormKit type="group" id="01" name="01" title="Sign In"
+                                                     :config="{classes:{input:'form-control', outer:'mb-3'}}">
+                                                <FormKit type="email" name="email" placeholder="Email address"
+                                                         validation="required"/>
 
-                                            <FormKit type="password" name="password" placeholder="password"
-                                                     validation="required|min:8"/>
+                                                <FormKit type="password" name="password" placeholder="password"
+                                                         validation="required|min:8"/>
+                                            </FormKit>
+
+                                            <div class="text-center">
+                                                <small class="text-danger" v-show="invalidCredentials">
+                                                    Invalid Credentials
+                                                </small>
+                                            </div>
+
+                                            <FormKit type="submit" input-class="btn btn-sm btn-primary ms-auto"
+                                                     :disabled="!valid">
+                                                Sign In
+                                                <font-awesome-icon :icon="faRightLong" class="ms-1"/>
+                                            </FormKit>
                                         </FormKit>
                                     </section>
 
                                     <section v-show="activeStep === '02'">
-                                        <FormKit type="group" id="02" name="02" title="Verification"
-                                                 :config="{classes:{input:'form-control', outer:'mb-3'}}">
-                                            <FormKit name="otp" placeholder="Enter verification OTP"
-                                                     validation="required"/>
+                                        <FormKit type="form" #default="{ value, state: { valid } }"
+                                                 :plugins="[stepPlugin]" @submit="submitVerification"
+                                                 :actions="false" :incomplete-message="false">
+                                            <FormKit type="group" id="02" name="02" title="Verification"
+                                                     :config="{classes:{input:'form-control', outer:'mb-3'}}">
+                                                <FormKit name="otp" placeholder="Enter verification OTP"
+                                                         validation="required"/>
+                                            </FormKit>
+
+                                            <div class="mt-3 d-flex justify-content-end">
+                                                <FormKit type="button" input-class="btn btn-sm btn-outline-secondary"
+                                                         v-if="activeStep !== '01'" @click="setStep(-1)">
+                                                    <font-awesome-icon :icon="faLeftLong" class="me-2"/>
+                                                    Back
+                                                </FormKit>
+                                                <FormKit type="submit" input-class="btn btn-sm btn-primary ms-2"
+                                                         :disabled="!valid">
+                                                    Verify
+                                                    <font-awesome-icon :icon="faCloudversify" class="ms-1"/>
+                                                </FormKit>
+                                            </div>
                                         </FormKit>
                                     </section>
-
-                                    <div class="text-center">
-                                        <small class="text-danger" v-show="invalidCredentials">Invalid
-                                            Credentials</small>
-                                    </div>
-
-                                    <div class="mt-3 d-flex align-self-end">
-                                        <FormKit type="button" input-class="btn btn-sm btn-outline-secondary"
-                                                 v-if="activeStep !== '01'" @click="setStep(-1)">
-                                            <font-awesome-icon :icon="faLeftLong" class="me-2"/>
-                                            Back
-                                        </FormKit>
-                                        <FormKit type="button" input-class="btn btn-sm btn-primary ms-2"
-                                                 v-if="activeStep !== '02'"
-                                                 @click="e => submitCredentials(value['01'], e)">
-                                            Sign In
-                                            <font-awesome-icon :icon="faRightLong" class="ms-1"/>
-                                        </FormKit>
-                                        <FormKit type="submit" input-class="btn btn-sm btn-primary ms-2"
-                                                 v-if="activeStep === '02'" :disabled="!valid">
-                                            Verify
-                                            <font-awesome-icon :icon="faCloudversify" class="ms-1"/>
-                                        </FormKit>
-                                    </div>
 
                                     <div class="mt-3">
                                         <small>Haven't Signed In? </small>
@@ -94,8 +102,7 @@
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 import { faCircleExclamation, faLeftLong, faRightLong } from '@fortawesome/free-solid-svg-icons'
 import { faCloudversify } from '@fortawesome/free-brands-svg-icons'
-import type { FormKitGroupValue, FormKitNode } from "@formkit/core";
-import { getNode } from "@formkit/core";
+import type { FormKitNode } from "@formkit/core";
 import useSteps from "@/hooks/useSteps";
 import { LoginData, useAuthStore } from "@/stores/auth";
 import { ref } from "vue";
@@ -105,47 +112,30 @@ const invalidCredentials = ref(false)
 
 const { steps, activeStep, setStep, stepPlugin, checkStepValidity } = useSteps()
 
-const submitCredentials = (formData: LoginData, e: any) => {
-    const node = getNode(activeStep.value)
+const submitCredentials = async (formData: { '01': LoginData }, node?: FormKitNode) => {
+    try {
+        await useAuthStore().authenticate(formData['01'].email, formData['01'].password)
 
-    if (!node) return
+        setStep(1)
+    } catch (err) {
+        invalidCredentials.value = true
 
-    if (!steps[activeStep.value].valid) {
-        node?.submit()
-
-        return
+        if (node) node.props.disabled = false
     }
-
-    if (node) node.props.disabled = true
-    e.target.disabled = true
-
-    useAuthStore()
-        .authenticate(formData.email, formData.password)
-        .then(() => {
-            invalidCredentials.value = false
-
-            setStep(1)
-        })
-        .catch(() => {
-            invalidCredentials.value = true
-
-            if (node) node.props.disabled = false
-            e.target.disabled = false
-        })
 }
 
-const submit = async (formData: FormKitGroupValue, node?: FormKitNode) => {
-    if (node) node.props.disabled = true
+const submitVerification = async (formData: { '02': { otp: string } }, node?: FormKitNode) => {
+    console.log(formData)
 
     try {
-        node?.clearErrors()
+        const res = await useAuthStore().verify(formData['02'].otp)
 
-        await useAuthStore().verify((Object.values(formData)[1] as { otp: string }).otp)
-            .then(() => {
-                router.push({ name: 'dashboard' })
-            })
-            .catch(() => invalidCredentials.value = true)
+        console.log(res)
+
+        await router.push({ name: 'dashboard' })
     } catch (err: any) {
+        invalidCredentials.value = true
+
         node?.setErrors(err.formErrors, err.fieldErrors)
     }
 }
