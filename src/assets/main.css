@@ -64,6 +64,10 @@ table td.actions .btn {
     margin-left: 0;
 }
 
+.btn-close {
+    transform: scale(.7);
+}
+
 
 /*===   === === === === ===  FORMKIT */
 .formkit-input {
@@ -101,6 +105,17 @@ table td.actions .btn {
     border: 0.1428571429em solid white;
     border-right-color: transparent;
     margin-right: 0.75em;
+}
+[data-type=checkbox] .formkit-options, [data-type=radio] .formkit-options {
+    margin: .7rem 0;
+    padding: 0;
+}
+.formkit-option {
+    list-style-type: none;
+}
+[data-type=checkbox] .formkit-wrapper, [data-type=radio] .formkit-wrapper {
+    display: flex;
+    align-items: center;
 }
 
 @keyframes rotate {
