@@ -46,10 +46,6 @@ import { Modal as BSModal } from 'bootstrap'
 import { faCloudversify } from '@fortawesome/free-brands-svg-icons'
 import { FormKitNode } from "@formkit/core";
 
-const state = reactive<{ modal?: BSModal }>({
-    modal: undefined
-})
-
 const columnHelper = createColumnHelper<VoucherType>()
 const columns = [
     columnHelper.accessor('name', {
@@ -78,7 +74,6 @@ const columns = [
         )
     },
 ]
-
 const tableData: VoucherType[] = [
     {
         id: 1,
@@ -102,6 +97,9 @@ const tableData: VoucherType[] = [
         status: Status.ACTIVE,
     },
 ]
+const state = reactive<{ modal?: BSModal }>({
+    modal: undefined
+})
 
 onMounted(() => {
     state.modal = new BSModal('#create-voucher-type', {})
