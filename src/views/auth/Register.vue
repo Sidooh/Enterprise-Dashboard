@@ -139,7 +139,7 @@ const { steps, activeStep, setStep, stepPlugin, checkStepValidity } = useSteps()
 
 const submitCredentials = async (formData: FormKitGroupValue, node?: FormKitNode) => {
     try {
-        const data = formData['02'] as RegistrationData
+        const data = formData['01'] as RegistrationData
         const res: any = await useAuthStore().register(data)
 
         if (res.error) {
