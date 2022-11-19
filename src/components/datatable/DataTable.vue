@@ -189,7 +189,7 @@ const table = useVueTable({
     getFacetedRowModel: getFacetedRowModel(),
     getFacetedUniqueValues: getFacetedUniqueValues(),
     getFacetedMinMaxValues: getFacetedMinMaxValues(),
-    debugTable: true,
+    // debugTable: true,
 })
 
 </script>

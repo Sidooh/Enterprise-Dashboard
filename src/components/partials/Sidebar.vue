@@ -359,19 +359,15 @@ const logout = () => {
     border-right: 1px solid #5e6e82;
     border-bottom: 1px solid #5e6e82;
     top: 50%;
-    -webkit-transform: translateY(-50%) rotate(45deg);
     -ms-transform: translateY(-50%) rotate(45deg);
     transform: translateY(-50%) rotate(45deg);
     -webkit-transition: all .2s ease-in-out;
     -o-transition: all .2s ease-in-out;
     transition: all .2s ease-in-out;
     -webkit-transform-origin: center;
-    -ms-transform-origin: center;
     transform-origin: center;
     -webkit-transition-property: border-color, -webkit-transform;
-    transition-property: border-color, -webkit-transform;
     -o-transition-property: transform, border-color;
-    transition-property: transform, border-color;
     transition-property: transform, border-color, -webkit-transform;
 }
 
@@ -418,7 +414,6 @@ const logout = () => {
 .sidebar .sidebar-nav .nav {
     -webkit-box-orient: vertical;
     -webkit-box-direction: normal;
-    -ms-flex-flow: column nowrap;
     flex-flow: column nowrap;
     font-size: .8333333333rem;
 }
@@ -444,7 +439,6 @@ const logout = () => {
         display: -webkit-box !important;
         display: -ms-flexbox !important;
         display: flex !important;
-        -ms-flex-preferred-size: auto;
         flex-basis: auto;
     }
 
@@ -479,9 +473,7 @@ const logout = () => {
         -o-transition: width .2s ease;
         transition: width .2s ease;
         -webkit-transition-property: width, -webkit-box-shadow;
-        transition-property: width, -webkit-box-shadow;
         -o-transition-property: width, box-shadow;
-        transition-property: width, box-shadow;
         transition-property: width, box-shadow, -webkit-box-shadow;
         display: inline-block !important;
         width: 12.625rem;
@@ -506,7 +498,7 @@ const logout = () => {
     }
 
     .sidebar.sidebar-expand-xl .nav-link {
-        padding: .5rem 0 .5rem;
+        padding: .7rem 0;
     }
 
     .sidebar-collapsed .sidebar-brand {
@@ -525,9 +517,7 @@ const logout = () => {
         -o-transition: width .2s ease;
         transition: width .2s ease;
         -webkit-transition-property: width, -webkit-box-shadow;
-        transition-property: width, -webkit-box-shadow;
         -o-transition-property: width, box-shadow;
-        transition-property: width, box-shadow;
         transition-property: width, box-shadow, -webkit-box-shadow;
         display: inline-block !important;
         width: 12.625rem;

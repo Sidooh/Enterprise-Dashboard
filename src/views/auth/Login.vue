@@ -30,7 +30,7 @@
                                                          validation="required"/>
 
                                                 <FormKit type="password" name="password" placeholder="password"
-                                                         validation="required|min:8"/>
+                                                         validation="required"/>
                                             </FormKit>
 
                                             <div class="text-center">
@@ -107,6 +107,8 @@ import useSteps from "@/hooks/useSteps";
 import { LoginData, useAuthStore } from "@/stores/auth";
 import { ref } from "vue";
 import router from "@/router";
+import { logger } from "@/utils/logger";
+import { toast } from "@/utils/helpers";
 
 const invalidCredentials = ref(false)
 
@@ -125,14 +127,14 @@ const submitCredentials = async (formData: { '01': LoginData }, node?: FormKitNo
 }
 
 const submitVerification = async (formData: { '02': { otp: string } }, node?: FormKitNode) => {
-    console.log(formData)
+    logger.log(formData)
 
     try {
         node?.clearErrors()
 
         const res = await useAuthStore().verify(formData['02'].otp)
 
-        console.log(res)
+        toast({ titleText: 'Login Successful!' })
 
         await router.push({ name: 'dashboard' })
     } catch (err: any) {

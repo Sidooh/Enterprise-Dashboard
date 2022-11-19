@@ -5,7 +5,7 @@
         <router-view/>
         <div class="d-none d-md-flex h-100 justify-content-center align-items-center col-sm-6 bg-auth">
             <a class="d-flex flex-column align-items-center text-decoration-none" href="/">
-                <img class="me-2" src="/sidooh.png" alt="" width="500">
+                <img class="me-2" src="/sidooh-primary.png" alt="" width="500">
                 <span class="service-name">Enterprise</span>
             </a>
         </div>
@@ -43,7 +43,7 @@
 
 .bg-auth {
     /*background-color: #0F1B4C;*/
-    background-color: gold;
+    background-color: #0F1B4C;
 }
 
 .service-name {
