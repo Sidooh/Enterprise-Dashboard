@@ -118,6 +118,11 @@ table td.actions .btn {
     align-items: center;
 }
 
+.formkit-help {
+    font-size: 9pt;
+}
+
+
 @keyframes rotate {
     100% {
         transform: rotate(360deg);

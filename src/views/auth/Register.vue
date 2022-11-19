@@ -28,15 +28,17 @@
                                             <FormKit type="group" id="01" name="01" title="Sign Up"
                                                      :config="{classes:{input:'form-control', outer:'mb-3'}}">
                                                 <FormKit name="name" placeholder="Name" validation="required"/>
+                                                <FormKit name="admin_name" placeholder="Admin Name"
+                                                         validation="required" validation-label="Admin name"/>
 
                                                 <div class="row g-2">
                                                     <div class="col">
-                                                        <FormKit name="enterprise_email" placeholder="Email address"
+                                                        <FormKit name="email" placeholder="Email address"
                                                                  validation="required"
                                                                  validation-label="Enterprise email"/>
                                                     </div>
                                                     <div class="col">
-                                                        <FormKit name="enterprise_phone" placeholder="Phone number"
+                                                        <FormKit name="phone" placeholder="Phone number"
                                                                  validation="required"
                                                                  validation-label="Enterprise phone"/>
                                                     </div>
@@ -45,7 +47,8 @@
                                                 <div class="row g-2">
                                                     <div class="col">
                                                         <FormKit type="password" name="password" placeholder="Password"
-                                                                 validation="required|min:7"/>
+                                                                 help="Uppercase, Lowercase, Number, Symbol, Min:10"
+                                                                 :validation="[['required'],['matches', /^(?=.*[A-Z])(?=.*\W)(?=.*[0-9])(?=.*[a-z])(?=.*[*.!@$%^&(){}:;<>,?~_+-=|]).{10,64}$/]]"/>
                                                     </div>
                                                     <div class="col">
                                                         <FormKit type="password" name="password_confirmation"
@@ -130,15 +133,20 @@ import useSteps from "@/hooks/useSteps";
 import { RegistrationData, useAuthStore } from "@/stores/auth";
 import { toast } from "@/utils/helpers";
 import router from "@/router";
+import { logger } from "@/utils/logger";
 
 const { steps, activeStep, setStep, stepPlugin, checkStepValidity } = useSteps()
 
 const submitCredentials = async (formData: { '01': RegistrationData }, node?: FormKitNode) => {
     try {
-        await useAuthStore().register(formData['01'])
+        const res: any = await useAuthStore().register(formData['01'])
 
-        setStep(1)
-    } catch (err) {
+        if (res.error) {
+            node?.setErrors(res.error)
+        } else {
+            setStep(1)
+        }
+    } catch (err: any) {
         if (node) node.props.disabled = false
 
         await toast({
@@ -154,7 +162,9 @@ const submitVerification = async (formData: { '02': { otp: string } }, node?: Fo
 
         const res = await useAuthStore().verify(formData['02'].otp)
 
-        console.log(res)
+        logger.log(res)
+
+        toast({ titleText: 'Registration Successful!' })
 
         await router.push({ name: 'login' })
     } catch (err: any) {
