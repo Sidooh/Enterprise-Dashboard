@@ -20,11 +20,11 @@
                                 <h2 class="px-3 mt-3">Sign In</h2>
                                 <div
                                     class="card-body p-4 p-xl-5 d-flex flex-column justify-content-center align-items-center">
-                                    <section v-show="activeStep === '01'">
+                                    <section v-show="activeStep === 'auth'">
                                         <FormKit type="form" #default="{ value, state: { valid } }"
                                                  :plugins="[stepPlugin]" @submit="submitCredentials"
                                                  :actions="false" :incomplete-message="false">
-                                            <FormKit type="group" id="01" name="01" title="Sign In"
+                                            <FormKit type="group" id="auth" name="auth" title="Sign In"
                                                      :config="{classes:{input:'form-control', outer:'mb-3'}}">
                                                 <FormKit type="email" name="email" placeholder="Email address"
                                                          validation="required"/>
@@ -47,11 +47,11 @@
                                         </FormKit>
                                     </section>
 
-                                    <section v-show="activeStep === '02'">
+                                    <section v-show="activeStep === 'verify'">
                                         <FormKit type="form" #default="{ value, state: { valid } }"
                                                  :plugins="[stepPlugin]" @submit="submitVerification"
                                                  :actions="false" :incomplete-message="false">
-                                            <FormKit type="group" id="02" name="02" title="Verification"
+                                            <FormKit type="group" id="verify" name="verify" title="Verification"
                                                      :config="{classes:{input:'form-control', outer:'mb-3'}}">
                                                 <FormKit name="otp" placeholder="Enter verification OTP"
                                                          validation="required"/>
@@ -59,7 +59,7 @@
 
                                             <div class="mt-3 d-flex justify-content-end">
                                                 <FormKit type="button" input-class="btn btn-sm btn-outline-secondary"
-                                                         v-if="activeStep !== '01'" @click="setStep(-1)">
+                                                         v-if="activeStep !== 'auth'" @click="setStep(-1)">
                                                     <font-awesome-icon :icon="faLeftLong" class="me-2"/>
                                                     Back
                                                 </FormKit>
@@ -117,7 +117,7 @@ const { steps, activeStep, setStep, stepPlugin, checkStepValidity } = useSteps()
 
 const submitCredentials = async (formData: FormKitGroupValue, node?: FormKitNode) => {
     try {
-        await useAuthStore().authenticate(formData['02'] as LoginData)
+        await useAuthStore().authenticate(formData.auth as LoginData)
 
         setStep(1)
     } catch (err) {
@@ -129,7 +129,7 @@ const submitCredentials = async (formData: FormKitGroupValue, node?: FormKitNode
 
 const submitVerification = async (formData: FormKitGroupValue, node?: FormKitNode) => {
     try {
-        const data = formData['02'] as { otp: string }
+        const data = formData.verify as { otp: string }
         node?.clearErrors()
 
         const res = await useAuthStore().verify(data.otp)
