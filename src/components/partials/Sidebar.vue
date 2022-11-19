@@ -35,7 +35,7 @@
                                            role="button" data-bs-toggle="collapse" aria-expanded="false">
                                             <div class="d-flex align-items-center">
                                                 <span class="nav-link-icon">
-                                                    <font-awesome-icon :icon="child.icon"/>
+                                                    <font-awesome-icon :icon="child.icon ?? ''"/>
                                                 </span>
                                                 <span class="nav-link-text ps-1">{{ child.name }}</span>
                                             </div>
@@ -77,7 +77,7 @@
                                 </div>
                                 <router-link v-else :to="child.to" class="nav-link">
                                     <div class="d-flex align-items-center">
-                                        <span class="nav-link-icon"><font-awesome-icon :icon="child.icon"/></span>
+                                        <span class="nav-link-icon"><font-awesome-icon :icon="child.icon ?? ''"/></span>
                                         <span class="nav-link-text ps-1">{{ child.name }}</span>
                                     </div>
                                 </router-link>

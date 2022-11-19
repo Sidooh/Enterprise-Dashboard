@@ -46,12 +46,12 @@ import { Status } from "@/utils/enums";
 import { RouterLink } from "vue-router";
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 import { faEye } from "@fortawesome/free-regular-svg-icons";
-import { Account, VoucherType } from "@/utils/types";
+import { Account } from "@/utils/types";
 import moment from "moment";
 import { faTrash } from "@fortawesome/free-solid-svg-icons";
 import { faCloudversify } from '@fortawesome/free-brands-svg-icons'
 import { Modal as BSModal } from "bootstrap";
-import { FormKitNode } from "@formkit/core";
+import { FormKitGroupValue, FormKitNode } from "@formkit/core";
 
 const columnHelper = createColumnHelper<Account>()
 const columns = [
@@ -126,7 +126,7 @@ const handleCreateRow = () => {
     state.modal?.show()
 }
 
-const submitNewAccount = async (formData: VoucherType, node?: FormKitNode) => {
+const submitNewAccount = async (formData: FormKitGroupValue, node?: FormKitNode) => {
     try {
         node?.clearErrors()
 

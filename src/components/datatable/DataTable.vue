@@ -113,8 +113,8 @@ import {
     faSortDown,
     faSortUp
 } from '@fortawesome/free-solid-svg-icons'
-import type { FilterFn, RowSelectionState, SortingState } from "@tanstack/vue-table";
 import {
+    FilterFn,
     FlexRender,
     getCoreRowModel,
     getFacetedMinMaxValues,
@@ -123,7 +123,9 @@ import {
     getFilteredRowModel,
     getPaginationRowModel,
     getSortedRowModel,
-    useVueTable,
+    RowSelectionState,
+    SortingState,
+    useVueTable
 } from '@tanstack/vue-table'
 import { ref } from 'vue'
 import IntermediateCheckbox from './IntermediateCheckbox.vue'

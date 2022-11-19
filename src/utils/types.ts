@@ -1,12 +1,12 @@
-import type { IconProp } from "@fortawesome/fontawesome-svg-core";
 import { Status } from "@/utils/enums";
 import { RouteLocationRaw } from "vue-router";
+import { IconDefinition } from "@fortawesome/free-solid-svg-icons";
 
 export type NavLinkChildType = {
     name: string
     to: RouteLocationRaw
     active?: boolean
-    icon?: IconProp
+    icon?: IconDefinition
     children?: NavLinkChildType[]
 }
 export type NavLinkType = {
