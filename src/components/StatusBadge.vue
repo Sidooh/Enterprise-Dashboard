@@ -1,16 +1,21 @@
 <template>
 <span :class="`badge badge-soft-${color} rounded-pill`">
-    <font-awesome-icon :icon="icon"/> {{ status }}
+    <font-awesome-icon :icon="icon ?? ''"/> {{ status }}
 </span>
 </template>
 
 <script setup lang="ts">
-import { VueElement } from "vue";
 import { Status } from "@/utils/enums";
-import { faCalendarXmark, faCheck, faCircleExclamation, faHourglassStart } from "@fortawesome/free-solid-svg-icons";
+import {
+    faCalendarXmark,
+    faCheck,
+    faCircleExclamation,
+    faHourglassStart,
+    IconDefinition
+} from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 
-const props = defineProps<{ icon?: VueElement, status: Status }>(),
+const props = defineProps<{ icon?: IconDefinition, status: Status }>(),
     status = props.status.toUpperCase() as Status
 
 const statusProps = (status: Status) => {

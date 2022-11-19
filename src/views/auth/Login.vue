@@ -103,6 +103,7 @@ import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 import { faCircleExclamation, faLeftLong, faRightLong } from '@fortawesome/free-solid-svg-icons'
 import { faCloudversify } from '@fortawesome/free-brands-svg-icons'
 import type { FormKitNode } from "@formkit/core";
+import { FormKitGroupValue } from "@formkit/core";
 import useSteps from "@/hooks/useSteps";
 import { LoginData, useAuthStore } from "@/stores/auth";
 import { ref } from "vue";
@@ -114,9 +115,9 @@ const invalidCredentials = ref(false)
 
 const { steps, activeStep, setStep, stepPlugin, checkStepValidity } = useSteps()
 
-const submitCredentials = async (formData: { '01': LoginData }, node?: FormKitNode) => {
+const submitCredentials = async (formData: FormKitGroupValue, node?: FormKitNode) => {
     try {
-        await useAuthStore().authenticate(formData['01'].email, formData['01'].password)
+        await useAuthStore().authenticate(formData['02'] as LoginData)
 
         setStep(1)
     } catch (err) {
@@ -126,13 +127,13 @@ const submitCredentials = async (formData: { '01': LoginData }, node?: FormKitNo
     }
 }
 
-const submitVerification = async (formData: { '02': { otp: string } }, node?: FormKitNode) => {
-    logger.log(formData)
-
+const submitVerification = async (formData: FormKitGroupValue, node?: FormKitNode) => {
     try {
+        const data = formData['02'] as { otp: string }
         node?.clearErrors()
 
-        const res = await useAuthStore().verify(formData['02'].otp)
+        const res = await useAuthStore().verify(data.otp)
+        logger.info(res)
 
         toast({ titleText: 'Login Successful!' })
 

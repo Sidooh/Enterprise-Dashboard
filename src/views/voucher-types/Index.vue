@@ -44,7 +44,7 @@ import { faEye } from "@fortawesome/free-regular-svg-icons";
 import { VoucherType } from "@/utils/types";
 import { Modal as BSModal } from 'bootstrap'
 import { faCloudversify } from '@fortawesome/free-brands-svg-icons'
-import { FormKitNode } from "@formkit/core";
+import { FormKitGroupValue, FormKitNode } from "@formkit/core";
 
 const columnHelper = createColumnHelper<VoucherType>()
 const columns = [
@@ -111,7 +111,7 @@ const handleCreateRow = () => {
     state.modal?.show()
 }
 
-const submitNewVoucherType = async (formData: VoucherType, node?: FormKitNode) => {
+const submitNewVoucherType = async (formData: FormKitGroupValue, node?: FormKitNode) => {
     try {
         node?.clearErrors()
 

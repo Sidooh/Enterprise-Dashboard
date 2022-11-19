@@ -37,11 +37,11 @@ import { Status } from "@/utils/enums";
 import { RouterLink } from "vue-router";
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 import { faEye } from "@fortawesome/free-regular-svg-icons";
-import { FloatRequest, VoucherType } from "@/utils/types";
+import { FloatRequest } from "@/utils/types";
 import moment from "moment";
 import Modal from "@/components/Modal.vue";
 import { Modal as BSModal } from "bootstrap";
-import { FormKitNode } from "@formkit/core";
+import { FormKitGroupValue, FormKitNode } from "@formkit/core";
 import { faCloudversify } from '@fortawesome/free-brands-svg-icons'
 
 
@@ -110,7 +110,7 @@ const handleCreateRow = () => {
     state.modal?.show()
 }
 
-const submitNewFloatRequest = async (formData: VoucherType, node?: FormKitNode) => {
+const submitNewFloatRequest = async (formData: FormKitGroupValue, node?: FormKitNode) => {
     try {
         node?.clearErrors()
 
