@@ -14,14 +14,20 @@ export const useAuthStore = defineStore("auth", {
     actions: {
         async authenticate(data: LoginData) {
             try {
-                const { data: { data: response } } = await axios.post("auth/login", data)
+                const { data: response } = await axios.post("auth/login", data)
 
-                axios.post('auth/otp/generate', { id: response.user.id, channel: 'SMS' })
+                if (response.status) {
+                    const { data } = response
 
-                localStorage.setItem("TOKEN", response.token);
-                localStorage.setItem("userId", response.user.id);
+                    axios.post('auth/otp/generate', { id: data.user.id, channel: 'SMS' })
 
-                axios.defaults.headers.common['Authorization'] = "Bearer " + response.token;
+                    localStorage.setItem("TOKEN", data.token);
+                    localStorage.setItem("userId", data.user.id);
+
+                    axios.defaults.headers.common['Authorization'] = "Bearer " + data.token;
+                } else {
+                    logger.warn(response)
+                }
             } catch (err: any) {
                 if ([400, 422].includes(err.response.status) && Boolean(err.response.data)) {
                     throw new Error(err.response.data.errs[0].message)
@@ -33,13 +39,18 @@ export const useAuthStore = defineStore("auth", {
         },
         async register(data: RegistrationData) {
             try {
-                logger.log(data)
                 const { data: response } = await axios.post("auth/register", data)
                 logger.info(response)
 
                 if (response.status) {
-                    await axios.post('auth/otp/generate', {})
-                    return response
+                    const { data } = response
+
+                    localStorage.setItem("userId", data.User.id);
+
+                    axios.post('auth/otp/generate', { id: data.User.id, channel: 'SMS' })
+                    axios.post('auth/otp/generate', { id: data.User.id, channel: 'MAIL' })
+
+                    return data
                 } else {
                     logger.warn(response)
                 }
