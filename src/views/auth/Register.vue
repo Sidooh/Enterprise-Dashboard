@@ -159,7 +159,7 @@ const submitCredentials = async (formData: FormKitGroupValue, node?: FormKitNode
 
 const submitVerification = async (formData: FormKitGroupValue, node?: FormKitNode) => {
     try {
-        const data = formData.verify as { otp: string }
+        const data = formData.verify as { otp: number }
         node?.clearErrors()
 
         const res = await useAuthStore().verify(data.otp)

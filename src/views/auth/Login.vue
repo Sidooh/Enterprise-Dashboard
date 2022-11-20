@@ -53,8 +53,10 @@
                                                  :actions="false" :incomplete-message="false">
                                             <FormKit type="group" id="verify" name="verify" title="Verification"
                                                      :config="{classes:{input:'form-control', outer:'mb-3'}}">
-                                                <FormKit name="otp" placeholder="Enter verification OTP"
-                                                         validation="required"/>
+                                                <FormKit type="number" name="otp" placeholder="Enter verification OTP"
+                                                         validation="required|number|length:6,6" :validation-messages="{
+                                                            length:'Otp must be 6 characters.'
+                                                         }"/>
                                             </FormKit>
 
                                             <div class="mt-3 d-flex justify-content-end">
@@ -108,11 +110,9 @@ import useSteps from "@/hooks/useSteps";
 import { LoginData, useAuthStore } from "@/stores/auth";
 import { ref } from "vue";
 import router from "@/router";
-import { logger } from "@/utils/logger";
 import { toast } from "@/utils/helpers";
 
 const invalidCredentials = ref(false)
-
 const { steps, activeStep, setStep, stepPlugin, checkStepValidity } = useSteps()
 
 const submitCredentials = async (formData: FormKitGroupValue, node?: FormKitNode) => {
@@ -132,8 +132,7 @@ const submitVerification = async (formData: FormKitGroupValue, node?: FormKitNod
         const data = formData.verify as { otp: string }
         node?.clearErrors()
 
-        const res = await useAuthStore().verify(data.otp)
-        logger.info(res)
+        await useAuthStore().verify(Number(data.otp))
 
         toast({ titleText: 'Login Successful!' })
 

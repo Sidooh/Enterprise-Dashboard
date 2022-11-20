@@ -16,12 +16,10 @@ export const useAuthStore = defineStore("auth", {
             try {
                 const { data: { data: response } } = await axios.post("auth/login", data)
 
-                this.token = response.token
-                this.user = {
-                    token: response.token
-                }
+                axios.post('auth/otp/generate', { id: response.user.id, channel: 'SMS' })
 
                 localStorage.setItem("TOKEN", response.token);
+                localStorage.setItem("userId", response.user.id);
 
                 axios.defaults.headers.common['Authorization'] = "Bearer " + response.token;
             } catch (err: any) {
@@ -40,6 +38,7 @@ export const useAuthStore = defineStore("auth", {
                 logger.info(response)
 
                 if (response.status) {
+                    await axios.post('auth/otp/generate', {})
                     return response
                 } else {
                     logger.warn(response)
@@ -52,10 +51,23 @@ export const useAuthStore = defineStore("auth", {
                 }
             }
         },
-        async verify(otp: string) {
-            logger.log(otp)
+        async verify(otp: number) {
+            const id = Number(localStorage.getItem("userId"))
 
-            return await new Promise((r) => setTimeout(r, 1000))
+            localStorage.removeItem("userId")
+
+            const { data: { data: response } } = await axios.post("auth/otp/verify", { id, otp })
+
+            logger.log(response)
+
+            this.token = response.token
+            this.user = {
+                token: response.token
+            }
+
+            localStorage.setItem("AUTH", JSON.stringify(response));
+
+            axios.defaults.headers.common['Authorization'] = "Bearer " + response.token;
         },
         checkLocalAuth() {
             const token = localStorage.getItem("TOKEN")
