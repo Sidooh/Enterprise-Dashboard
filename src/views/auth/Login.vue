@@ -54,7 +54,7 @@
                                                  :actions="false" :incomplete-message="false">
                                             <FormKit type="group" id="verify" name="verify" title="Verification"
                                                      :config="{classes:{input:'form-control', outer:'mb-3'}}">
-                                                <div class="alert alert-success small py-1" role="alert">
+                                                <div class="alert alert-success small py-1 new-otp-alert" role="alert">
                                                     A one time password verification code has been sent to your phone!
                                                 </div>
 
@@ -63,10 +63,14 @@
                                                             length:'Otp must be 6 characters.'
                                                          }"/>
 
-                                                <div class="alert alert-warning small py-1" role="alert">
+                                                <div id="resend" class="alert alert-warning small py-1" role="alert">
                                                     Haven't received it?
-                                                    <b :class="{'text-decoration-underline cursor-pointer': !(timer > 0)}"
-                                                       @click="resendOTP">resend in {{ timer }}.</b>
+                                                    <b v-show="!resendingOTP" @click="resendOTP"
+                                                       :class="{'text-decoration-underline cursor-pointer': !(timer > 0)}">
+                                                        resend OTP{{ timer > 0 ? ` in ${timer}s` : '.' }}
+                                                    </b>
+                                                    <b v-show="resendingOTP"
+                                                       @click="resendOTP">Resending...</b>
                                                 </div>
                                             </FormKit>
 
@@ -122,9 +126,11 @@ import { ref, watch } from "vue";
 import router from "@/router";
 import { toast } from "@/utils/helpers";
 
-const timer = ref(30)
+const OTPResendTimer = 60
+const timer = ref(OTPResendTimer)
 const verificationForm = ref<{ node: FormKitNode | null }>(null!)
 const invalidCredentials = ref(false)
+const resendingOTP = ref(false)
 const { steps, activeStep, setStep, stepPlugin, checkStepValidity } = useSteps()
 
 const submitCredentials = async (formData: FormKitGroupValue, node?: FormKitNode) => {
@@ -161,7 +167,9 @@ const submitVerification = async (formData: FormKitGroupValue, node?: FormKitNod
 }
 
 const resendOTP = async () => {
-    if(!(timer.value > 0)) {
+    if (!(timer.value > 0)) {
+        resendingOTP.value = true
+
         const node = verificationForm.value?.node
 
         if (node) node.props.disabled = true
@@ -171,14 +179,20 @@ const resendOTP = async () => {
         await useAuthStore().sendOTP(id, 'SMS')
 
         if (node) node.props.disabled = false
+
+        resendingOTP.value = false
+
+        timer.value = OTPResendTimer
     }
 }
 
-watch(timer, (newTime) => {
-    if (newTime > 0) {
-        setTimeout(() => {
-            timer.value--
-        }, 1000)
+watch([timer, activeStep], (value) => {
+    if (value[1] === 'verify') {
+        if (value[0] > 0) {
+            setTimeout(() => {
+                timer.value--
+            }, 1000)
+        }
     }
 }, { immediate: true })
 </script>
