@@ -126,7 +126,7 @@ import { ref, watch } from "vue";
 import router from "@/router";
 import { toast } from "@/utils/helpers";
 
-const OTPResendTimer = 60
+const OTPResendTimer = 6
 const timer = ref(OTPResendTimer)
 const verificationForm = ref<{ node: FormKitNode | null }>(null!)
 const invalidCredentials = ref(false)
@@ -183,6 +183,8 @@ const resendOTP = async () => {
         resendingOTP.value = false
 
         timer.value = OTPResendTimer
+
+        document.getElementsByClassName('new-otp-alert').item(0)!.innerHTML = "<b>A new OTP has been sent to your phone.</b>"
     }
 }
 
