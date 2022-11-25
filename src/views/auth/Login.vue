@@ -60,7 +60,7 @@
 
                                                 <FormKit type="number" name="otp" placeholder="Enter verification OTP"
                                                          validation="required|number|length:6,6" :validation-messages="{
-                                                            length:'Otp must be 6 characters.'
+                                                            length:'OTP must be 6 characters.'
                                                          }"/>
 
                                                 <div id="resend" class="alert alert-warning small py-1" role="alert">
@@ -150,7 +150,7 @@ const submitVerification = async (formData: FormKitGroupValue, node?: FormKitNod
         const data = formData.verify as { otp: string }
         node?.clearErrors()
 
-        await useAuthStore().verify(Number(data.otp))
+        await useAuthStore().verifyOTP(Number(data.otp))
 
         toast({ titleText: 'Login Successful!' })
 

@@ -1,7 +1,7 @@
 <template>
     <div class="card">
         <div class="card-body">
-            <DataTable title="Accounts" :columns="columns" :data="tableData" :on-create-row="handleCreateRow"/>
+            <DataTable title="Accounts" :columns="columns" :data="store.accounts" :on-create-row="handleCreateRow"/>
         </div>
     </div>
 
@@ -52,6 +52,7 @@ import { faTrash } from "@fortawesome/free-solid-svg-icons";
 import { faCloudversify } from '@fortawesome/free-brands-svg-icons'
 import { Modal as BSModal } from "bootstrap";
 import { FormKitGroupValue, FormKitNode } from "@formkit/core";
+import { useAccountsStore } from "@/stores/accounts";
 
 const columnHelper = createColumnHelper<Account>()
 const columns = [
@@ -116,8 +117,12 @@ const state = reactive<{ modal?: BSModal }>({
     modal: undefined
 })
 
+const store = useAccountsStore();
+
 onMounted(() => {
     state.modal = new BSModal('#create-account', {})
+
+    store.fetchAccounts()
 })
 
 const handleCreateRow = () => {

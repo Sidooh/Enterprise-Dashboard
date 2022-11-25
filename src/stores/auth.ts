@@ -52,17 +52,17 @@ export const useAuthStore = defineStore("auth", {
                     logger.warn(response)
                 }
             } catch (err: any) {
+                logger.error(err.response)
+
                 if ([400, 422].includes(err.response.status) && Boolean(err.response.data)) {
-                    let errors = err.response.data.errors
-                    logger.log(errors)
-                    return Array.isArray(errors) ? errors.map(e => e.message) : [errors.message]
+                    throw new Error(err.response.data.errs[0].message)
                 }
             }
         },
         async sendOTP(userId: number, channel: string) {
             await axios.post('auth/otp/generate', { id: userId, channel })
         },
-        async verify(otp: number) {
+        async verifyOTP(otp: number) {
             const id = Number(localStorage.getItem("userId"))
 
             const { data: { data: response } } = await axios.post("auth/otp/verify", { id, otp })
@@ -77,6 +77,21 @@ export const useAuthStore = defineStore("auth", {
             localStorage.setItem("AUTH", JSON.stringify(response));
 
             axios.defaults.headers.common['Authorization'] = "Bearer " + response.token;
+        },
+        async verifyUser(phone_otp: number, email_otp: number) {
+            try{
+                const id = Number(localStorage.getItem("userId"))
+
+                const { data: { data: response } } = await axios.post("auth/verify", { id, phone_otp, email_otp })
+
+                logger.log(response)
+            } catch(err:any) {
+                logger.error(err.response)
+
+                if ([400, 422].includes(err.response.status) && Boolean(err.response.data)) {
+                    throw new Error(err.response.data.errs[0].message)
+                }
+            }
         },
         checkLocalAuth() {
             const token = localStorage.getItem("TOKEN")

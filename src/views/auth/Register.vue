@@ -73,12 +73,16 @@
                                                  :actions="false" :incomplete-message="false">
                                             <FormKit type="group" id="verify" name="verify" title="Verification"
                                                      :config="{classes:{input:'form-control', outer:'mb-3'}}">
-                                                <FormKit name="email_otp" placeholder="Email verification OTP"
-                                                         validation="required"
-                                                         validation-label="Email verification OTP"/>
-                                                <FormKit name="phone_otp" placeholder="Phone verification OTP"
-                                                         validation="required"
-                                                         validation-label="Phone number verification OTP"/>
+                                                <FormKit type="number" name="email_otp"
+                                                         placeholder="Email verification OTP"
+                                                         validation="required|number|length:6,6" :validation-messages="{
+                                                            length:'Email OTP must be 6 characters.'
+                                                         }" validation-label="Email verification OTP"/>
+                                                <FormKit type="number" name="phone_otp"
+                                                         placeholder="Phone verification OTP"
+                                                         validation="required|number|length:6,6" :validation-messages="{
+                                                            length:'Phone OTP must be 6 characters.'
+                                                         }" validation-label="Phone number verification OTP"/>
                                             </FormKit>
 
                                             <div class="mt-3 d-flex justify-content-end">
@@ -159,10 +163,10 @@ const submitCredentials = async (formData: FormKitGroupValue, node?: FormKitNode
 
 const submitVerification = async (formData: FormKitGroupValue, node?: FormKitNode) => {
     try {
-        const data = formData.verify as { otp: number }
+        const data = formData.verify as { phone_otp: number, email_otp: number }
         node?.clearErrors()
 
-        const res = await useAuthStore().verify(data.otp)
+        const res = await useAuthStore().verifyUser(Number(data.phone_otp), Number(data.email_otp))
 
         logger.log(res)
 
@@ -171,6 +175,11 @@ const submitVerification = async (formData: FormKitGroupValue, node?: FormKitNod
         await router.push({ name: 'login' })
     } catch (err: any) {
         node?.setErrors(err.formErrors, err.fieldErrors)
+
+        await toast({
+            html: 'Unable to verify you. Kindly contact <a href="mailto:@customersupport@sidooh.co.ke">Customer support</a>',
+            icon: 'error'
+        })
     }
 }
 </script>
