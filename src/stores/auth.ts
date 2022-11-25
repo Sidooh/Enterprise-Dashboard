@@ -12,14 +12,14 @@ export const useAuthStore = defineStore("auth", {
     }),
 
     actions: {
-        async authenticate(data: LoginData) {
+        async login(data: LoginData) {
             try {
                 const { data: response } = await axios.post("auth/login", data)
 
                 if (response.status) {
                     const { data } = response
 
-                    axios.post('auth/otp/generate', { id: data.user.id, channel: 'SMS' })
+                    // this.sendOTP(data.user.id, 'SMS')
 
                     localStorage.setItem("TOKEN", data.token);
                     localStorage.setItem("userId", data.user.id);
@@ -47,9 +47,6 @@ export const useAuthStore = defineStore("auth", {
 
                     localStorage.setItem("userId", data.User.id);
 
-                    axios.post('auth/otp/generate', { id: data.User.id, channel: 'SMS' })
-                    axios.post('auth/otp/generate', { id: data.User.id, channel: 'MAIL' })
-
                     return data
                 } else {
                     logger.warn(response)
@@ -62,10 +59,11 @@ export const useAuthStore = defineStore("auth", {
                 }
             }
         },
+        async sendOTP(userId: number, channel: string) {
+            await axios.post('auth/otp/generate', { id: userId, channel })
+        },
         async verify(otp: number) {
             const id = Number(localStorage.getItem("userId"))
-
-            localStorage.removeItem("userId")
 
             const { data: { data: response } } = await axios.post("auth/otp/verify", { id, otp })
 
