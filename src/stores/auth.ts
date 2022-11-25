@@ -12,14 +12,14 @@ export const useAuthStore = defineStore("auth", {
     }),
 
     actions: {
-        async authenticate(data: LoginData) {
+        async login(data: LoginData) {
             try {
                 const { data: response } = await axios.post("auth/login", data)
 
                 if (response.status) {
                     const { data } = response
 
-                    axios.post('auth/otp/generate', { id: data.user.id, channel: 'SMS' })
+                    this.sendOTP(data.user.id, 'SMS')
 
                     localStorage.setItem("TOKEN", data.token);
                     localStorage.setItem("userId", data.user.id);
@@ -35,6 +35,9 @@ export const useAuthStore = defineStore("auth", {
                 if (err.response.status === 401 && err.response.data) {
                     throw new Error(err.response.data.message)
                 }
+                if(err.response.status === 429) {
+                    throw new Error("Sorry! We failed to log you in. Please try again in a few minutes.")
+                }
             }
         },
         async register(data: RegistrationData) {
@@ -47,25 +50,23 @@ export const useAuthStore = defineStore("auth", {
 
                     localStorage.setItem("userId", data.User.id);
 
-                    axios.post('auth/otp/generate', { id: data.User.id, channel: 'SMS' })
-                    axios.post('auth/otp/generate', { id: data.User.id, channel: 'MAIL' })
-
                     return data
                 } else {
                     logger.warn(response)
                 }
             } catch (err: any) {
+                logger.error(err.response)
+
                 if ([400, 422].includes(err.response.status) && Boolean(err.response.data)) {
-                    let errors = err.response.data.errors
-                    logger.log(errors)
-                    return Array.isArray(errors) ? errors.map(e => e.message) : [errors.message]
+                    throw new Error(err.response.data.errs[0].message)
                 }
             }
         },
-        async verify(otp: number) {
+        sendOTP(userId: number, channel: string) {
+            axios.post('auth/otp/generate', { id: userId, channel })
+        },
+        async verifyOTP(otp: number) {
             const id = Number(localStorage.getItem("userId"))
-
-            localStorage.removeItem("userId")
 
             const { data: { data: response } } = await axios.post("auth/otp/verify", { id, otp })
 
@@ -79,6 +80,21 @@ export const useAuthStore = defineStore("auth", {
             localStorage.setItem("AUTH", JSON.stringify(response));
 
             axios.defaults.headers.common['Authorization'] = "Bearer " + response.token;
+        },
+        async verifyUser(phone_otp: number, email_otp: number) {
+            try{
+                const id = Number(localStorage.getItem("userId"))
+
+                const { data: { data: response } } = await axios.post("auth/verify", { id, phone_otp, email_otp })
+
+                logger.log(response)
+            } catch(err:any) {
+                logger.error(err.response)
+
+                if ([400, 422].includes(err.response.status) && Boolean(err.response.data)) {
+                    throw new Error(err.response.data.errs[0].message)
+                }
+            }
         },
         checkLocalAuth() {
             const token = localStorage.getItem("TOKEN")

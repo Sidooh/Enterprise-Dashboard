@@ -49,22 +49,38 @@
 
                                     <section v-show="activeStep === 'verify'">
                                         <FormKit type="form" #default="{ value, state: { valid } }"
+                                                 ref="verificationForm"
                                                  :plugins="[stepPlugin]" @submit="submitVerification"
                                                  :actions="false" :incomplete-message="false">
                                             <FormKit type="group" id="verify" name="verify" title="Verification"
                                                      :config="{classes:{input:'form-control', outer:'mb-3'}}">
+                                                <div class="alert alert-success small py-1 new-otp-alert" role="alert">
+                                                    A one time password verification code has been sent to your phone!
+                                                </div>
+
                                                 <FormKit type="number" name="otp" placeholder="Enter verification OTP"
                                                          validation="required|number|length:6,6" :validation-messages="{
-                                                            length:'Otp must be 6 characters.'
+                                                            length:'OTP must be 6 characters.'
                                                          }"/>
+
+                                                <div id="resend" class="alert alert-warning small py-1" role="alert">
+                                                    Haven't received it?
+                                                    <b v-show="!resendingOTP" @click="resendOTP"
+                                                       :class="{'text-decoration-underline cursor-pointer': !(timer > 0)}">
+                                                        resend OTP{{ timer > 0 ? ` in ${timer}s` : '.' }}
+                                                    </b>
+                                                    <b v-show="resendingOTP"
+                                                       @click="resendOTP">Resending...</b>
+                                                </div>
                                             </FormKit>
 
+                                            <div class="text-center">
+                                                <small class="text-danger" v-show="invalidCredentials">
+                                                    Invalid OTP
+                                                </small>
+                                            </div>
+
                                             <div class="mt-3 d-flex justify-content-end">
-                                                <FormKit type="button" input-class="btn btn-sm btn-outline-secondary"
-                                                         v-if="activeStep !== 'auth'" @click="setStep(-1)">
-                                                    <font-awesome-icon :icon="faLeftLong" class="me-2"/>
-                                                    Back
-                                                </FormKit>
                                                 <FormKit type="submit" input-class="btn btn-sm btn-primary ms-2"
                                                          :disabled="!valid">
                                                     Verify
@@ -76,9 +92,7 @@
 
                                     <div class="mt-3">
                                         <small>Haven't Signed In? </small>
-                                        <small>
-                                            <a href="/register">Sign Up</a>
-                                        </small>
+                                        <small><a href="/register">Sign Up</a></small>
                                     </div>
                                 </div>
                             </section>
@@ -102,22 +116,26 @@
 
 <script setup lang="ts">
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
-import { faCircleExclamation, faLeftLong, faRightLong } from '@fortawesome/free-solid-svg-icons'
+import { faCircleExclamation, faRightLong } from '@fortawesome/free-solid-svg-icons'
 import { faCloudversify } from '@fortawesome/free-brands-svg-icons'
 import type { FormKitNode } from "@formkit/core";
 import { FormKitGroupValue } from "@formkit/core";
 import useSteps from "@/hooks/useSteps";
 import { LoginData, useAuthStore } from "@/stores/auth";
-import { ref } from "vue";
+import { ref, watch } from "vue";
 import router from "@/router";
 import { toast } from "@/utils/helpers";
 
+const OTPResendTimer = 60
+const timer = ref(OTPResendTimer)
+const verificationForm = ref<{ node: FormKitNode | null }>(null!)
 const invalidCredentials = ref(false)
+const resendingOTP = ref(false)
 const { steps, activeStep, setStep, stepPlugin, checkStepValidity } = useSteps()
 
 const submitCredentials = async (formData: FormKitGroupValue, node?: FormKitNode) => {
     try {
-        await useAuthStore().authenticate(formData.auth as LoginData)
+        await useAuthStore().login(formData.auth as LoginData)
 
         setStep(1)
     } catch (err) {
@@ -132,16 +150,52 @@ const submitVerification = async (formData: FormKitGroupValue, node?: FormKitNod
         const data = formData.verify as { otp: string }
         node?.clearErrors()
 
-        await useAuthStore().verify(Number(data.otp))
+        await useAuthStore().verifyOTP(Number(data.otp))
 
         toast({ titleText: 'Login Successful!' })
 
         await router.push({ name: 'dashboard' })
+
+        localStorage.removeItem("userId")
     } catch (err: any) {
+        console.log(err)
+
         invalidCredentials.value = true
 
         node?.setErrors(err.formErrors, err.fieldErrors)
     }
 }
+
+const resendOTP = async () => {
+    if (!(timer.value > 0)) {
+        resendingOTP.value = true
+
+        const node = verificationForm.value?.node
+
+        if (node) node.props.disabled = true
+
+        const id = Number(localStorage.getItem("userId"))
+
+        await useAuthStore().sendOTP(id, 'SMS')
+
+        if (node) node.props.disabled = false
+
+        resendingOTP.value = false
+
+        timer.value = OTPResendTimer
+
+        document.getElementsByClassName('new-otp-alert').item(0)!.innerHTML = "<b>A new OTP has been sent to your phone.</b>"
+    }
+}
+
+watch([timer, activeStep], (value) => {
+    if (value[1] === 'verify') {
+        if (value[0] > 0) {
+            setTimeout(() => {
+                timer.value--
+            }, 1000)
+        }
+    }
+}, { immediate: true })
 </script>
 
