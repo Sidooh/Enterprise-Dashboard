@@ -35,6 +35,9 @@ export const useAuthStore = defineStore("auth", {
                 if (err.response.status === 401 && err.response.data) {
                     throw new Error(err.response.data.message)
                 }
+                if(err.response.status === 429) {
+                    throw new Error("Sorry! We failed to log you in. Please try again in a few minutes.")
+                }
             }
         },
         async register(data: RegistrationData) {
@@ -59,8 +62,8 @@ export const useAuthStore = defineStore("auth", {
                 }
             }
         },
-        async sendOTP(userId: number, channel: string) {
-            await axios.post('auth/otp/generate', { id: userId, channel })
+        sendOTP(userId: number, channel: string) {
+            axios.post('auth/otp/generate', { id: userId, channel })
         },
         async verifyOTP(otp: number) {
             const id = Number(localStorage.getItem("userId"))
