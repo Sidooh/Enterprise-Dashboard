@@ -126,7 +126,7 @@ import { ref, watch } from "vue";
 import router from "@/router";
 import { toast } from "@/utils/helpers";
 
-const OTPResendTimer = 6
+const OTPResendTimer = 60
 const timer = ref(OTPResendTimer)
 const verificationForm = ref<{ node: FormKitNode | null }>(null!)
 const invalidCredentials = ref(false)

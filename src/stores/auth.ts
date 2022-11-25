@@ -19,7 +19,7 @@ export const useAuthStore = defineStore("auth", {
                 if (response.status) {
                     const { data } = response
 
-                    // this.sendOTP(data.user.id, 'SMS')
+                    this.sendOTP(data.user.id, 'SMS')
 
                     localStorage.setItem("TOKEN", data.token);
                     localStorage.setItem("userId", data.user.id);
