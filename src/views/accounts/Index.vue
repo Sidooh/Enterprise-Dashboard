@@ -1,7 +1,7 @@
 <template>
     <div class="card">
         <div class="card-body">
-            <DataTable title="Accounts" :columns="columns" :data="accounts" :on-create-row="handleCreateRow"/>
+            <DataTable title="Accounts" :columns="columns" :data="store.accounts" :on-create-row="handleCreateRow"/>
         </div>
     </div>
 
@@ -36,7 +36,7 @@ import DataTable from "@/components/datatable/DataTable.vue";
 import Phone from "@/components/Phone.vue";
 import Modal from "@/components/Modal.vue";
 import { CellContext, createColumnHelper } from "@tanstack/vue-table";
-import { computed, h, onMounted, reactive } from "vue";
+import { h, onMounted, reactive, watch } from "vue";
 import { RouterLink } from "vue-router";
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 import { faEye } from "@fortawesome/free-regular-svg-icons";
@@ -82,7 +82,6 @@ const state = reactive<{ modal?: BSModal }>({
 })
 
 const store = useAccountStore();
-const accounts = computed(() => store.accounts)
 
 const handleCreateRow = () => {
     console.log('weee')
@@ -107,9 +106,11 @@ const submitNewAccount = async (formData: FormKitGroupValue, node?: FormKitNode)
 
 onMounted(() => {
     state.modal = new BSModal('#create-account', {})
-
-    store.fetchAccounts()
 })
+
+watch(store.accounts, () => {
+    store.fetchAccounts()
+}, {immediate:true})
 </script>
 
 <style scoped>

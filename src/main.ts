@@ -37,4 +37,4 @@ createApp(App).use(createPinia()).use(router).use(plugin, defaultConfig({
     }
 })).mount('#app')
 
-axios.defaults.headers.common['Authorization'] = "Bearer " + useAuthStore().token;
+axios.defaults.headers.common['Authorization'] = "Bearer " + useAuthStore().auth.token;

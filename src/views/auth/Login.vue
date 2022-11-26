@@ -154,7 +154,7 @@ const submitVerification = async (formData: FormKitGroupValue, node?: FormKitNod
 
         toast({ titleText: 'Login Successful!' })
 
-        await router.push({ name: 'dashboard' })
+        router.push({ name: 'dashboard' })
 
         localStorage.removeItem("userId")
     } catch (err: any) {
