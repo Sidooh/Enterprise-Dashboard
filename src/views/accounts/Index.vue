@@ -1,7 +1,8 @@
 <template>
     <div class="card">
         <div class="card-body">
-            <DataTable title="Accounts" :columns="columns" :data="accounts" :on-create-row="handleCreateRow"/>
+            <DataTable title="Accounts" :key="tableKey" :columns="columns" :data="store.accounts"
+                       :on-create-row="handleCreateRow"/>
         </div>
     </div>
 
@@ -36,7 +37,7 @@ import DataTable from "@/components/datatable/DataTable.vue";
 import Phone from "@/components/Phone.vue";
 import Modal from "@/components/Modal.vue";
 import { CellContext, createColumnHelper } from "@tanstack/vue-table";
-import { computed, h, onMounted, reactive } from "vue";
+import { h, onMounted, reactive, ref } from "vue";
 import { RouterLink } from "vue-router";
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 import { faEye } from "@fortawesome/free-regular-svg-icons";
@@ -82,24 +83,20 @@ const state = reactive<{ modal?: BSModal }>({
 })
 
 const store = useAccountStore();
-const accounts = computed(() => store.accounts)
+const tableKey = ref(0);
 
-const handleCreateRow = () => {
-    console.log('weee')
-
-    state.modal?.show()
-}
+const handleCreateRow = () => state.modal?.show()
 
 const submitNewAccount = async (formData: FormKitGroupValue, node?: FormKitNode) => {
     try {
         node?.clearErrors()
 
-        console.log(formData)
-
         await store.create(formData as Account)
 
         state.modal?.hide()
         node?.reset()
+
+        tableKey.value += 1
     } catch (err: any) {
         toast({ titleText: err.message, icon: 'error' })
     }

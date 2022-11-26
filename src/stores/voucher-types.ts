@@ -1,30 +1,30 @@
 import { defineStore } from "pinia";
 import axios from "axios";
-import { Account } from "@/utils/types";
+import { VoucherType } from "@/utils/types";
 import { logger } from "@/utils/logger";
 
-export const useAccountStore = defineStore("account", {
+export const useVoucherTypeStore = defineStore("voucher-type", {
     state: () => ({
-        accounts: <Account[]>[],
+        voucher_types: <VoucherType[]>[],
     }),
 
     actions: {
-        async fetchAccounts() {
+        async fetchVoucherTypes() {
             try {
-                const { data } = await axios.get('accounts')
+                const { data } = await axios.get('voucher-types')
 
-                this.accounts = data.data
+                this.voucher_types = data.data
 
                 return data.data
             } catch (e) {
                 logger.error(e)
             }
         },
-        async create(account: Account) {
+        async create(voucherType: VoucherType) {
             try {
-                const { data } = await axios.post('/accounts', account)
+                const { data } = await axios.post('/voucher-types', voucherType)
 
-                this.accounts.push(data.data)
+                this.voucher_types.push(data.data)
 
                 return data.data
             } catch (e: any) {

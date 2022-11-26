@@ -1,12 +1,16 @@
 import { defineStore } from "pinia";
 import axios from "axios";
 import { logger } from "@/utils/logger";
+import moment from "moment";
+import { JWT } from "@/utils/helpers";
 
 export type LoginData = { email: string, password: string }
 export type RegistrationData = LoginData & { name: string, country: string, address: string }
+const auth: { token: string } = JSON.parse(String(localStorage.getItem('AUTH')));
 
 export const useAuthStore = defineStore("auth", {
     state: () => ({
+        auth: auth || null,
         token: '',
         user: {}
     }),
@@ -19,9 +23,8 @@ export const useAuthStore = defineStore("auth", {
                 if (response.status) {
                     const { data } = response
 
-                    this.sendOTP(data.user.id, 'SMS')
+                    await this.sendOTP(data.user.id, 'SMS')
 
-                    localStorage.setItem("TOKEN", data.token);
                     localStorage.setItem("userId", data.user.id);
 
                     axios.defaults.headers.common['Authorization'] = "Bearer " + data.token;
@@ -35,7 +38,7 @@ export const useAuthStore = defineStore("auth", {
                 if (err.response.status === 401 && err.response.data) {
                     throw new Error(err.response.data.message)
                 }
-                if(err.response.status === 429) {
+                if (err.response.status === 429) {
                     throw new Error("Sorry! We failed to log you in. Please try again in a few minutes.")
                 }
             }
@@ -62,8 +65,8 @@ export const useAuthStore = defineStore("auth", {
                 }
             }
         },
-        sendOTP(userId: number, channel: string) {
-            axios.post('auth/otp/generate', { id: userId, channel })
+        async sendOTP(userId: number, channel: string) {
+            await axios.post('auth/otp/generate', { id: userId, channel })
         },
         async verifyOTP(otp: number) {
             const id = Number(localStorage.getItem("userId"))
@@ -72,23 +75,20 @@ export const useAuthStore = defineStore("auth", {
 
             logger.log(response)
 
-            this.token = response.token
-            this.user = {
-                token: response.token
-            }
+            this.auth = response
 
             localStorage.setItem("AUTH", JSON.stringify(response));
 
             axios.defaults.headers.common['Authorization'] = "Bearer " + response.token;
         },
         async verifyUser(phone_otp: number, email_otp: number) {
-            try{
+            try {
                 const id = Number(localStorage.getItem("userId"))
 
                 const { data: { data: response } } = await axios.post("auth/verify", { id, phone_otp, email_otp })
 
                 logger.log(response)
-            } catch(err:any) {
+            } catch (err: any) {
                 logger.error(err.response)
 
                 if ([400, 422].includes(err.response.status) && Boolean(err.response.data)) {
@@ -97,14 +97,23 @@ export const useAuthStore = defineStore("auth", {
             }
         },
         checkLocalAuth() {
-            const token = localStorage.getItem("TOKEN")
+            if (this.auth) {
+                const tokenData = JWT.decode(this.auth.token)
+                const expiresIn = moment.unix(tokenData.exp).diff(moment(), 'minutes');
 
-            if (token) this.token = token
+                logger.log(`Session expires in: ${expiresIn} minutes`);
+
+                if (moment.unix(tokenData.exp).isBefore(moment())) {
+                    useAuthStore().logout()
+
+                    window.location.reload()
+                }
+            }
         },
         logout() {
             this.$reset()
 
-            localStorage.removeItem('TOKEN')
+            localStorage.removeItem('AUTH')
         }
     }
 })

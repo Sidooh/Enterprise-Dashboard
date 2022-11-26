@@ -1,22 +1,24 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import Login from './views/auth/Login.vue'
 import Register from './views/auth/Register.vue'
-import Auth from '@/components/layouts/Auth.vue'
 import { useAuthStore } from "@/stores/auth";
+import Auth from '@/components/layouts/Auth.vue'
+import Dashboard from './views/Dashboard.vue'
+import Profile from './views/Profile.vue'
 
 const router = createRouter({
     history: createWebHistory(import.meta.env.BASE_URL),
     routes: [
-        { path: '/login', name: 'login', component: Login, meta: { layout: Auth, guest: true } },
+        { path: '/login', name: 'login', component: Login, meta: { layout: Auth, auth: false } },
         {
             path: '/register',
             name: 'register',
             component: Register,
-            meta: { layout: Auth, guest: true }
+            meta: { layout: Auth, auth: false }
         },
 
-        { path: '/', name: 'dashboard', component: () => import('./views/Dashboard.vue') },
-        { path: '/profile', name: 'profile', component: () => import('./views/Profile.vue') },
+        { path: '/', name: 'dashboard', component: Dashboard, meta: { auth: true } },
+        { path: '/profile', name: 'profile', component: Profile, meta: { auth: true } },
         {
             path: '/voucher-types',
             name: 'voucher-types',
@@ -27,7 +29,7 @@ const router = createRouter({
                     name: 'voucher-types.show',
                     component: () => import('./views/voucher-types/Show.vue')
                 }
-            ]
+            ], meta: { auth: true }
         },
         {
             path: '/float',
@@ -42,7 +44,7 @@ const router = createRouter({
                         }
                     ]
                 }
-            ]
+            ], meta: { auth: true }
         },
         {
             path: '/accounts',
@@ -53,7 +55,7 @@ const router = createRouter({
                     name: 'accounts.show',
                     component: () => import('@/views/accounts/Index.vue')
                 }
-            ]
+            ], meta: { auth: true }
         },
         {
             path: '/teams',
@@ -64,12 +66,12 @@ const router = createRouter({
                     name: 'teams.show',
                     component: () => import('@/views/teams/Index.vue')
                 }
-            ]
+            ], meta: { auth: true }
         },
         {
             path: "/:pathMatch(.*)*",
             name: "not-found",
-            component: () => import("@/views/Dashboard.vue"),
+            redirect: () => ({ name: 'dashboard' })
         },
     ],
     linkActiveClass: 'nav-active'
@@ -78,17 +80,15 @@ const router = createRouter({
 router.beforeEach((to, from, next) => {
     const authStore = useAuthStore()
 
-    if (!to.meta.guest) {
-        if (authStore.token) {
-            return next();
-        } else {
-            localStorage.setItem('urlIntended', to.path)
+    if (to.meta.auth && !authStore.auth) {
+        localStorage.setItem('urlIntended', to.path)
 
-            return next({ name: 'login' });
-        }
+        next({ name: 'login' });
+    } else if (!to.meta.auth && authStore.auth) {
+        next({ name: 'dashboard' });
+    } else {
+        next()
     }
-
-    next();
 })
 
 export default router

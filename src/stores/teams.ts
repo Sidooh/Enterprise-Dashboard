@@ -1,30 +1,30 @@
 import { defineStore } from "pinia";
 import axios from "axios";
-import { Account } from "@/utils/types";
+import { Team } from "@/utils/types";
 import { logger } from "@/utils/logger";
 
-export const useAccountStore = defineStore("account", {
+export const useTeamStore = defineStore("team", {
     state: () => ({
-        accounts: <Account[]>[],
+        teams: <Team[]>[],
     }),
 
     actions: {
-        async fetchAccounts() {
+        async fetchTeams() {
             try {
-                const { data } = await axios.get('accounts')
+                const { data } = await axios.get('teams')
 
-                this.accounts = data.data
+                this.teams = data.data
 
                 return data.data
             } catch (e) {
                 logger.error(e)
             }
         },
-        async create(account: Account) {
+        async create(team: Team) {
             try {
-                const { data } = await axios.post('/accounts', account)
+                const { data } = await axios.post('/teams', team)
 
-                this.accounts.push(data.data)
+                this.teams.push(data.data)
 
                 return data.data
             } catch (e: any) {
