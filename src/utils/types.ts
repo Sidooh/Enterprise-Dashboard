@@ -22,9 +22,10 @@ export type Model = {
 
 export type VoucherType = Model & {
     name: string
-    type: string
-    limit: number
-    status: Status
+    is_locked: string
+    limit_amount: number
+    expires_at: number
+    settings: number
 }
 
 export type FloatTransaction = Model & {

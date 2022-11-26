@@ -1,7 +1,7 @@
 <template>
     <div class="card">
         <div class="card-body">
-            <DataTable title="Voucher Types" :columns="columns" :data="tableData"
+            <DataTable :key="tableKey" title="Voucher Types" :columns="columns" :data="store.voucher_types"
                        :on-create-row="handleCreateRow"/>
         </div>
     </div>
@@ -32,12 +32,10 @@
 
 <script setup lang="ts">
 import DataTable from "@/components/datatable/DataTable.vue";
-import StatusBadge from "@/components/StatusBadge.vue";
 import Modal from "@/components/Modal.vue";
 import { CellContext, createColumnHelper } from "@tanstack/vue-table";
 import { currencyFormat } from "@/utils/helpers";
-import { h, onMounted, reactive } from "vue";
-import { Status } from "@/utils/enums";
+import { h, onMounted, reactive, ref } from "vue";
 import { RouterLink } from "vue-router";
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 import { faEye } from "@fortawesome/free-regular-svg-icons";
@@ -45,24 +43,24 @@ import { VoucherType } from "@/utils/types";
 import { Modal as BSModal } from 'bootstrap'
 import { faCloudversify } from '@fortawesome/free-brands-svg-icons'
 import { FormKitGroupValue, FormKitNode } from "@formkit/core";
+import { useVoucherTypeStore } from "@/stores/voucher-types";
 
 const columnHelper = createColumnHelper<VoucherType>()
 const columns = [
     columnHelper.accessor('name', {
         cell: info => info.getValue(),
     }),
-    columnHelper.accessor(row => row.type, {
-        id: 'type',
+    columnHelper.accessor(row => row.name, {
+        id: 'name',
         cell: info => info.getValue(),
-        header: () => 'Type',
+        header: () => 'Name',
     }),
-    columnHelper.accessor('limit', {
+    columnHelper.accessor('limit_amount', {
         header: () => 'Limit',
         cell: info => currencyFormat(info.getValue())
     }),
-    columnHelper.accessor('status', {
-        header: 'Status',
-        cell: info => h(StatusBadge, { status: info.getValue() as Status })
+    columnHelper.accessor('is_locked', {
+        header: 'Is Locked',
     }),
     {
         id: 'actions',
@@ -74,57 +72,35 @@ const columns = [
         )
     },
 ]
-const tableData: VoucherType[] = [
-    {
-        id: 1,
-        name: 'Lunch',
-        type: 'Locked',
-        limit: 7000,
-        status: Status.ACTIVE,
-    },
-    {
-        id: 2,
-        name: 'Lunch',
-        type: 'Locked',
-        limit: 7000,
-        status: Status.INACTIVE,
-    },
-    {
-        id: 3,
-        name: 'Lunch',
-        type: 'Locked',
-        limit: 7000,
-        status: Status.ACTIVE,
-    },
-]
 const state = reactive<{ modal?: BSModal }>({
     modal: undefined
 })
 
-onMounted(() => {
-    state.modal = new BSModal('#create-voucher-type', {})
-})
+const store = useVoucherTypeStore();
+const tableKey = ref(0);
 
-const handleCreateRow = () => {
-    console.log('weee')
-
-    state.modal?.show()
-}
+const handleCreateRow = () => state.modal?.show()
 
 const submitNewVoucherType = async (formData: FormKitGroupValue, node?: FormKitNode) => {
     try {
         node?.clearErrors()
 
-        console.log(formData)
-
-        await new Promise((r) => setTimeout(r, 2000))
+        await store.create(formData as VoucherType)
 
         state.modal?.hide()
         node?.reset()
+
+        tableKey.value += 1
     } catch (err) {
         console.log(err)
     }
 }
+
+onMounted(() => {
+    state.modal = new BSModal('#create-voucher-type', {})
+
+    store.fetchVoucherTypes()
+})
 </script>
 
 <style scoped>
