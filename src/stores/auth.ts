@@ -75,10 +75,7 @@ export const useAuthStore = defineStore("auth", {
 
             logger.log(response)
 
-            this.token = response.token
-            this.user = {
-                token: response.token
-            }
+            this.auth = response
 
             localStorage.setItem("AUTH", JSON.stringify(response));
 

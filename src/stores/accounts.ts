@@ -13,9 +13,9 @@ export const useAccountStore = defineStore("account", {
             try {
                 const { data } = await axios.get('accounts')
 
-                logger.log(data.data)
-
                 this.accounts = data.data
+
+                return data.data
             } catch (e) {
                 logger.error(e)
             }
@@ -25,7 +25,8 @@ export const useAccountStore = defineStore("account", {
                 const { data } = await axios.post('/accounts', account)
 
                 this.accounts.push(data.data)
-                console.log(this.accounts)
+
+                return data.data
             } catch (e: any) {
                 logger.error(e)
                 if (e.response.status === 422 && Boolean(e.response.data)) {
