@@ -44,23 +44,24 @@ import { Modal as BSModal } from 'bootstrap'
 import { faCloudversify } from '@fortawesome/free-brands-svg-icons'
 import { FormKitGroupValue, FormKitNode } from "@formkit/core";
 import { useVoucherTypeStore } from "@/stores/voucher-types";
+import TableDate from "@/components/TableDate.vue";
 
 const columnHelper = createColumnHelper<VoucherType>()
 const columns = [
     columnHelper.accessor('name', {
-        cell: info => info.getValue(),
-    }),
-    columnHelper.accessor(row => row.name, {
-        id: 'name',
-        cell: info => info.getValue(),
         header: () => 'Name',
+    }),
+    columnHelper.accessor('is_locked', {
+        header: 'Is Locked',
+        cell: info => String(Boolean(info.getValue())).toUpperCase()
     }),
     columnHelper.accessor('limit_amount', {
         header: () => 'Limit',
         cell: info => currencyFormat(info.getValue())
     }),
-    columnHelper.accessor('is_locked', {
-        header: 'Is Locked',
+    columnHelper.accessor('expires_at', {
+        header: 'Expires At',
+        cell: ({ row }: CellContext<VoucherType, string>) => h(TableDate, { date: row.original.expires_at })
     }),
     {
         id: 'actions',
