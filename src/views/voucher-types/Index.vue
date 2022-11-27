@@ -34,7 +34,7 @@
 import DataTable from "@/components/datatable/DataTable.vue";
 import Modal from "@/components/Modal.vue";
 import { CellContext, createColumnHelper } from "@tanstack/vue-table";
-import { currencyFormat } from "@/utils/helpers";
+import { currencyFormat, toast } from "@/utils/helpers";
 import { h, onMounted, reactive, ref } from "vue";
 import { RouterLink } from "vue-router";
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
@@ -91,9 +91,11 @@ const submitNewVoucherType = async (formData: FormKitGroupValue, node?: FormKitN
         state.modal?.hide()
         node?.reset()
 
+        toast({ titleText: 'Voucher Type Created Successfully!' })
+
         tableKey.value += 1
-    } catch (err) {
-        console.log(err)
+    } catch (err: any) {
+        toast({ titleText: err.message, icon: 'error' })
     }
 }
 

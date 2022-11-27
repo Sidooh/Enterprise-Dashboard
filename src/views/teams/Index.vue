@@ -1,7 +1,8 @@
 <template>
     <div class="card">
         <div class="card-body">
-            <DataTable title="Teams" :key="tableKey" :columns="columns" :data="store.teams" :on-create-row="handleCreateRow"/>
+            <DataTable title="Teams" :key="tableKey" :columns="columns" :data="store.teams"
+                       :on-create-row="handleCreateRow"/>
         </div>
     </div>
 
@@ -85,6 +86,8 @@ const submitNewTeam = async (formData: FormKitGroupValue, node?: FormKitNode) =>
 
         state.modal?.hide()
         node?.reset()
+
+        toast({ titleText: 'Team Created Successfully!' })
 
         tableKey.value += 1
     } catch (err: any) {

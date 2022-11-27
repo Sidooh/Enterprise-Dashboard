@@ -96,6 +96,8 @@ const submitNewAccount = async (formData: FormKitGroupValue, node?: FormKitNode)
         state.modal?.hide()
         node?.reset()
 
+        toast({titleText:'Account Created Successfully!'})
+
         tableKey.value += 1
     } catch (err: any) {
         toast({ titleText: err.message, icon: 'error' })
