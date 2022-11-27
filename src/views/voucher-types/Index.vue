@@ -34,7 +34,7 @@
 import DataTable from "@/components/datatable/DataTable.vue";
 import Modal from "@/components/Modal.vue";
 import { CellContext, createColumnHelper } from "@tanstack/vue-table";
-import { currencyFormat } from "@/utils/helpers";
+import { currencyFormat, toast } from "@/utils/helpers";
 import { h, onMounted, reactive, ref } from "vue";
 import { RouterLink } from "vue-router";
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
@@ -44,23 +44,24 @@ import { Modal as BSModal } from 'bootstrap'
 import { faCloudversify } from '@fortawesome/free-brands-svg-icons'
 import { FormKitGroupValue, FormKitNode } from "@formkit/core";
 import { useVoucherTypeStore } from "@/stores/voucher-types";
+import TableDate from "@/components/TableDate.vue";
 
 const columnHelper = createColumnHelper<VoucherType>()
 const columns = [
     columnHelper.accessor('name', {
-        cell: info => info.getValue(),
-    }),
-    columnHelper.accessor(row => row.name, {
-        id: 'name',
-        cell: info => info.getValue(),
         header: () => 'Name',
+    }),
+    columnHelper.accessor('is_locked', {
+        header: 'Is Locked',
+        cell: info => String(Boolean(info.getValue())).toUpperCase()
     }),
     columnHelper.accessor('limit_amount', {
         header: () => 'Limit',
         cell: info => currencyFormat(info.getValue())
     }),
-    columnHelper.accessor('is_locked', {
-        header: 'Is Locked',
+    columnHelper.accessor('expires_at', {
+        header: 'Expires At',
+        cell: ({ row }: CellContext<VoucherType, string>) => h(TableDate, { date: row.original.expires_at })
     }),
     {
         id: 'actions',
@@ -90,9 +91,11 @@ const submitNewVoucherType = async (formData: FormKitGroupValue, node?: FormKitN
         state.modal?.hide()
         node?.reset()
 
+        toast({ titleText: 'Voucher Type Created Successfully!' })
+
         tableKey.value += 1
-    } catch (err) {
-        console.log(err)
+    } catch (err: any) {
+        toast({ titleText: err.message, icon: 'error' })
     }
 }
 

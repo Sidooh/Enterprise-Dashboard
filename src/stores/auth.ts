@@ -73,8 +73,6 @@ export const useAuthStore = defineStore("auth", {
 
             const { data: { data: response } } = await axios.post("auth/otp/verify", { id, otp })
 
-            logger.log(response)
-
             this.auth = response
 
             localStorage.setItem("AUTH", JSON.stringify(response));
