@@ -61,7 +61,7 @@
 
                                             <FormKit type="submit" input-class="btn btn-sm btn-primary ms-auto"
                                                      :disabled="!valid">
-                                                Sign In
+                                                Sign Up
                                                 <font-awesome-icon :icon="faRightLong" class="ms-1"/>
                                             </FormKit>
                                         </FormKit>
