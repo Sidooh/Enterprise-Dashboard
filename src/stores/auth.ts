@@ -11,8 +11,6 @@ const auth: { token: string } = JSON.parse(String(localStorage.getItem('AUTH')))
 export const useAuthStore = defineStore("auth", {
     state: () => ({
         auth: auth || null,
-        token: '',
-        user: {}
     }),
 
     actions: {

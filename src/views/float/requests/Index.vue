@@ -43,6 +43,7 @@ import Modal from "@/components/Modal.vue";
 import { Modal as BSModal } from "bootstrap";
 import { FormKitGroupValue, FormKitNode } from "@formkit/core";
 import { faCloudversify } from '@fortawesome/free-brands-svg-icons'
+import { logger } from "@/utils/logger";
 
 
 const columnHelper = createColumnHelper<FloatRequest>()
@@ -105,7 +106,7 @@ onMounted(() => {
 })
 
 const handleCreateRow = () => {
-    console.log('weee')
+    logger.log('weee')
 
     state.modal?.show()
 }
@@ -114,14 +115,14 @@ const submitNewFloatRequest = async (formData: FormKitGroupValue, node?: FormKit
     try {
         node?.clearErrors()
 
-        console.log(formData)
+        logger.info(formData)
 
         await new Promise((r) => setTimeout(r, 2000))
 
         state.modal?.hide()
         node?.reset()
     } catch (err) {
-        console.log(err)
+        logger.error(err)
     }
 }
 </script>
