@@ -125,6 +125,7 @@ import { LoginData, useAuthStore } from "@/stores/auth";
 import { ref, watch } from "vue";
 import router from "@/router";
 import { toast } from "@/utils/helpers";
+import { logger } from "@/utils/logger";
 
 const OTPResendTimer = 60
 const timer = ref(OTPResendTimer)
@@ -158,7 +159,7 @@ const submitVerification = async (formData: FormKitGroupValue, node?: FormKitNod
 
         localStorage.removeItem("userId")
     } catch (err: any) {
-        console.log(err)
+        logger.error(err)
 
         invalidCredentials.value = true
 

@@ -19,7 +19,8 @@ onMounted(() => {
 })
 
 watch([indeterminate, input], () => {
-    console.log(input.value, 'changed')
+    logger.info(input.value, 'changed')
+
     if (typeof indeterminate.value === 'boolean' && input.value)
         input.value.indeterminate = Boolean(props.checked) && indeterminate.value
 })*/
