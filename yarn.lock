@@ -469,46 +469,46 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@fortawesome/fontawesome-common-types@npm:6.2.0":
-  version: 6.2.0
-  resolution: "@fortawesome/fontawesome-common-types@npm:6.2.0"
-  checksum: 1d0a3340dc2d2798609195cf77f1b0db98f0d87144044eb7cd3d78745baac8509705c6ebc7cce3d9bb36c7d7358ca064f77f39d86478ab1e7aa7aadc344cfd91
+"@fortawesome/fontawesome-common-types@npm:6.2.1":
+  version: 6.2.1
+  resolution: "@fortawesome/fontawesome-common-types@npm:6.2.1"
+  checksum: 1a6e202beac46bc7e7bf791b37b6164b15453cc70b078456121c77d516a1077a1cfdab8aa9c77358c71f87f54560c0d9cbfb440cfb871f6d0f1f4671aabf9a0a
   languageName: node
   linkType: hard
 
-"@fortawesome/fontawesome-svg-core@npm:^6.2.0":
-  version: 6.2.0
-  resolution: "@fortawesome/fontawesome-svg-core@npm:6.2.0"
+"@fortawesome/fontawesome-svg-core@npm:^6.2.1":
+  version: 6.2.1
+  resolution: "@fortawesome/fontawesome-svg-core@npm:6.2.1"
   dependencies:
-    "@fortawesome/fontawesome-common-types": 6.2.0
-  checksum: 3bae680cba4098bc3a6aee04e655e0c6b6bab2d78e6709dc0a44d106f57a09bc2fd979310108777a373df301273a2a276739056f8984cd8bc5a50d37338c5380
+    "@fortawesome/fontawesome-common-types": 6.2.1
+  checksum: 16caf6052b77c03826274325d4bd76d11cba486411c3101a635d3342dd764df8f5b4789456c9caa1667c232853a670f91dddf0449218e5fea7a27f4396b838af
   languageName: node
   linkType: hard
 
-"@fortawesome/free-brands-svg-icons@npm:^6.2.0":
-  version: 6.2.0
-  resolution: "@fortawesome/free-brands-svg-icons@npm:6.2.0"
+"@fortawesome/free-brands-svg-icons@npm:^6.2.1":
+  version: 6.2.1
+  resolution: "@fortawesome/free-brands-svg-icons@npm:6.2.1"
   dependencies:
-    "@fortawesome/fontawesome-common-types": 6.2.0
-  checksum: 402b4e102bec60b234169c878b08ab1280feededf91d54c9c080bfcae2a2b0c52e05ab3fb9192293ed5d488501335e656c726e7ba3926876277bdf8e31d34026
+    "@fortawesome/fontawesome-common-types": 6.2.1
+  checksum: e826787631672faed91b0a1f4bf1580582bd20f3aba1a8e547f0b49548d554a0ac629ea9d3998f076fb2574440f75e08536d088404f760c9910b9f185a6877f5
   languageName: node
   linkType: hard
 
-"@fortawesome/free-regular-svg-icons@npm:^6.2.0":
-  version: 6.2.0
-  resolution: "@fortawesome/free-regular-svg-icons@npm:6.2.0"
+"@fortawesome/free-regular-svg-icons@npm:^6.2.1":
+  version: 6.2.1
+  resolution: "@fortawesome/free-regular-svg-icons@npm:6.2.1"
   dependencies:
-    "@fortawesome/fontawesome-common-types": 6.2.0
-  checksum: 1b68a25590b273653c7adfa18bd6ef0ee533710687a46ef21c7b5395deae280a2faaff0b024717d9e54fdaedb8165769f281342704821777f86316223d5264ba
+    "@fortawesome/fontawesome-common-types": 6.2.1
+  checksum: 1f591d2a0bb10783b58586fcef5c1affdfb61c3e92de885e633add130e17e28d2e62c3f780b3cf819ec25ac9e332a186be32c9ed6d03e3ff31f36f7789b88e6c
   languageName: node
   linkType: hard
 
-"@fortawesome/free-solid-svg-icons@npm:^6.2.0":
-  version: 6.2.0
-  resolution: "@fortawesome/free-solid-svg-icons@npm:6.2.0"
+"@fortawesome/free-solid-svg-icons@npm:^6.2.1":
+  version: 6.2.1
+  resolution: "@fortawesome/free-solid-svg-icons@npm:6.2.1"
   dependencies:
-    "@fortawesome/fontawesome-common-types": 6.2.0
-  checksum: b5edf24be491e8493028b7fd2158fb73f3a76491087970609c0ef6a4449fd4744312fe768bfcffc90a5ef86b9980f9ab8ebb36927ba8d9854c2fa638ceadb0ac
+    "@fortawesome/fontawesome-common-types": 6.2.1
+  checksum: a24170b676fced926cccdd08171357b20714483ceddeb052985a9acae3a347ffe853de2e757bf95cc7add74807d82eb1cc578e17430c32ca2c6a844c8276f91a
   languageName: node
   linkType: hard
 
@@ -615,30 +615,30 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@tanstack/match-sorter-utils@npm:^8.5.14":
-  version: 8.5.14
-  resolution: "@tanstack/match-sorter-utils@npm:8.5.14"
+"@tanstack/match-sorter-utils@npm:^8.7.0":
+  version: 8.7.0
+  resolution: "@tanstack/match-sorter-utils@npm:8.7.0"
   dependencies:
     remove-accents: 0.4.2
-  checksum: 9db789bc70db6e04c2759c32d497bd3cfdf6fe2ed5afff52046a8c739d00e8df40c74b21ffaeaf70c7e2ede02578ee748c950117190fe4e7a7bd72ce1134d8d9
+  checksum: 7ec97963b44016acb324b1c6009efd87e724aa7d8caac360be7aa75c60cbbd707dffbadcbe4aad565764b591fe8d3ce725ce95f4f90b61c7e5df431e5946b3e5
   languageName: node
   linkType: hard
 
-"@tanstack/table-core@npm:8.5.22":
-  version: 8.5.22
-  resolution: "@tanstack/table-core@npm:8.5.22"
-  checksum: ee273094b3257f21156a53523b6aa5a2f46a6c4b34a21b0989031c08d69f389205cade5811fe9d0ca744e9128d5f6046568050b649b3422ff52e18fd59cee2b0
+"@tanstack/table-core@npm:8.7.0":
+  version: 8.7.0
+  resolution: "@tanstack/table-core@npm:8.7.0"
+  checksum: 835511727ab5651066a4cbc98916fbc2463ec6d6ddc5c74c1fec5713eeba8e26641653c1a35b69b303f0c58f574416a09e26da44cf7e9a884cb954fc26b12afd
   languageName: node
   linkType: hard
 
-"@tanstack/vue-table@npm:^8.5.21":
-  version: 8.5.22
-  resolution: "@tanstack/vue-table@npm:8.5.22"
+"@tanstack/vue-table@npm:^8.7.1":
+  version: 8.7.1
+  resolution: "@tanstack/vue-table@npm:8.7.1"
   dependencies:
-    "@tanstack/table-core": 8.5.22
+    "@tanstack/table-core": 8.7.0
   peerDependencies:
     vue: ^3.2.33
-  checksum: 4fe5d2ad7b2998872effc6e245933f8771dce0172e9ab61f3f8cede493b9e59f066937e7e7e24877df16542e2cad3c20781aa880644f648ec1ce0c90a857d12c
+  checksum: a1d68f3e99c06489f47062d7991dbd65999e59af4a9f3f601c4f8aa3b3b2cdc362a9058122c7f69688adee21a1fd384f2ec7c4c4fe992bf7fe8250d2410e8fb2
   languageName: node
   linkType: hard
 
@@ -816,7 +816,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@vue/devtools-api@npm:^6.4.4, @vue/devtools-api@npm:^6.4.5":
+"@vue/devtools-api@npm:^6.4.5":
   version: 6.4.5
   resolution: "@vue/devtools-api@npm:6.4.5"
   checksum: 40c5adc8788cb283972ce09ba7ce105fa894f4decec9168829cc8e6211462763402442e6c31be76f9da62b0e74ae724971b924571367b4ac89b94dc6894e2d07
@@ -990,14 +990,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"axios@npm:^1.1.3":
-  version: 1.1.3
-  resolution: "axios@npm:1.1.3"
+"axios@npm:^1.2.1":
+  version: 1.2.1
+  resolution: "axios@npm:1.2.1"
   dependencies:
     follow-redirects: ^1.15.0
     form-data: ^4.0.0
     proxy-from-env: ^1.1.0
-  checksum: cab3b17bf6092c9387f7023d699db093cfa23650b56c4422cd474d124b78b2e3b5a520f932c330664a58ab85b867b1c25a95cace475ef72d236888c852b84e6d
+  checksum: c4dc4e119064c9aed09a3de309bedb797a139a6fb372223aafe3e0c10a7d4a14e4d3e9c9d309467fadb9d2b490b891ee3df96ef5b55716bb971910466ff9f0c5
   languageName: node
   linkType: hard
 
@@ -1008,12 +1008,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"bootstrap@npm:^5.2.2":
-  version: 5.2.2
-  resolution: "bootstrap@npm:5.2.2"
+"bootstrap@npm:^5.2.3":
+  version: 5.2.3
+  resolution: "bootstrap@npm:5.2.3"
   peerDependencies:
     "@popperjs/core": ^2.11.6
-  checksum: 14e6df28feb975dc10702cac0a6c2a21132a6e4e5562e31cdae1db3970e287ed29001020066b61d96b2cea2a45ecf44c08c8c26bc84a31cdeabec0a9be6b9389
+  checksum: 0211805dec6a190c0911d142966df30fdb4b4139a04cc6c23dd83c6045ea3cb0a966b360ab2e701e7b3ad96ff01e05fdc0914be97b41bd876b11e457a8bdc6a3
   languageName: node
   linkType: hard
 
@@ -1292,35 +1292,35 @@ __metadata:
   resolution: "enterprise-dashboard@workspace:."
   dependencies:
     "@formkit/vue": ^1.0.0-beta.12
-    "@fortawesome/fontawesome-svg-core": ^6.2.0
-    "@fortawesome/free-brands-svg-icons": ^6.2.0
-    "@fortawesome/free-regular-svg-icons": ^6.2.0
-    "@fortawesome/free-solid-svg-icons": ^6.2.0
+    "@fortawesome/fontawesome-svg-core": ^6.2.1
+    "@fortawesome/free-brands-svg-icons": ^6.2.1
+    "@fortawesome/free-regular-svg-icons": ^6.2.1
+    "@fortawesome/free-solid-svg-icons": ^6.2.1
     "@fortawesome/vue-fontawesome": latest-3
     "@popperjs/core": ^2.11.6
-    "@tanstack/match-sorter-utils": ^8.5.14
-    "@tanstack/vue-table": ^8.5.21
+    "@tanstack/match-sorter-utils": ^8.7.0
+    "@tanstack/vue-table": ^8.7.1
     "@types/bootstrap": ^5.2.6
     "@types/node": ^16.11.56
     "@vitejs/plugin-vue": ^3.0.3
     "@vitejs/plugin-vue-jsx": ^2.0.1
     "@vue/tsconfig": ^0.1.3
-    axios: ^1.1.3
-    bootstrap: ^5.2.2
+    axios: ^1.2.1
+    bootstrap: ^5.2.3
     chart.js: ^3.9.1
     filepond: ^4.30.4
     filepond-plugin-file-validate-type: ^1.2.8
     moment: ^2.29.4
     npm-run-all: ^4.1.5
-    pinia: ^2.0.21
+    pinia: ^2.0.27
     simplebar: ^5.3.9
-    sweetalert2: ^11.6.5
+    sweetalert2: ^11.6.15
     typescript: ~4.7.4
-    vite: ^3.2.2
+    vite: ^3.2.5
     vue: ^3.2.38
     vue-filepond: ^7.0.3
     vue-router: ^4.1.5
-    vue-tsc: ^0.40.7
+    vue-tsc: ^0.40.13
   languageName: unknown
   linkType: soft
 
@@ -1693,7 +1693,7 @@ __metadata:
 
 "fsevents@patch:fsevents@~2.3.2#~builtin<compat/fsevents>":
   version: 2.3.2
-  resolution: "fsevents@patch:fsevents@npm%3A2.3.2#~builtin<compat/fsevents>::version=2.3.2&hash=18f3a7"
+  resolution: "fsevents@patch:fsevents@npm%3A2.3.2#~builtin<compat/fsevents>::version=2.3.2&hash=df0bf1"
   dependencies:
     node-gyp: latest
   conditions: os=darwin
@@ -2584,11 +2584,11 @@ __metadata:
   languageName: node
   linkType: hard
 
-"pinia@npm:^2.0.21":
-  version: 2.0.23
-  resolution: "pinia@npm:2.0.23"
+"pinia@npm:^2.0.27":
+  version: 2.0.27
+  resolution: "pinia@npm:2.0.27"
   dependencies:
-    "@vue/devtools-api": ^6.4.4
+    "@vue/devtools-api": ^6.4.5
     vue-demi: "*"
   peerDependencies:
     "@vue/composition-api": ^1.4.0
@@ -2599,7 +2599,7 @@ __metadata:
       optional: true
     typescript:
       optional: true
-  checksum: 004c76d80bc1127a25b26f92616f1243c570c6be90b04be83aa95108274036b64ed0678e537f3213c8b8f3dd7bcffb52e768e7445a1fd9378cb1db15ada92f83
+  checksum: 29c862ea4304cdfeae385cbd2ab08100809aa9a79c147c4cb4085215601c0323e0ca664cea6abcaa0298e7ea53865117b6950ebb59224347fbc1683dbe956ac8
   languageName: node
   linkType: hard
 
@@ -2693,7 +2693,7 @@ __metadata:
 
 "resolve@patch:resolve@^1.10.0#~builtin<compat/resolve>, resolve@patch:resolve@^1.22.1#~builtin<compat/resolve>":
   version: 1.22.1
-  resolution: "resolve@patch:resolve@npm%3A1.22.1#~builtin<compat/resolve>::version=1.22.1&hash=07638b"
+  resolution: "resolve@patch:resolve@npm%3A1.22.1#~builtin<compat/resolve>::version=1.22.1&hash=c3c19d"
   dependencies:
     is-core-module: ^2.9.0
     path-parse: ^1.0.7
@@ -3036,10 +3036,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"sweetalert2@npm:^11.6.5":
-  version: 11.6.8
-  resolution: "sweetalert2@npm:11.6.8"
-  checksum: bcd0fa985bab7b4c0b5ffa6775aff45f6b0ca8279ea006fb203b9031b0a3e21234f0fca98a46305f0dd146b3412be4b89ce6ac4d341ccfff0c9cb5588810de00
+"sweetalert2@npm:^11.6.15":
+  version: 11.6.15
+  resolution: "sweetalert2@npm:11.6.15"
+  checksum: c8272447b97d213a008927c954a6bd467063a3120a324e2a808e52da4342d0f1bb540d5ad0f3faec9880824c1e070e1b2f7845fe83807cd58cd50cca97402be9
   languageName: node
   linkType: hard
 
@@ -3076,7 +3076,7 @@ __metadata:
 
 "typescript@patch:typescript@~4.7.4#~builtin<compat/typescript>":
   version: 4.7.4
-  resolution: "typescript@patch:typescript@npm%3A4.7.4#~builtin<compat/typescript>::version=4.7.4&hash=701156"
+  resolution: "typescript@patch:typescript@npm%3A4.7.4#~builtin<compat/typescript>::version=4.7.4&hash=65a307"
   bin:
     tsc: bin/tsc
     tsserver: bin/tsserver
@@ -3145,9 +3145,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"vite@npm:^3.2.2":
-  version: 3.2.3
-  resolution: "vite@npm:3.2.3"
+"vite@npm:^3.2.5":
+  version: 3.2.5
+  resolution: "vite@npm:3.2.5"
   dependencies:
     esbuild: ^0.15.9
     fsevents: ~2.3.2
@@ -3179,7 +3179,7 @@ __metadata:
       optional: true
   bin:
     vite: bin/vite.js
-  checksum: 3c7c618f7fb471cdfaf7f8eb769cb5f4174447e1103cd6221cbc2ae1ea1102bc28dd6a621ead250e6aa42c1e9ee3c8092666ea81078e1d88d2325c484218fd0a
+  checksum: ad35b7008c2b62a167d1d1a82f0a0c60fa457733f1969e9eedf0b0077f67a7ac74b4c9477e75a397895150f09b6551f0c17841c5b05c34d9fe302bb0b5dc28a8
   languageName: node
   linkType: hard
 
@@ -3220,7 +3220,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"vue-tsc@npm:^0.40.7":
+"vue-tsc@npm:^0.40.13":
   version: 0.40.13
   resolution: "vue-tsc@npm:0.40.13"
   dependencies:
