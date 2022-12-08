@@ -6,7 +6,15 @@ import { JWT } from "@/utils/helpers";
 
 export type LoginData = { email: string, password: string }
 export type RegistrationData = LoginData & { name: string, country: string, address: string }
-const auth: { token: string } = JSON.parse(String(localStorage.getItem('AUTH')));
+export type Auth = {
+    token: string,
+    user: {
+        email: string,
+        enterprise: { id: number, name: string, phone: string },
+        id: number, name: string, roles: string[]
+    }
+}
+const auth: Auth = JSON.parse(String(localStorage.getItem('AUTH')));
 
 export const useAuthStore = defineStore("auth", {
     state: () => ({
@@ -30,6 +38,8 @@ export const useAuthStore = defineStore("auth", {
                     logger.warn(response)
                 }
             } catch (err: any) {
+                logger.error(err.response)
+
                 if ([400, 422].includes(err.response?.status) && Boolean(err.response.data)) {
                     throw new Error(err.response.data.errs[0].message)
                 } else if (err.response?.status === 401 && err.response.data) {

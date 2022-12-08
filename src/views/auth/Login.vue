@@ -127,8 +127,6 @@ const submitCredentials = async (formData: FormKitGroupValue, node?: FormKitNode
 
         setStep(1)
     } catch (err: any) {
-        logger.error(err)
-
         toast({ titleText: err.message, icon: 'warning' })
 
         if (node) node.props.disabled = false

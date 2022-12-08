@@ -48,6 +48,7 @@ import { Modal as BSModal } from "bootstrap";
 import { FormKitGroupValue, FormKitNode } from "@formkit/core";
 import { useAccountStore } from "@/stores/accounts";
 import { toast } from "@/utils/helpers";
+import { logger } from "@/utils/logger";
 
 const columnHelper = createColumnHelper<Account>()
 const columns = [
@@ -108,6 +109,8 @@ onMounted(() => {
     state.modal = new BSModal('#create-account', {})
 
     store.fetchAccounts()
+
+    logger.info(store.accounts)
 })
 </script>
 
