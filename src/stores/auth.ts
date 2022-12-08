@@ -6,7 +6,15 @@ import { JWT } from "@/utils/helpers";
 
 export type LoginData = { email: string, password: string }
 export type RegistrationData = LoginData & { name: string, country: string, address: string }
-const auth: { token: string } = JSON.parse(String(localStorage.getItem('AUTH')));
+export type Auth = {
+    token: string,
+    user: {
+        email: string,
+        enterprise: { id: number, name: string, phone: string },
+        id: number, name: string, roles: string[]
+    }
+}
+const auth: Auth = JSON.parse(String(localStorage.getItem('AUTH')));
 
 export const useAuthStore = defineStore("auth", {
     state: () => ({
@@ -18,7 +26,7 @@ export const useAuthStore = defineStore("auth", {
             try {
                 const { data: response } = await axios.post("auth/login", data)
 
-                if (response.status) {
+                if (response?.status) {
                     const { data } = response
 
                     await this.sendOTP(data.user.id, 'SMS')
@@ -30,14 +38,16 @@ export const useAuthStore = defineStore("auth", {
                     logger.warn(response)
                 }
             } catch (err: any) {
-                if ([400, 422].includes(err.response.status) && Boolean(err.response.data)) {
+                logger.error(err.response)
+
+                if ([400, 422].includes(err.response?.status) && Boolean(err.response.data)) {
                     throw new Error(err.response.data.errs[0].message)
-                }
-                if (err.response.status === 401 && err.response.data) {
-                    throw new Error(err.response.data.message)
-                }
-                if (err.response.status === 429) {
+                } else if (err.response?.status === 401 && err.response.data) {
+                    throw new Error('Invalid credentials!')
+                } else if (err.response?.status === 429) {
                     throw new Error("Sorry! We failed to log you in. Please try again in a few minutes.")
+                } else {
+                    throw new Error('Something went wrong!')
                 }
             }
         },
@@ -46,7 +56,7 @@ export const useAuthStore = defineStore("auth", {
                 const { data: response } = await axios.post("auth/register", data)
                 logger.info(response)
 
-                if (response.status) {
+                if (response?.status) {
                     const { data } = response
 
                     localStorage.setItem("userId", data.User.id);
@@ -58,7 +68,7 @@ export const useAuthStore = defineStore("auth", {
             } catch (err: any) {
                 logger.error(err.response)
 
-                if ([400, 422].includes(err.response.status) && Boolean(err.response.data)) {
+                if ([400, 422].includes(err.response?.status) && Boolean(err.response.data)) {
                     throw new Error(err.response.data.errs[0].message)
                 }
             }
@@ -87,7 +97,7 @@ export const useAuthStore = defineStore("auth", {
             } catch (err: any) {
                 logger.error(err.response)
 
-                if ([400, 422].includes(err.response.status) && Boolean(err.response.data)) {
+                if ([400, 422].includes(err.response?.status) && Boolean(err.response.data)) {
                     throw new Error(err.response.data.errs[0].message)
                 }
             }

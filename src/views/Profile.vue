@@ -6,23 +6,22 @@
                 @submit="submitHandler" :actions="false" #default="{ value }">
                 <h1>Profile!</h1>
                 <p>
-                    You can put any type of element inside a form, not just FormKit inputs
-                    (although only FormKit inputs are included with the submission).
+                    Here is your profile.
                 </p>
                 <hr/>
 
                 <FormKit type="text" name="name" label="Name" placeholder="Jane Doe" input-class="form-control"
-                         outer-class="mb-3" validation="required"/>
+                         outer-class="mb-3" validation="required" v-model="user.name"/>
 
                 <div class="row g-2">
                     <div class="col mb-3">
                         <FormKit type="text" name="phone" label="Phone number" placeholder="254123456789"
-                                 input-class="form-control" outer-class="mb-3"
+                                 input-class="form-control" outer-class="mb-3" v-model="user.enterprise.phone"
                                  validation="required"/>
                     </div>
                     <div class="col mb-3">
                         <FormKit type="email" name="email" label="Email address" placeholder="jane@example.com"
-                                 input-class="form-control" outer-class="mb-3"
+                                 input-class="form-control" outer-class="mb-3" v-model="user.email"
                                  validation="required|email"/>
                     </div>
                 </div>
@@ -57,7 +56,8 @@
                 </div>
 
                 <FormKit type="submit" input-class="btn btn-primary ms-auto">
-                    Update <font-awesome-icon :icon="faRotate" class="ms-2"/>
+                    Update
+                    <font-awesome-icon :icon="faRotate" class="ms-2"/>
                 </FormKit>
             </FormKit>
             <div v-if="submitted">
@@ -71,13 +71,17 @@
 import { ref } from "vue";
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 import { faRotate } from '@fortawesome/free-solid-svg-icons'
+import { useAuthStore } from "@/stores/auth";
 
 const submitted = ref(false)
+const user = ref(useAuthStore().auth.user)
+console.log(user)
 const submitHandler = async () => {
     // Let's pretend this is an ajax request:
     await new Promise((r) => setTimeout(r, 1000))
     submitted.value = true
 }
+
 </script>
 
 <style scoped>

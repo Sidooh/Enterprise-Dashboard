@@ -45,6 +45,7 @@ import { faCloudversify } from '@fortawesome/free-brands-svg-icons'
 import { FormKitGroupValue, FormKitNode } from "@formkit/core";
 import { useVoucherTypeStore } from "@/stores/voucher-types";
 import TableDate from "@/components/TableDate.vue";
+import { logger } from "@/utils/logger";
 
 const columnHelper = createColumnHelper<VoucherType>()
 const columns = [
@@ -103,6 +104,8 @@ onMounted(() => {
     state.modal = new BSModal('#create-voucher-type', {})
 
     store.fetchVoucherTypes()
+
+    logger.info(store.voucher_types)
 })
 </script>
 

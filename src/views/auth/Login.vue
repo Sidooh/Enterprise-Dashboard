@@ -33,12 +33,6 @@
                                                          validation="required"/>
                                             </FormKit>
 
-                                            <div class="text-center">
-                                                <small class="text-danger" v-show="invalidCredentials">
-                                                    Invalid Credentials
-                                                </small>
-                                            </div>
-
                                             <FormKit type="submit" input-class="btn btn-sm btn-primary ms-auto"
                                                      :disabled="!valid">
                                                 Sign In
@@ -73,12 +67,6 @@
                                                        @click="resendOTP">Resending...</b>
                                                 </div>
                                             </FormKit>
-
-                                            <div class="text-center">
-                                                <small class="text-danger" v-show="invalidCredentials">
-                                                    Invalid OTP
-                                                </small>
-                                            </div>
 
                                             <div class="mt-3 d-flex justify-content-end">
                                                 <FormKit type="submit" input-class="btn btn-sm btn-primary ms-2"
@@ -130,7 +118,6 @@ import { logger } from "@/utils/logger";
 const OTPResendTimer = 60
 const timer = ref(OTPResendTimer)
 const verificationForm = ref<{ node: FormKitNode | null }>(null!)
-const invalidCredentials = ref(false)
 const resendingOTP = ref(false)
 const { steps, activeStep, setStep, stepPlugin, checkStepValidity } = useSteps()
 
@@ -139,8 +126,8 @@ const submitCredentials = async (formData: FormKitGroupValue, node?: FormKitNode
         await useAuthStore().login(formData.auth as LoginData)
 
         setStep(1)
-    } catch (err) {
-        invalidCredentials.value = true
+    } catch (err: any) {
+        toast({ titleText: err.message, icon: 'warning' })
 
         if (node) node.props.disabled = false
     }
@@ -161,7 +148,7 @@ const submitVerification = async (formData: FormKitGroupValue, node?: FormKitNod
     } catch (err: any) {
         logger.error(err)
 
-        invalidCredentials.value = true
+        toast({ titleText: 'Invalid OTP!', icon: 'warning' })
 
         node?.setErrors(err.formErrors, err.fieldErrors)
     }
