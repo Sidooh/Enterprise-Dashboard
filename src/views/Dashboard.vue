@@ -15,7 +15,8 @@
                     <div class="card text-center h-100">
                         <div class="card-body position-relative">
                             KSH 40,000
-                            <span class="cursor-pointer position-absolute top-0 end-0 me-2 mt-1" title="Top Up Float">
+                            <span class="cursor-pointer position-absolute top-0 end-0 me-2 mt-1" title="Top Up Float"
+                                  @click="() => state.modal?.show()">
                                 <font-awesome-icon :icon="faCirclePlus" class="text-warning"/>
                             </span>
                         </div>
@@ -53,6 +54,28 @@
             <DataTable title="Latest Transactions" :columns="columns" :data="tableData"/>
         </div>
     </div>
+
+    <FormKit type="form" submit-label="Create" :actions="false" #default="{ state: { valid } }"
+             @submit="submitFloatTopUp">
+        <Modal id="float-top-up">
+            <template #title>Request Float Top Up</template>
+            <template #body>
+                <div class="row">
+                    <FormKit type="number" name="amount" placeholder="Enter amount" min="1000" max="70000"
+                             validation="required|min:1000|max:70000" :classes="{input:'form-control', outer:'col-12 mb-3'}"/>
+                    <FormKit type="tel" name="phone" placeholder="Phone number"
+                             :classes="{input:'form-control', outer:'col-md-12 mb-3'}" validation="required"/>
+                </div>
+            </template>
+            <template #footer>
+                <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Close</button>
+                <FormKit type="submit" input-class="btn btn-primary" :disabled="!valid">
+                    Request
+                    <font-awesome-icon :icon="faCloudversify" class="ms-1"/>
+                </FormKit>
+            </template>
+        </Modal>
+    </FormKit>
 </template>
 
 <script setup lang="ts">
@@ -61,12 +84,38 @@ import { faCirclePlus } from '@fortawesome/free-solid-svg-icons'
 import DataTable from "@/components/datatable/DataTable.vue";
 import { createColumnHelper } from "@tanstack/vue-table";
 import Chart from 'chart.js/auto';
-import { onMounted, ref, shallowRef } from "vue";
+import { onMounted, reactive, ref, shallowRef } from "vue";
+import { FormKitGroupValue, FormKitNode } from "@formkit/core";
+import { Account } from "@/utils/types";
+import { toast } from "@/utils/helpers";
+import { useAccountStore } from "@/stores/accounts";
+import Modal from "@/components/Modal.vue";
+import { Modal as BSModal } from "bootstrap";
+import { faCloudversify } from '@fortawesome/free-brands-svg-icons'
 
 const chartEl = ref()
 const chart = shallowRef()
+const store = useAccountStore();
+const state = reactive<{ modal?: BSModal }>({ modal: undefined })
+
+const submitFloatTopUp = async (formData: FormKitGroupValue, node?: FormKitNode) => {
+    try {
+        node?.clearErrors()
+
+        await store.create(formData as Account)
+
+        state.modal?.hide()
+        node?.reset()
+
+        toast({ titleText: 'Float Top Up Successful!' })
+    } catch (err: any) {
+        toast({ titleText: err.message, icon: 'error' })
+    }
+}
 
 onMounted(() => {
+    state.modal = new BSModal('#float-top-up')
+
     chart.value = new Chart(chartEl.value.getContext('2d'), {
         type: 'line',
         data: {
@@ -84,8 +133,8 @@ onMounted(() => {
             }]
         },
         options: {
-            responsive:true,
-            maintainAspectRatio:false,
+            responsive: true,
+            maintainAspectRatio: false,
             plugins: {
                 legend: {
                     align: 'end',

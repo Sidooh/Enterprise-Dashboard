@@ -14,7 +14,7 @@
                 <div class="row">
                     <FormKit name="name" placeholder="Enter name" validation="required"
                              :classes="{input:'form-control', outer:'col-12 mb-3'}"/>
-                    <FormKit type="tel" min="1" name="phone" step="1" placeholder="Phone number"
+                    <FormKit type="tel" name="phone" placeholder="Phone number"
                              :classes="{input:'form-control', outer:'col-md-6 mb-3'}" validation="required"/>
                     <FormKit type="select" name="role" placeholder="Select role"
                              :options="{admin:'Admin', employee:'Employee'}"
