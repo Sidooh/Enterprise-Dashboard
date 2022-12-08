@@ -25,6 +25,7 @@
     "chart.js": "^3.9.1",
     "filepond": "^4.30.4",
     "filepond-plugin-file-validate-type": "^1.2.8",
+    "libphonenumber-js": "^1.10.14",
     "moment": "^2.29.4",
     "pinia": "^2.0.27",
     "simplebar": "^5.3.9",

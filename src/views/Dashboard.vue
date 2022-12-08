@@ -62,8 +62,9 @@
             <template #body>
                 <div class="row">
                     <FormKit type="number" name="amount" placeholder="Enter amount" min="1000" max="70000"
-                             validation="required|min:1000|max:70000" :classes="{input:'form-control', outer:'col-12 mb-3'}"/>
-                    <FormKit type="tel" name="phone" placeholder="Phone number"
+                             validation="required|min:1000|max:70000"
+                             :classes="{input:'form-control', outer:'col-12 mb-3'}"/>
+                    <FormKit type="tel" name="phone" placeholder="Phone number" v-model="phone"
                              :classes="{input:'form-control', outer:'col-md-12 mb-3'}" validation="required"/>
                 </div>
             </template>
@@ -86,15 +87,17 @@ import { createColumnHelper } from "@tanstack/vue-table";
 import Chart from 'chart.js/auto';
 import { onMounted, reactive, ref, shallowRef } from "vue";
 import { FormKitGroupValue, FormKitNode } from "@formkit/core";
-import { Account } from "@/utils/types";
-import { toast } from "@/utils/helpers";
+import { MpesaService, toast } from "@/utils/helpers";
 import { useAccountStore } from "@/stores/accounts";
 import Modal from "@/components/Modal.vue";
 import { Modal as BSModal } from "bootstrap";
 import { faCloudversify } from '@fortawesome/free-brands-svg-icons'
+import { useAuthStore } from "@/stores/auth";
+import { logger } from "@/utils/logger";
 
 const chartEl = ref()
 const chart = shallowRef()
+const phone = ref(useAuthStore().auth.user.enterprise.phone)
 const store = useAccountStore();
 const state = reactive<{ modal?: BSModal }>({ modal: undefined })
 
@@ -102,7 +105,17 @@ const submitFloatTopUp = async (formData: FormKitGroupValue, node?: FormKitNode)
     try {
         node?.clearErrors()
 
-        await store.create(formData as Account)
+        const mpesa = new MpesaService({
+            amount: Number(formData.amount),
+            phone: String(formData.phone),
+            onSuccess: async () => {
+                // await store.create(formData as Account)
+
+                logger.info('success')
+            }
+        });
+
+        await mpesa.init();
 
         state.modal?.hide()
         node?.reset()
