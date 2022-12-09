@@ -87,25 +87,29 @@ import { createColumnHelper } from "@tanstack/vue-table";
 import Chart from 'chart.js/auto';
 import { onMounted, reactive, ref, shallowRef } from "vue";
 import { FormKitGroupValue, FormKitNode } from "@formkit/core";
-import { MpesaService, toast } from "@/utils/helpers";
-import { useAccountStore } from "@/stores/accounts";
+import { toast } from "@/utils/helpers";
 import Modal from "@/components/Modal.vue";
 import { Modal as BSModal } from "bootstrap";
 import { faCloudversify } from '@fortawesome/free-brands-svg-icons'
 import { useAuthStore } from "@/stores/auth";
-import { logger } from "@/utils/logger";
+import { useEnterpriseStore } from "@/stores/enterprise";
+import { parsePhoneNumber } from "libphonenumber-js";
 
 const chartEl = ref()
 const chart = shallowRef()
 const phone = ref(useAuthStore().auth.user.enterprise.phone)
-const store = useAccountStore();
+const store = useEnterpriseStore();
 const state = reactive<{ modal?: BSModal }>({ modal: undefined })
 
-const submitFloatTopUp = async (formData: FormKitGroupValue, node?: FormKitNode) => {
+const submitFloatTopUp = async ({ amount, phone }: FormKitGroupValue, node?: FormKitNode) => {
     try {
         node?.clearErrors()
 
-        const mpesa = new MpesaService({
+        const phoneNumber = parsePhoneNumber(String(phone), 'KE').number
+
+        await store.creditFloat(Number(amount), Number(phoneNumber))
+
+        /*const mpesa = new MpesaService({
             amount: Number(formData.amount),
             phone: String(formData.phone),
             onSuccess: async () => {
@@ -114,8 +118,7 @@ const submitFloatTopUp = async (formData: FormKitGroupValue, node?: FormKitNode)
                 logger.info('success')
             }
         });
-
-        await mpesa.init();
+        await mpesa.init();*/
 
         state.modal?.hide()
         node?.reset()
