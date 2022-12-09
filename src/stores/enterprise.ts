@@ -11,6 +11,7 @@ export const useEnterpriseStore = defineStore("enterprise", {
     actions: {
         async fetchRecentTransactions() {
             try {
+                // await new Promise(r => setTimeout(r, 5000));
                 const { data } = await axios.get('/float-account/transactions?limit=1')
 
                 this.recent_transactions = data.data
