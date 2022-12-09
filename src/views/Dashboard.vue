@@ -51,7 +51,7 @@
 
     <div class="card mt-3">
         <div class="card-body">
-            <DataTable title="Latest Transactions" :columns="columns" :data="tableData"/>
+            <DataTable title="Latest Transactions" :columns="columns" :data="store.recent_transactions"/>
         </div>
     </div>
 
@@ -83,17 +83,22 @@
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 import { faCirclePlus } from '@fortawesome/free-solid-svg-icons'
 import DataTable from "@/components/datatable/DataTable.vue";
-import { createColumnHelper } from "@tanstack/vue-table";
+import { CellContext, createColumnHelper } from "@tanstack/vue-table";
 import Chart from 'chart.js/auto';
-import { onMounted, reactive, ref, shallowRef } from "vue";
+import { h, onMounted, reactive, ref, shallowRef } from "vue";
 import { FormKitGroupValue, FormKitNode } from "@formkit/core";
-import { toast } from "@/utils/helpers";
+import { currencyFormat, toast } from "@/utils/helpers";
 import Modal from "@/components/Modal.vue";
 import { Modal as BSModal } from "bootstrap";
 import { faCloudversify } from '@fortawesome/free-brands-svg-icons'
 import { useAuthStore } from "@/stores/auth";
 import { useEnterpriseStore } from "@/stores/enterprise";
 import { parsePhoneNumber } from "libphonenumber-js";
+import { FloatTransaction } from "@/utils/types";
+import moment from "moment/moment";
+import TableDate from "@/components/TableDate.vue";
+import { RouterLink } from "vue-router";
+import { faEye } from "@fortawesome/free-regular-svg-icons";
 
 const chartEl = ref()
 const chart = shallowRef()
@@ -131,6 +136,7 @@ const submitFloatTopUp = async ({ amount, phone }: FormKitGroupValue, node?: For
 
 onMounted(() => {
     state.modal = new BSModal('#float-top-up')
+    store.fetchRecentTransactions()
 
     chart.value = new Chart(chartEl.value.getContext('2d'), {
         type: 'line',
@@ -168,142 +174,27 @@ onMounted(() => {
     })
 })
 
-type Person = {
-    firstName: string
-    lastName: string
-    age: number
-    visits: number
-    status: string
-    progress: number
-}
-
-const columnHelper = createColumnHelper<Person>()
+const columnHelper = createColumnHelper<FloatTransaction>()
 const columns = [
-    columnHelper.accessor('firstName', {
-        cell: info => info.getValue(),
+    columnHelper.accessor('amount', {
+        header: () => 'Amount',
+        cell: info => currencyFormat(info.getValue())
     }),
-    columnHelper.accessor(row => row.lastName, {
-        id: 'lastName',
-        cell: info => info.getValue(),
-        header: () => 'Last Name',
+    columnHelper.accessor('description', {
+        header: 'Description',
     }),
-    columnHelper.accessor('age', {
-        header: () => 'Age',
+    columnHelper.accessor(row => moment(row.created_at).calendar(), {
+        header: 'Created',
+        cell: ({ row }: CellContext<FloatTransaction, string>) => h(TableDate, { date: row.original.created_at })
     }),
-    columnHelper.accessor('visits', {
-        header: () => 'Visits',
-    }),
-    columnHelper.accessor('status', {
-        header: 'Status',
-    }),
-    columnHelper.accessor('progress', {
-        header: 'Profile Progress',
-    }),
-]
-const tableData: Person[] = [
     {
-        firstName: 'tanner',
-        lastName: 'linsley',
-        age: 24,
-        visits: 100,
-        status: 'In Relationship',
-        progress: 50,
-    },
-    {
-        firstName: 'tandy',
-        lastName: 'miller',
-        age: 40,
-        visits: 40,
-        status: 'Single',
-        progress: 80,
-    },
-    {
-        firstName: 'joe',
-        lastName: 'dirte',
-        age: 45,
-        visits: 20,
-        status: 'Complicated',
-        progress: 10,
-    },
-    {
-        firstName: 'tanner',
-        lastName: 'linsley',
-        age: 24,
-        visits: 100,
-        status: 'In Relationship',
-        progress: 50,
-    },
-    {
-        firstName: 'tandy',
-        lastName: 'miller',
-        age: 40,
-        visits: 40,
-        status: 'Single',
-        progress: 80,
-    },
-    {
-        firstName: 'joe',
-        lastName: 'dirte',
-        age: 45,
-        visits: 20,
-        status: 'Complicated',
-        progress: 10,
-    },
-    {
-        firstName: 'tanner',
-        lastName: 'linsley',
-        age: 24,
-        visits: 100,
-        status: 'In Relationship',
-        progress: 50,
-    },
-    {
-        firstName: 'tandy',
-        lastName: 'miller',
-        age: 40,
-        visits: 40,
-        status: 'Single',
-        progress: 80,
-    },
-    {
-        firstName: 'joe',
-        lastName: 'dirte',
-        age: 45,
-        visits: 20,
-        status: 'Complicated',
-        progress: 10,
-    },
-    {
-        firstName: 'tanner',
-        lastName: 'linsley',
-        age: 24,
-        visits: 100,
-        status: 'In Relationship',
-        progress: 50,
-    },
-    {
-        firstName: 'tandy',
-        lastName: 'miller',
-        age: 40,
-        visits: 40,
-        status: 'Single',
-        progress: 80,
-    },
-    {
-        firstName: 'joe',
-        lastName: 'dirte',
-        age: 45,
-        visits: 20,
-        status: 'Complicated',
-        progress: 10,
-    },
-    {
-        firstName: 'Lil',
-        lastName: 'Nabz',
-        age: 21,
-        visits: 20,
-        status: 'Complicated',
-        progress: 70,
+        id: 'actions',
+        header: '',
+        cell: ({ row }: CellContext<FloatTransaction, string>) => h(
+            RouterLink,
+            { to: { name: 'float.accounts.show', params: { id: row.original.id } } },
+            () => h(FontAwesomeIcon, { icon: faEye })
+        )
     },
 ]
 </script>

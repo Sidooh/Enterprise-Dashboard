@@ -2,9 +2,26 @@ import { defineStore } from "pinia";
 import axios from "axios";
 import { logger } from "@/utils/logger";
 import Swal from "sweetalert2";
+import { FloatTransaction } from "@/utils/types";
 
 export const useEnterpriseStore = defineStore("enterprise", {
+    state: () => ({
+        recent_transactions: <FloatTransaction[]>[],
+    }),
     actions: {
+        async fetchRecentTransactions() {
+            try {
+                const { data } = await axios.get('/float-account/transactions?limit=1')
+
+                this.recent_transactions = data.data
+
+                logger.info(this.recent_transactions)
+
+                return data.data
+            } catch (e) {
+                logger.error(e)
+            }
+        },
         creditFloat: async (amount: number, phone: number) => {
             try {
                 const { data } = await axios.post('/float-account/credit', { amount, phone })
