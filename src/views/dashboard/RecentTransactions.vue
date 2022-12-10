@@ -1,23 +1,25 @@
 <template>
-    <div class="card">
+    <div class="card mt-3">
         <div class="card-body">
-            <DataTable title="Float Transactions" :columns="columns" :data="store.transactions"/>
+            <DataTable title="Latest Transactions" :columns="columns" :data="store.recent_transactions"/>
         </div>
     </div>
 </template>
 
 <script setup lang="ts">
 import DataTable from "@/components/datatable/DataTable.vue";
-import TableDate from "@/components/TableDate.vue";
 import { CellContext, createColumnHelper } from "@tanstack/vue-table";
+import { FloatTransaction } from "@/utils/types";
 import { currencyFormat } from "@/utils/helpers";
-import { h, onMounted } from "vue";
+import moment from "moment";
+import { h } from "vue";
+import TableDate from "@/components/TableDate.vue";
 import { RouterLink } from "vue-router";
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 import { faEye } from "@fortawesome/free-regular-svg-icons";
-import { FloatTransaction } from "@/utils/types";
-import moment from "moment";
-import { useFloatStore } from "@/stores/float";
+import { useEnterpriseStore } from "@/stores/enterprise";
+
+const store = useEnterpriseStore();
 
 const columnHelper = createColumnHelper<FloatTransaction>()
 const columns = [
@@ -43,11 +45,7 @@ const columns = [
     },
 ]
 
-const store = useFloatStore();
-
-onMounted(() => {
-    store.fetchTransactions()
-})
+await store.fetchRecentTransactions()
 </script>
 
 <style scoped>

@@ -1310,6 +1310,7 @@ __metadata:
     chart.js: ^3.9.1
     filepond: ^4.30.4
     filepond-plugin-file-validate-type: ^1.2.8
+    libphonenumber-js: ^1.10.14
     moment: ^2.29.4
     npm-run-all: ^4.1.5
     pinia: ^2.0.27
@@ -2145,6 +2146,13 @@ __metadata:
   bin:
     json5: lib/cli.js
   checksum: 74b8a23b102a6f2bf2d224797ae553a75488b5adbaee9c9b6e5ab8b510a2fc6e38f876d4c77dea672d4014a44b2399e15f2051ac2b37b87f74c0c7602003543b
+  languageName: node
+  linkType: hard
+
+"libphonenumber-js@npm:^1.10.14":
+  version: 1.10.14
+  resolution: "libphonenumber-js@npm:1.10.14"
+  checksum: 853608aca7ba63182bc9305ff4f5380c64973866bbd245a87fa219422371edd1e7c694ce3e6a8d8f3fb557bbbe10c7fc32601ff300be9937daf583d84c80bbd3
   languageName: node
   linkType: hard
 

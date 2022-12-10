@@ -30,6 +30,7 @@ export type VoucherType = Model & {
 
 export type FloatTransaction = Model & {
     amount: number
+    description: string
     status: Status
 }
 
