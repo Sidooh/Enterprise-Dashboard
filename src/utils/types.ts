@@ -28,7 +28,15 @@ export type VoucherType = Model & {
     settings: string
 }
 
+export type VoucherTransaction = Model & {
+    type: number
+    amount: number
+    description: string
+    status: Status
+}
+
 export type FloatTransaction = Model & {
+    type: number
     amount: number
     description: string
     status: Status

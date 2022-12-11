@@ -32,6 +32,11 @@ const router = createRouter({
             ], meta: { auth: true }
         },
         {
+            path: '/voucher-transactions', children: [
+                { path: ':id', name: 'voucher-transactions.show', redirect: '/' }
+            ]
+        },
+        {
             path: '/float',
             children: [
                 { path: 'transactions', component: () => import('@/views/float/transactions/Index.vue') },

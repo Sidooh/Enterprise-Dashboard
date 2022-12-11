@@ -2,21 +2,55 @@ import { defineStore } from "pinia";
 import axios from "axios";
 import { logger } from "@/utils/logger";
 import Swal from "sweetalert2";
-import { FloatTransaction } from "@/utils/types";
+import { FloatTransaction, VoucherTransaction } from "@/utils/types";
+
+type DashboardStats = {
+    float_balance: number
+    accounts_count: number
+    vouchers_disbursed: number
+}
 
 export const useEnterpriseStore = defineStore("enterprise", {
     state: () => ({
-        recent_transactions: <FloatTransaction[]>[],
+        dash_stats: <DashboardStats>{},
+        recent_voucher_transactions: <VoucherTransaction[]>[],
+        recent_float_transactions: <FloatTransaction[]>[],
     }),
     actions: {
-        async fetchRecentTransactions() {
+        async fetchDashboardStatistics() {
+            try {
+                const { data } = await axios.get('/dashboard/statistics')
+
+                this.dash_stats = data.data
+
+                logger.info(this.dash_stats)
+
+                return data.data
+            } catch (e) {
+                logger.error(e)
+            }
+        },
+        async fetchRecentVoucherTransactions() {
+            try {
+                const { data } = await axios.get('/dashboard/recent-voucher-transactions?limit=100')
+
+                this.recent_voucher_transactions = data.data
+
+                logger.info(this.recent_voucher_transactions)
+
+                return data.data
+            } catch (e) {
+                logger.error(e)
+            }
+        },
+        async fetchRecentFloatTransactions() {
             try {
                 // await new Promise(r => setTimeout(r, 5000));
-                const { data } = await axios.get('/float-account/transactions?limit=1')
+                const { data } = await axios.get('/dashboard/recent-float-transactions?limit=100')
 
-                this.recent_transactions = data.data
+                this.recent_float_transactions = data.data
 
-                logger.info(this.recent_transactions)
+                logger.info(this.recent_float_transactions)
 
                 return data.data
             } catch (e) {

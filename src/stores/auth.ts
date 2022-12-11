@@ -14,11 +14,10 @@ export type Auth = {
         id: number, name: string, roles: string[]
     }
 }
-const auth: Auth = JSON.parse(String(localStorage.getItem('AUTH')));
 
 export const useAuthStore = defineStore("auth", {
     state: () => ({
-        auth: auth || null,
+        auth: JSON.parse(String(localStorage.getItem('AUTH'))) as Auth || null,
     }),
 
     actions: {
@@ -103,6 +102,7 @@ export const useAuthStore = defineStore("auth", {
             }
         },
         checkLocalAuth() {
+            console.log('here')
             if (this.auth) {
                 const tokenData = JWT.decode(this.auth.token)
                 const expiresIn = moment.unix(tokenData.exp).diff(moment(), 'minutes');
