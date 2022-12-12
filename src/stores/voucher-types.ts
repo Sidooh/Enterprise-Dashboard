@@ -5,10 +5,24 @@ import { logger } from "@/utils/logger";
 
 export const useVoucherTypeStore = defineStore("voucher-type", {
     state: () => ({
+        voucher_type: <VoucherType>{},
         voucher_types: <VoucherType[]>[],
     }),
 
     actions: {
+        async fetchVoucherType(id: number) {
+            try {
+                await new Promise(r => setTimeout(r, 1000));
+                const { data } = await axios.get(`voucher-types/${id}`)
+
+                this.voucher_type = data.data
+                logger.info(this.voucher_type)
+
+                return data.data
+            } catch (e) {
+                logger.error(e)
+            }
+        },
         async fetchVoucherTypes() {
             try {
                 const { data } = await axios.get('voucher-types')
@@ -19,6 +33,9 @@ export const useVoucherTypeStore = defineStore("voucher-type", {
             } catch (e) {
                 logger.error(e)
             }
+        },
+        async fetchVouchers() {
+
         },
         async create(voucherType: VoucherType) {
             try {

@@ -19,6 +19,7 @@ export const useEnterpriseStore = defineStore("enterprise", {
     actions: {
         async fetchDashboardStatistics() {
             try {
+                // await new Promise(r => setTimeout(r, 3000));
                 const { data } = await axios.get('/dashboard/statistics')
 
                 this.dash_stats = data.data
@@ -32,6 +33,7 @@ export const useEnterpriseStore = defineStore("enterprise", {
         },
         async fetchRecentVoucherTransactions() {
             try {
+                // await new Promise(r => setTimeout(r, 5000));
                 const { data } = await axios.get('/dashboard/recent-voucher-transactions?limit=100')
 
                 this.recent_voucher_transactions = data.data
@@ -45,7 +47,7 @@ export const useEnterpriseStore = defineStore("enterprise", {
         },
         async fetchRecentFloatTransactions() {
             try {
-                // await new Promise(r => setTimeout(r, 5000));
+                // await new Promise(r => setTimeout(r, 2000));
                 const { data } = await axios.get('/dashboard/recent-float-transactions?limit=100')
 
                 this.recent_float_transactions = data.data

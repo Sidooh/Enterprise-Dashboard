@@ -2,9 +2,9 @@
     <div class="row g-3">
         <Chart/>
 
-        <ComponentLoader>
-            <Stats/>
-        </ComponentLoader>
+        <div class="col">
+            <ComponentLoader><Stats/></ComponentLoader>
+        </div>
     </div>
 
     <ComponentLoader>
@@ -14,11 +14,6 @@
     <ComponentLoader>
         <RecentFloatTransactions/>
     </ComponentLoader>
-    <!--    <Suspense>
-            <RecentTransactions/>
-
-            <template #fallback><ComponentLoader/></template>
-        </Suspense>-->
 </template>
 
 <script setup lang="ts">

@@ -68,6 +68,10 @@ table td.actions .btn {
     transform: scale(.7);
 }
 
+.form-select{
+    background-image: none;
+}
+
 
 /*===   === === === === ===  FORMKIT */
 .formkit-input {
