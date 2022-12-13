@@ -9,7 +9,7 @@
                             <font-awesome-icon :icon="faCirclePlus" class="text-warning"/>
                         </span>
                 </div>
-                <div class="card-footer bg-warning text-white border-top-0">
+                <div class="card-footer bg-primary text-white border-top-0">
                     Float Amount
                 </div>
             </div>
@@ -19,7 +19,7 @@
                 <div class="card-body">
                     <count-up :end-val="store.dash_stats.vouchers_disbursed" :options="{prefix:'KES '}"/>
                 </div>
-                <div class="card-footer bg-warning text-white border-top-0">
+                <div class="card-footer bg-primary text-white border-top-0">
                     Vouchers Disbursed
                 </div>
             </div>
@@ -29,7 +29,7 @@
                 <div class="card-body">
                     <count-up :end-val="store.dash_stats.accounts_count" :options="{prefix:'KES '}"/>
                 </div>
-                <div class="card-footer bg-warning text-white border-top-0">
+                <div class="card-footer bg-primary text-white border-top-0">
                     Accounts
                 </div>
             </div>

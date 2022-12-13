@@ -12,7 +12,7 @@ export const useVoucherTypeStore = defineStore("voucher-type", {
     actions: {
         async fetchVoucherType(id: number) {
             try {
-                await new Promise(r => setTimeout(r, 1000));
+                // await new Promise(r => setTimeout(r, 1000));
                 const { data } = await axios.get(`voucher-types/${id}`)
 
                 this.voucher_type = data.data
