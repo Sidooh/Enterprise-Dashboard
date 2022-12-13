@@ -1,38 +1,36 @@
 <template>
-    <div class="col">
-        <div class="row g-3">
-            <div class="col-md-4 col-xxl-12">
-                <div class="card text-center h-100">
-                    <div class="card-body position-relative">
-                        KSH 40,000
-                        <span class="cursor-pointer position-absolute top-0 end-0 me-2 mt-1" title="Top Up Float"
-                              @click="() => state.modal?.show()">
-                                <font-awesome-icon :icon="faCirclePlus" class="text-warning"/>
-                            </span>
-                    </div>
-                    <div class="card-footer bg-warning text-white border-top-0">
-                        Float Amount
-                    </div>
+    <div class="row g-3">
+        <div class="col-md-4 col-xxl-12">
+            <div class="card text-center h-100">
+                <div class="card-body position-relative">
+                    <count-up :end-val="store.dash_stats.float_balance" :options="{prefix:'KES '}"/>
+                    <span class="cursor-pointer position-absolute top-0 end-0 me-2 mt-1" title="Top Up Float"
+                          @click="() => state.modal?.show()">
+                            <font-awesome-icon :icon="faCirclePlus" class="text-warning"/>
+                        </span>
+                </div>
+                <div class="card-footer bg-primary text-white border-top-0">
+                    Float Amount
                 </div>
             </div>
-            <div class="col-md-4 col-xxl-12">
-                <div class="card text-center h-100">
-                    <div class="card-body">
-                        500
-                    </div>
-                    <div class="card-footer bg-warning text-white border-top-0">
-                        Vouchers Disbursed
-                    </div>
+        </div>
+        <div class="col-md-4 col-xxl-12">
+            <div class="card text-center h-100">
+                <div class="card-body">
+                    <count-up :end-val="store.dash_stats.vouchers_disbursed" :options="{prefix:'KES '}"/>
+                </div>
+                <div class="card-footer bg-primary text-white border-top-0">
+                    Vouchers Disbursed
                 </div>
             </div>
-            <div class="col-md-4 col-xxl-12">
-                <div class="card text-center h-100">
-                    <div class="card-body">
-                        50
-                    </div>
-                    <div class="card-footer bg-warning text-white border-top-0">
-                        Accounts
-                    </div>
+        </div>
+        <div class="col-md-4 col-xxl-12">
+            <div class="card text-center h-100">
+                <div class="card-body">
+                    <count-up :end-val="store.dash_stats.accounts_count" :options="{prefix:'KES '}"/>
+                </div>
+                <div class="card-footer bg-primary text-white border-top-0">
+                    Accounts
                 </div>
             </div>
         </div>
@@ -74,6 +72,8 @@ import { toast } from "@/utils/helpers";
 import { faCloudversify } from '@fortawesome/free-brands-svg-icons'
 import { useAuthStore } from "@/stores/auth";
 import { useEnterpriseStore } from "@/stores/enterprise";
+import CountUp from 'vue-countup-v3'
+
 
 const store = useEnterpriseStore();
 const state = reactive<{ modal?: BSModal }>({ modal: undefined })
@@ -95,6 +95,8 @@ const submitFloatTopUp = async ({ amount, phone }: FormKitGroupValue, node?: For
         toast({ titleText: err.message, icon: 'error' })
     }
 }
+
+await store.fetchDashboardStatistics()
 
 onMounted(() => {
     state.modal = new BSModal('#float-top-up')

@@ -1,102 +1,103 @@
 <template>
-    <div class="d-flex flex-column justify-content-center align-items-center h-100 col-12 col-md-6">
-        <div class="container">
-            <div class="d-flex justify-content-center row">
-                <div class="col-auto col-xl-7">
-                    <FormKit type="form" :plugins="[stepPlugin]" :actions="false" :incomplete-message="false">
-                        <article>
-                            <section class="card shadow-sm">
-                                <div class="step-header ps-2">
-                                    <div class="d-flex">
-                                        <div class="step"
-                                             :class="{'active':activeStep === stepName, 'bg-danger text-light':checkStepValidity(stepName)}"
-                                             v-for="(_, stepName) in steps" :key="stepName">
-                                            <font-awesome-icon v-if="checkStepValidity(stepName)"
-                                                               :icon="faCircleExclamation"
-                                                               class="small exclaim text-danger"/>
-                                        </div>
+    <div class="container">
+        <div class="d-flex justify-content-center row">
+            <div class="col-auto col-xl-9">
+                <FormKit type="form" :plugins="[stepPlugin]" :actions="false" :incomplete-message="false">
+                    <article>
+                        <section class="card shadow-sm px-3">
+                            <div class="pt-3">
+                                <img src="/sidooh.png" alt="" width="100">
+                            </div>
+                            <div class="step-header">
+                                <div class="d-flex">
+                                    <div class="step"
+                                         :class="{'active':activeStep === stepName, 'bg-danger text-light':checkStepValidity(stepName)}"
+                                         v-for="(_, stepName) in steps" :key="stepName">
+                                        <font-awesome-icon v-if="checkStepValidity(stepName)"
+                                                           :icon="faCircleExclamation"
+                                                           class="small exclaim text-danger"/>
                                     </div>
                                 </div>
-                                <h2 class="px-3 mt-3">Sign In</h2>
-                                <div
-                                    class="card-body p-4 p-xl-5 d-flex flex-column justify-content-center align-items-center">
-                                    <section v-show="activeStep === 'auth'">
-                                        <FormKit type="form" #default="{ value, state: { valid } }"
-                                                 :plugins="[stepPlugin]" @submit="submitCredentials"
-                                                 :actions="false" :incomplete-message="false">
-                                            <FormKit type="group" id="auth" name="auth" title="Sign In"
-                                                     :config="{classes:{input:'form-control', outer:'mb-3'}}">
-                                                <FormKit type="email" name="email" placeholder="Email address"
-                                                         validation="required"/>
+                            </div>
+                            <h2>Sign In</h2>
+                            <div
+                                class="card-body px-0 d-flex flex-column justify-content-center align-items-center">
+                                <section v-show="activeStep === 'auth'">
+                                    <FormKit type="form" #default="{ value, state: { valid } }"
+                                             :plugins="[stepPlugin]" @submit="submitCredentials"
+                                             :actions="false" :incomplete-message="false">
+                                        <FormKit type="group" id="auth" name="auth" title="Sign In"
+                                                 :config="{classes:{input:'form-control', outer:'mb-3'}}">
+                                            <FormKit type="email" name="email" placeholder="Email address"
+                                                     validation="required"/>
 
-                                                <FormKit type="password" name="password" placeholder="password"
-                                                         validation="required"/>
-                                            </FormKit>
-
-                                            <FormKit type="submit" input-class="btn btn-sm btn-primary ms-auto"
-                                                     :disabled="!valid">
-                                                Sign In
-                                                <font-awesome-icon :icon="faRightLong" class="ms-1"/>
-                                            </FormKit>
+                                            <FormKit type="password" name="password" placeholder="password"
+                                                     validation="required"/>
                                         </FormKit>
-                                    </section>
 
-                                    <section v-show="activeStep === 'verify'">
-                                        <FormKit type="form" #default="{ value, state: { valid } }"
-                                                 ref="verificationForm"
-                                                 :plugins="[stepPlugin]" @submit="submitVerification"
-                                                 :actions="false" :incomplete-message="false">
-                                            <FormKit type="group" id="verify" name="verify" title="Verification"
-                                                     :config="{classes:{input:'form-control', outer:'mb-3'}}">
-                                                <div class="alert alert-success small py-1 new-otp-alert" role="alert">
-                                                    A one time password verification code has been sent to your phone!
-                                                </div>
+                                        <FormKit type="submit" input-class="btn btn-sm btn-primary ms-auto"
+                                                 :disabled="!valid">
+                                            Sign In
+                                            <font-awesome-icon :icon="faRightLong" class="ms-1"/>
+                                        </FormKit>
+                                    </FormKit>
+                                </section>
 
-                                                <FormKit type="number" name="otp" placeholder="Enter verification OTP"
-                                                         validation="required|number|length:6,6" :validation-messages="{
+                                <section v-show="activeStep === 'verify'">
+                                    <FormKit type="form" #default="{ value, state: { valid } }"
+                                             ref="verificationForm"
+                                             :plugins="[stepPlugin]" @submit="submitVerification"
+                                             :actions="false" :incomplete-message="false">
+                                        <FormKit type="group" id="verify" name="verify" title="Verification"
+                                                 :config="{classes:{input:'form-control', outer:'mb-3'}}">
+                                            <div class="alert alert-success small py-1 new-otp-alert" role="alert">
+                                                A one time password verification code has been sent to your phone!
+                                            </div>
+
+                                            <FormKit type="number" name="otp" placeholder="Enter verification OTP"
+                                                     validation="required|number|length:6,6" :validation-messages="{
                                                             length:'OTP must be 6 characters.'
                                                          }"/>
 
-                                                <div id="resend" class="alert alert-warning small py-1" role="alert">
-                                                    Haven't received it?
-                                                    <b v-show="!resendingOTP" @click="resendOTP"
-                                                       :class="{'text-decoration-underline cursor-pointer': !(timer > 0)}">
-                                                        resend OTP{{ timer > 0 ? ` in ${timer}s` : '.' }}
-                                                    </b>
-                                                    <b v-show="resendingOTP"
-                                                       @click="resendOTP">Resending...</b>
-                                                </div>
-                                            </FormKit>
-
-                                            <div class="mt-3 d-flex justify-content-end">
-                                                <FormKit type="submit" input-class="btn btn-sm btn-primary ms-2"
-                                                         :disabled="!valid">
-                                                    Verify
-                                                    <font-awesome-icon :icon="faCloudversify" class="ms-1"/>
-                                                </FormKit>
+                                            <div id="resend" class="alert alert-warning small py-1" role="alert">
+                                                Haven't received it?
+                                                <b v-show="!resendingOTP" @click="resendOTP"
+                                                   :class="{'text-decoration-underline cursor-pointer': !(timer > 0)}">
+                                                    resend OTP{{ timer > 0 ? ` in ${timer}s` : '.' }}
+                                                </b>
+                                                <b v-show="resendingOTP"
+                                                   @click="resendOTP">Resending...</b>
                                             </div>
                                         </FormKit>
-                                    </section>
 
-                                    <div class="mt-3">
-                                        <small>Haven't Signed In? </small>
-                                        <small><a href="/register">Sign Up</a></small>
-                                    </div>
+                                        <div class="mt-3 d-flex justify-content-end">
+                                            <FormKit type="submit" input-class="btn btn-sm btn-primary ms-2"
+                                                     :disabled="!valid">
+                                                Verify
+                                                <font-awesome-icon :icon="faCloudversify" class="ms-1"/>
+                                            </FormKit>
+                                        </div>
+                                    </FormKit>
+                                </section>
+
+                                <div class="mt-3">
+                                    <small>Haven't Signed In? </small>
+                                    <small><a href="/register">Sign Up</a></small>
                                 </div>
-                            </section>
-
-                            <div class="position-relative mt-4">
-                                <hr/>
-                                <div class="text-center">🌟</div>
                             </div>
+                        </section>
 
-                            <div class="text-center">
-                                <i><small class="text-center opacity-75">Sidooh, Makes You Money with Every
-                                    Purchase!</small></i>
-                            </div>
-                        </article>
-                    </FormKit>
-                </div>
+                        <div class="position-relative mt-4">
+                            <hr/>
+                            <div class="text-center">🌟</div>
+                        </div>
+
+                        <div class="text-center">
+                            <i><small class="text-center opacity-75">Sidooh, Makes You Money with Every
+                                Purchase!</small></i>
+                        </div>
+                    </article>
+                </FormKit>
             </div>
         </div>
     </div>

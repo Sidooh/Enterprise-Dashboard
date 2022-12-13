@@ -20,15 +20,31 @@ export type Model = {
     updated_at?: string
 }
 
+export type Voucher = Model & {
+    type: string
+    balance: number
+    account_id: number
+    voucher_type_id: number
+}
+
 export type VoucherType = Model & {
     name: string
     is_locked: boolean
     limit_amount: number
     expires_at: string
     settings: string
+    vouchers: Voucher[]
+}
+
+export type VoucherTransaction = Model & {
+    type: number
+    amount: number
+    description: string
+    status: Status
 }
 
 export type FloatTransaction = Model & {
+    type: number
     amount: number
     description: string
     status: Status

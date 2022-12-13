@@ -1,7 +1,7 @@
 <template>
     <div class="card mt-3">
         <div class="card-body">
-            <DataTable title="Latest Transactions" :columns="columns" :data="store.recent_transactions"/>
+            <DataTable title="Recent Float Transactions" :columns="columns" :data="store.recent_float_transactions"/>
         </div>
     </div>
 </template>
@@ -23,6 +23,9 @@ const store = useEnterpriseStore();
 
 const columnHelper = createColumnHelper<FloatTransaction>()
 const columns = [
+    columnHelper.accessor('type', {
+        header: 'Type',
+    }),
     columnHelper.accessor('amount', {
         header: () => 'Amount',
         cell: info => currencyFormat(info.getValue())
@@ -45,7 +48,7 @@ const columns = [
     },
 ]
 
-await store.fetchRecentTransactions()
+await store.fetchRecentFloatTransactions()
 </script>
 
 <style scoped>

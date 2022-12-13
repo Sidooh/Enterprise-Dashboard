@@ -2,8 +2,10 @@
 
 <template>
     <div class="row no-gutters vh-100">
-        <router-view/>
-        <div class="d-none d-md-flex h-100 justify-content-center align-items-center col-sm-6 bg-auth">
+        <div class="d-flex flex-column justify-content-center align-items-center h-100 col-12 col-md-5">
+            <router-view/>
+        </div>
+        <div class="d-none d-md-flex h-100 justify-content-center align-items-center col-md-7 bg-auth">
             <a class="d-flex flex-column align-items-center text-decoration-none" href="/">
                 <img class="me-2" src="/sidooh-primary.png" alt="" width="500">
                 <span class="service-name">Enterprise</span>
@@ -22,8 +24,12 @@
     width: 2rem;
     height: 1rem;
     background-color: #0F1B4C;
-    margin: 1rem .3rem 0;
     border-radius: 1rem;
+    margin: 1rem 0;
+}
+
+.step-header .step:not(:first-child) {
+    margin-left: .3rem;
 }
 
 .step-header .step.active {

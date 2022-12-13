@@ -5,6 +5,7 @@ import { useAuthStore } from "@/stores/auth";
 import Auth from '@/components/layouts/Auth.vue'
 import Dashboard from './views/dashboard/Index.vue'
 import Profile from './views/Profile.vue'
+import ShowVoucherType from './views/voucher-types/Show.vue'
 
 const router = createRouter({
     history: createWebHistory(import.meta.env.BASE_URL),
@@ -21,15 +22,25 @@ const router = createRouter({
         { path: '/profile', name: 'profile', component: Profile, meta: { auth: true } },
         {
             path: '/voucher-types',
-            name: 'voucher-types',
-            component: () => import('./views/voucher-types/Index.vue'),
             children: [
+                { path: '', name: 'voucher-types', component: () => import('./views/voucher-types/Index.vue') },
                 {
                     path: ':id',
                     name: 'voucher-types.show',
-                    component: () => import('./views/voucher-types/Show.vue')
+                    component: ShowVoucherType
                 }
             ], meta: { auth: true }
+        },
+        {
+            path: '/vouchers',
+            children: [
+                { path: ':id', name: 'vouchers.show', redirect: '/' }
+            ]
+        },
+        {
+            path: '/voucher-transactions', children: [
+                { path: ':id', name: 'voucher-transactions.show', redirect: '/' }
+            ]
         },
         {
             path: '/float',

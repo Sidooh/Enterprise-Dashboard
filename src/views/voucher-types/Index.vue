@@ -74,9 +74,7 @@ const columns = [
         )
     },
 ]
-const state = reactive<{ modal?: BSModal }>({
-    modal: undefined
-})
+const state = reactive<{ modal?: BSModal }>({ modal: undefined })
 
 const store = useVoucherTypeStore();
 const tableKey = ref(0);

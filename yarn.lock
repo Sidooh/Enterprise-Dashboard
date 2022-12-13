@@ -1201,6 +1201,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"countup.js@npm:^2.1.0":
+  version: 2.3.2
+  resolution: "countup.js@npm:2.3.2"
+  checksum: 77bb509cd17619568c8d841f9dbba7d75c70948d7f9acd0a1acea80e3894c4b4173e27e8896268c1f53415ebee465229f1e623da5ad759083a618484ac4f9b60
+  languageName: node
+  linkType: hard
+
 "cross-spawn@npm:^6.0.5":
   version: 6.0.5
   resolution: "cross-spawn@npm:6.0.5"
@@ -1319,6 +1326,7 @@ __metadata:
     typescript: ~4.7.4
     vite: ^3.2.5
     vue: ^3.2.38
+    vue-countup-v3: ^1.1.0
     vue-filepond: ^7.0.3
     vue-router: ^4.1.5
     vue-tsc: ^0.40.13
@@ -3188,6 +3196,17 @@ __metadata:
   bin:
     vite: bin/vite.js
   checksum: ad35b7008c2b62a167d1d1a82f0a0c60fa457733f1969e9eedf0b0077f67a7ac74b4c9477e75a397895150f09b6551f0c17841c5b05c34d9fe302bb0b5dc28a8
+  languageName: node
+  linkType: hard
+
+"vue-countup-v3@npm:^1.1.0":
+  version: 1.1.0
+  resolution: "vue-countup-v3@npm:1.1.0"
+  dependencies:
+    countup.js: ^2.1.0
+  peerDependencies:
+    vue: ^3.0.0
+  checksum: e700763a6e9cd48f837abd4e42596cee32b3d6bd67acb1d23b03f07417c8d392cda738ac410a903ae7564e20bd5e24ac0002bf7045922b3fcf402494e6f01712
   languageName: node
   linkType: hard
 
