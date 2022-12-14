@@ -12,9 +12,9 @@
 </template>
 
 <script setup lang="ts">
-import { ref, VueElement } from "vue";
+import { ref } from "vue";
 
-const props = defineProps<{ title: VueElement, placement?: 'top' | 'left' | 'bottom' | 'right' }>()
+const props = defineProps<{ title: string, placement?: 'top' | 'left' | 'bottom' | 'right' }>()
 
 const placement = ref(props.placement ?? 'bottom')
 const show = ref(false)
