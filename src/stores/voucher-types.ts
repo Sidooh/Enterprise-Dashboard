@@ -1,7 +1,7 @@
 import { defineStore } from "pinia";
-import axios from "axios";
 import { VoucherType } from "@/utils/types";
 import { logger } from "@/utils/logger";
+import client from "@/utils/client";
 
 export const useVoucherTypeStore = defineStore("voucher-type", {
     state: () => ({
@@ -13,7 +13,7 @@ export const useVoucherTypeStore = defineStore("voucher-type", {
         async fetchVoucherType(id: number) {
             try {
                 // await new Promise(r => setTimeout(r, 1000));
-                const { data } = await axios.get(`voucher-types/${id}`)
+                const { data } = await client.get(`voucher-types/${id}`)
 
                 this.voucher_type = data.data
                 logger.info(this.voucher_type)
@@ -25,7 +25,7 @@ export const useVoucherTypeStore = defineStore("voucher-type", {
         },
         async fetchVoucherTypes() {
             try {
-                const { data } = await axios.get('voucher-types')
+                const { data } = await client.get('voucher-types')
 
                 this.voucher_types = data.data
 
@@ -39,7 +39,7 @@ export const useVoucherTypeStore = defineStore("voucher-type", {
         },
         async create(voucherType: VoucherType) {
             try {
-                const { data } = await axios.post('/voucher-types', voucherType)
+                const { data } = await client.post('/voucher-types', voucherType)
 
                 this.voucher_types.push(data.data)
 

@@ -1,7 +1,7 @@
 import { defineStore } from "pinia";
-import axios from "axios";
 import { Team } from "@/utils/types";
 import { logger } from "@/utils/logger";
+import client from "@/utils/client";
 
 export const useTeamStore = defineStore("team", {
     state: () => ({
@@ -11,7 +11,7 @@ export const useTeamStore = defineStore("team", {
     actions: {
         async fetchTeams() {
             try {
-                const { data } = await axios.get('teams')
+                const { data } = await client.get('teams')
 
                 this.teams = data.data
 
@@ -22,7 +22,7 @@ export const useTeamStore = defineStore("team", {
         },
         async create(team: Team) {
             try {
-                const { data } = await axios.post('/teams', team)
+                const { data } = await client.post('/teams', team)
 
                 this.teams.push(data.data)
 

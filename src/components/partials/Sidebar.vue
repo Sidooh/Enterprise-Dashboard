@@ -215,11 +215,7 @@ onMounted(() => {
     HTMLClassList[isNavbarVerticalCollapsed.value ? 'add' : 'remove']('sidebar-collapsed')
 })
 
-const logout = () => {
-    useAuthStore().logout()
-
-    window.location.reload()
-}
+const logout = () => useAuthStore().logout()
 </script>
 
 <style scoped>

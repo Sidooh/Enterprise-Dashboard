@@ -15,11 +15,9 @@ const route = useRoute()
 const layout = computed(() => route.meta.layout || DefaultLayout)
 
 onMounted(() => {
-    const authStore = useAuthStore()
+    useAuthStore().checkLocalAuth()
 
-    authStore.checkLocalAuth()
-
-    Array.prototype.forEach.call(document.querySelectorAll('.scrollbar-overlay'), (el) => new SimpleBar(el, {
+    Array.prototype.forEach.call(document.querySelectorAll('.scrollbar-overlay'), el => new SimpleBar(el, {
         autoHide: true
     }));
 })

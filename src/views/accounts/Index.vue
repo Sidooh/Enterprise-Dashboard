@@ -6,36 +6,12 @@
         </div>
     </div>
 
-    <FormKit type="form" submit-label="Create" :actions="false" #default="{ state: { valid } }"
-             @submit="submitNewAccount">
-        <Modal id="create-account">
-            <template #title>Create New Account</template>
-            <template #body>
-                <div class="row">
-                    <FormKit name="name" placeholder="Enter name" validation="required"
-                             :classes="{input:'form-control', outer:'col-12 mb-3'}"/>
-                    <FormKit type="tel" name="phone" placeholder="Phone number"
-                             :classes="{input:'form-control', outer:'col-md-6 mb-3'}" validation="required"/>
-                    <FormKit type="select" name="role" placeholder="Select role"
-                             :options="{admin:'Admin', employee:'Employee'}"
-                             :classes="{input:'form-control', outer:'col-md-6 mb-3'}" validation="required"/>
-                </div>
-            </template>
-            <template #footer>
-                <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Close</button>
-                <FormKit type="submit" input-class="btn btn-primary" :disabled="!valid">
-                    Create
-                    <font-awesome-icon :icon="faCloudversify" class="ms-1"/>
-                </FormKit>
-            </template>
-        </Modal>
-    </FormKit>
+    <CreateAccountModal @init="modal => createAccountModal = modal" @created="() => tableKey+=1"/>
 </template>
 
 <script setup lang="ts">
 import DataTable from "@/components/datatable/DataTable.vue";
 import Phone from "@/components/Phone.vue";
-import Modal from "@/components/Modal.vue";
 import { CellContext, createColumnHelper } from "@tanstack/vue-table";
 import { h, onMounted, reactive, ref } from "vue";
 import { RouterLink } from "vue-router";
@@ -43,12 +19,10 @@ import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 import { faEye } from "@fortawesome/free-regular-svg-icons";
 import { Account } from "@/utils/types";
 import { faTrash } from "@fortawesome/free-solid-svg-icons";
-import { faCloudversify } from '@fortawesome/free-brands-svg-icons'
 import { Modal as BSModal } from "bootstrap";
-import { FormKitGroupValue, FormKitNode } from "@formkit/core";
 import { useAccountStore } from "@/stores/accounts";
-import { toast } from "@/utils/helpers";
 import { logger } from "@/utils/logger";
+import CreateAccountModal from "@/components/modals/CreateAccountModal.vue";
 
 const columnHelper = createColumnHelper<Account>()
 const columns = [
@@ -79,35 +53,15 @@ const columns = [
         ])
     },
 ]
-const state = reactive<{ modal?: BSModal }>({
-    modal: undefined
-})
+const state = reactive<{ modal?: BSModal }>({ modal: undefined })
 
 const store = useAccountStore();
 const tableKey = ref(0);
+const createAccountModal = ref()
 
-const handleCreateRow = () => state.modal?.show()
-
-const submitNewAccount = async (formData: FormKitGroupValue, node?: FormKitNode) => {
-    try {
-        node?.clearErrors()
-
-        await store.create(formData as Account)
-
-        state.modal?.hide()
-        node?.reset()
-
-        toast({titleText:'Account Created Successfully!'})
-
-        tableKey.value += 1
-    } catch (err: any) {
-        toast({ titleText: err.message, icon: 'error' })
-    }
-}
+const handleCreateRow = () => createAccountModal.value?.show()
 
 onMounted(() => {
-    state.modal = new BSModal('#create-account', {})
-
     store.fetchAccounts()
 
     logger.info(store.accounts)

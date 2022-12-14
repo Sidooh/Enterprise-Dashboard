@@ -67,14 +67,13 @@
             </li>
             <li class="nav-item dropdown">
                 <a class="nav-link pe-0 ps-2" id="navbarDropdownUser" role="button" data-bs-toggle="dropdown"
-                   aria-haspopup="true" aria-expanded="false">
+                   aria-expanded="false">
                     <div class="avatar avatar-xl">
                         <img class="rounded-circle" src="/images/2-thumb.png" alt="">
                     </div>
                 </a>
-                <div class="dropdown-menu dropdown-caret dropdown-caret dropdown-menu-end py-0"
-                     aria-labelledby="navbarDropdownUser">
-                    <div class="bg-white dark__bg-1000 rounded-2 py-2">
+                <div class="dropdown-menu dropdown-menu-end py-0">
+                    <div class="bg-white rounded-2 py-2">
                         <a class="dropdown-item" href="#">Profile &amp; account</a>
                         <div class="dropdown-divider"></div>
                         <a class="dropdown-item" href="#">Settings</a>
@@ -89,11 +88,7 @@
 <script setup lang="ts">
 import { useAuthStore } from "@/stores/auth";
 
-const logout = () => {
-    useAuthStore().logout()
-
-    window.location.reload()
-}
+const logout = () => useAuthStore().logout()
 </script>
 
 <style scoped>

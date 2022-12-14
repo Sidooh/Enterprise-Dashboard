@@ -1,7 +1,7 @@
 import { defineStore } from "pinia";
-import axios from "axios";
 import { Account } from "@/utils/types";
 import { logger } from "@/utils/logger";
+import client from "@/utils/client";
 
 export const useAccountStore = defineStore("account", {
     state: () => ({
@@ -11,7 +11,7 @@ export const useAccountStore = defineStore("account", {
     actions: {
         async fetchAccounts() {
             try {
-                const { data } = await axios.get('accounts')
+                const { data } = await client.get('accounts')
 
                 this.accounts = data.data
 
@@ -22,7 +22,7 @@ export const useAccountStore = defineStore("account", {
         },
         async create(account: Account) {
             try {
-                const { data } = await axios.post('/accounts', account)
+                const { data } = await client.post('/accounts', account)
 
                 this.accounts.push(data.data)
 

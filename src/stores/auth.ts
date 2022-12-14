@@ -1,38 +1,36 @@
 import { defineStore } from "pinia";
-import axios from "axios";
 import { logger } from "@/utils/logger";
 import moment from "moment";
 import { JWT } from "@/utils/helpers";
+import client from "@/utils/client";
 
 export type LoginData = { email: string, password: string }
 export type RegistrationData = LoginData & { name: string, country: string, address: string }
-export type Auth = {
-    token: string,
-    user: {
-        email: string,
-        enterprise: { id: number, name: string, phone: string },
-        id: number, name: string, roles: string[]
-    }
-}
+export type User = {
+    email: string,
+    enterprise: { id: number, name: string, phone: string },
+    id: number, name: string, roles: string[]
+} | null
 
 export const useAuthStore = defineStore("auth", {
     state: () => ({
-        auth: JSON.parse(String(localStorage.getItem('AUTH'))) as Auth || null,
+        token: <string | null>null,
+        user: <User>{},
     }),
 
     actions: {
         async login(data: LoginData) {
             try {
-                const { data: response } = await axios.post("auth/login", data)
+                const { data: response } = await client.post("auth/login", data)
 
                 if (response?.status) {
                     const { data } = response
 
+                    this.token = data.token
+
                     await this.sendOTP(data.user.id, 'SMS')
 
-                    localStorage.setItem("userId", data.user.id);
-
-                    axios.defaults.headers.common['Authorization'] = "Bearer " + data.token;
+                    localStorage.setItem("user", JSON.stringify(data.user));
                 } else {
                     logger.warn(response)
                 }
@@ -52,13 +50,13 @@ export const useAuthStore = defineStore("auth", {
         },
         async register(data: RegistrationData) {
             try {
-                const { data: response } = await axios.post("auth/register", data)
+                const { data: response } = await client.post("auth/register", data)
                 logger.info(response)
 
                 if (response?.status) {
                     const { data } = response
 
-                    localStorage.setItem("userId", data.User.id);
+                    localStorage.setItem("user", data.User);
 
                     return data
                 } else {
@@ -73,24 +71,30 @@ export const useAuthStore = defineStore("auth", {
             }
         },
         async sendOTP(userId: number, channel: string) {
-            await axios.post('auth/otp/generate', { id: userId, channel })
+            await client.post('auth/otp/generate', { id: userId, channel })
         },
         async verifyOTP(otp: number) {
-            const id = Number(localStorage.getItem("userId"))
+            const id = (JSON.parse(String(localStorage.getItem("user"))) as User)?.id
 
-            const { data: { data: response } } = await axios.post("auth/otp/verify", { id, otp })
+            const { data: response } = await client.post("auth/otp/verify", { id, otp })
 
-            this.auth = response
+            if (response?.status) {
+                const { token, user } = response.data
 
-            localStorage.setItem("AUTH", JSON.stringify(response));
+                localStorage.setItem("token", token);
+                localStorage.setItem("user", JSON.stringify(user));
 
-            axios.defaults.headers.common['Authorization'] = "Bearer " + response.token;
+                this.token = token
+                this.user = user
+            } else {
+                logger.warn(response)
+            }
         },
         async verifyUser(phone_otp: number, email_otp: number) {
             try {
-                const id = Number(localStorage.getItem("userId"))
+                const id = (JSON.parse(String(localStorage.getItem("user"))) as User)?.id
 
-                const { data: { data: response } } = await axios.post("auth/verify", { id, phone_otp, email_otp })
+                const { data: { data: response } } = await client.post("auth/verify", { id, phone_otp, email_otp })
 
                 logger.log(response)
             } catch (err: any) {
@@ -102,24 +106,25 @@ export const useAuthStore = defineStore("auth", {
             }
         },
         checkLocalAuth() {
-            console.log('here')
-            if (this.auth) {
-                const tokenData = JWT.decode(this.auth.token)
+            this.token = localStorage.getItem("token")
+            this.user = JSON.parse(String(localStorage.getItem("user")))
+
+            if (this.token) {
+                const tokenData = JWT.decode(this.token)
                 const expiresIn = moment.unix(tokenData.exp).diff(moment(), 'minutes');
 
                 logger.log(`Session expires in: ${expiresIn} minutes`);
 
-                if (moment.unix(tokenData.exp).isBefore(moment())) {
-                    useAuthStore().logout()
-
-                    window.location.reload()
-                }
+                if (moment.unix(tokenData.exp).isBefore(moment())) this.logout()
             }
         },
         logout() {
             this.$reset()
 
-            localStorage.removeItem('AUTH')
+            localStorage.removeItem('user')
+            localStorage.removeItem('token')
+
+            // location.reload()
         }
     }
 })
