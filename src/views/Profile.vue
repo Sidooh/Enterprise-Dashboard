@@ -74,8 +74,8 @@ import { faRotate } from '@fortawesome/free-solid-svg-icons'
 import { useAuthStore } from "@/stores/auth";
 
 const submitted = ref(false)
-const user = ref(useAuthStore().auth.user)
-console.log(user)
+const user = ref(useAuthStore().user)
+
 const submitHandler = async () => {
     // Let's pretend this is an ajax request:
     await new Promise((r) => setTimeout(r, 1000))
