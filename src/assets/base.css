@@ -19,6 +19,8 @@
 
     --scrollbar-bg: rgba(52, 64, 80, 0.6);
 
+    --box-shadow: 0 7px 14px 0 rgba(65, 69, 88, 0.1), 0 3px 6px 0 rgba(0, 0, 0, 0.07);
+
     /*  Overrides   */
     --bs-primary:#0F1B4C;
     --bs-warning:#F5B700;

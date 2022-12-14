@@ -1,8 +1,8 @@
 import { defineStore } from "pinia";
-import axios from "axios";
 import { logger } from "@/utils/logger";
 import Swal from "sweetalert2";
 import { FloatTransaction, VoucherTransaction } from "@/utils/types";
+import client from "@/utils/client";
 
 type DashboardStats = {
     float_balance: number
@@ -20,7 +20,7 @@ export const useEnterpriseStore = defineStore("enterprise", {
         async fetchDashboardStatistics() {
             try {
                 // await new Promise(r => setTimeout(r, 3000));
-                const { data } = await axios.get('/dashboard/statistics')
+                const { data } = await client.get('/dashboard/statistics')
 
                 this.dash_stats = data.data
 
@@ -34,7 +34,7 @@ export const useEnterpriseStore = defineStore("enterprise", {
         async fetchRecentVoucherTransactions() {
             try {
                 // await new Promise(r => setTimeout(r, 5000));
-                const { data } = await axios.get('/dashboard/recent-voucher-transactions?limit=100')
+                const { data } = await client.get('/dashboard/recent-voucher-transactions?limit=100')
 
                 this.recent_voucher_transactions = data.data
 
@@ -48,7 +48,7 @@ export const useEnterpriseStore = defineStore("enterprise", {
         async fetchRecentFloatTransactions() {
             try {
                 // await new Promise(r => setTimeout(r, 2000));
-                const { data } = await axios.get('/dashboard/recent-float-transactions?limit=100')
+                const { data } = await client.get('/dashboard/recent-float-transactions?limit=100')
 
                 this.recent_float_transactions = data.data
 
@@ -61,7 +61,7 @@ export const useEnterpriseStore = defineStore("enterprise", {
         },
         creditFloat: async (amount: number, phone: number) => {
             try {
-                const { data } = await axios.post('/float-account/credit', { amount, phone })
+                const { data } = await client.post('/float-account/credit', { amount, phone })
 
                 logger.info(data)
 

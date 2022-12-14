@@ -91,11 +91,11 @@ const router = createRouter({
 router.beforeEach((to, from, next) => {
     const authStore = useAuthStore()
 
-    if (to.meta.auth && !authStore.auth) {
+    if (to.meta.auth && !authStore.token) {
         localStorage.setItem('urlIntended', to.path)
 
         next({ name: 'login' });
-    } else if (!to.meta.auth && authStore.auth) {
+    } else if (!to.meta.auth && authStore.token) {
         next({ name: 'dashboard' });
     } else {
         next()

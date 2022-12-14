@@ -1,7 +1,7 @@
 import { defineStore } from "pinia";
-import axios from "axios";
 import { FloatTransaction } from "@/utils/types";
 import { logger } from "@/utils/logger";
+import client from "@/utils/client";
 
 export const useFloatStore = defineStore("float", {
     state: () => ({
@@ -11,7 +11,7 @@ export const useFloatStore = defineStore("float", {
     actions: {
         async fetchTransactions() {
             try {
-                const { data } = await axios.get('/float-account/transactions')
+                const { data } = await client.get('/float-account/transactions')
 
                 this.transactions = data.data
 
