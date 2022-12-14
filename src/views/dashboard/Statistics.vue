@@ -56,7 +56,7 @@ import { useEnterpriseStore } from "@/stores/enterprise";
 import CountUp from 'vue-countup-v3'
 import FloatTopUpModal from "@/components/modals/FloatTopUpModal.vue";
 import CreateAccountModal from "@/components/modals/CreateAccountModal.vue";
-import Tooltip from "@/Tooltip.vue";
+import Tooltip from "@/components/Tooltip.vue";
 
 const createAccountModal = ref()
 const floatTopUpModal = ref()
