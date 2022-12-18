@@ -52,7 +52,7 @@ const submitFloatTopUp = async ({ amount, phone }: FormKitGroupValue, node?: For
         state.modal?.hide()
         node?.reset()
 
-        toast({ titleText: 'Float Top Up Successful!' })
+        toast({ titleText: 'Float top up is being processed!', icon: 'info' })
 
         emit('created')
     } catch (err: any) {

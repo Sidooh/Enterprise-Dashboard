@@ -43,6 +43,11 @@ export type VoucherTransaction = Model & {
     status: Status
 }
 
+export type FloatAccount = Model & {
+    account_id: number
+    balance: number
+}
+
 export type FloatTransaction = Model & {
     type: number
     amount: number
@@ -66,4 +71,5 @@ export type Account = Model & {
 export type Team = Model & {
     name: string
     status: Status
+    accounts: Account[]
 }

@@ -56,7 +56,7 @@ export const useAuthStore = defineStore("auth", {
                 if (response?.status) {
                     const { data } = response
 
-                    localStorage.setItem("user", data.User);
+                    localStorage.setItem("user", JSON.stringify(data.User));
 
                     return data
                 } else {
@@ -98,7 +98,7 @@ export const useAuthStore = defineStore("auth", {
 
                 logger.log(response)
             } catch (err: any) {
-                logger.error(err.response)
+                logger.error(err)
 
                 if ([400, 422].includes(err.response?.status) && Boolean(err.response.data)) {
                     throw new Error(err.response.data.errs[0].message)
@@ -121,8 +121,8 @@ export const useAuthStore = defineStore("auth", {
         logout() {
             this.$reset()
 
-            localStorage.removeItem('user')
-            localStorage.removeItem('token')
+            // localStorage.removeItem('user')
+            // localStorage.removeItem('token')
 
             // location.reload()
         }

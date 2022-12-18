@@ -34,9 +34,6 @@ export const useVoucherTypeStore = defineStore("voucher-type", {
                 logger.error(e)
             }
         },
-        async fetchVouchers() {
-
-        },
         async create(voucherType: VoucherType) {
             try {
                 const { data } = await client.post('/voucher-types', voucherType)
@@ -52,6 +49,30 @@ export const useVoucherTypeStore = defineStore("voucher-type", {
                     throw new Error("Something went wrong.")
                 }
             }
-        }
+        },
+        async disburse(voucherTypeId: number, accountId: number, amount: number) {
+            try {
+                const { data } = await client.post(`/voucher-types/${voucherTypeId}/disburse`, {
+                    account_id: accountId,
+                    amount
+                })
+
+                logger.info(data)
+
+                return data.data
+            } catch (e: any) {
+                logger.error(e)
+
+                if ([400, 422].includes(e.response?.status) && Boolean(e.response.data)) {
+                    throw new Error(e.response.data.errors[0].message)
+                } else if (e.response?.status === 401 && e.response.data) {
+                    throw new Error('Invalid credentials!')
+                } else if (e.response?.status === 429) {
+                    throw new Error("Sorry! We failed to log you in. Please try again in a few minutes.")
+                } else {
+                    throw new Error('Something went wrong!')
+                }
+            }
+        },
     }
 })

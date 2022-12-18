@@ -5,6 +5,7 @@ import client from "@/utils/client";
 
 export const useTeamStore = defineStore("team", {
     state: () => ({
+        team: <Team>{},
         teams: <Team[]>[],
     }),
 
@@ -14,6 +15,18 @@ export const useTeamStore = defineStore("team", {
                 const { data } = await client.get('teams')
 
                 this.teams = data.data
+
+                return data.data
+            } catch (e) {
+                logger.error(e)
+            }
+        },
+        async fetchTeam(id: number) {
+            try {
+                const { data } = await client.get(`teams/${id}`)
+
+                logger.info(data.data)
+                this.team = data.data
 
                 return data.data
             } catch (e) {

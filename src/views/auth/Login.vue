@@ -35,7 +35,7 @@
                                                      validation="required"/>
                                         </FormKit>
 
-                                        <FormKit type="submit" input-class="btn btn-sm btn-primary ms-auto"
+                                        <FormKit type="submit" input-class="btn btn-primary ms-auto"
                                                  :disabled="!valid">
                                             Sign In
                                             <font-awesome-icon :icon="faRightLong" class="ms-1"/>
@@ -110,7 +110,7 @@ import { faCloudversify } from '@fortawesome/free-brands-svg-icons'
 import type { FormKitNode } from "@formkit/core";
 import { FormKitGroupValue } from "@formkit/core";
 import useSteps from "@/hooks/useSteps";
-import { LoginData, useAuthStore } from "@/stores/auth";
+import { LoginData, useAuthStore, User } from "@/stores/auth";
 import { ref, watch } from "vue";
 import router from "@/router";
 import { toast } from "@/utils/helpers";
@@ -163,7 +163,7 @@ const resendOTP = async () => {
 
         if (node) node.props.disabled = true
 
-        const id = Number(localStorage.getItem("userId"))
+        const id = (JSON.parse(String(localStorage.getItem("user"))) as User)?.id as number
 
         await useAuthStore().sendOTP(id, 'SMS')
 
