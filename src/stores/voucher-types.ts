@@ -64,7 +64,7 @@ export const useVoucherTypeStore = defineStore("voucher-type", {
                 logger.error(e)
 
                 if ([400, 422].includes(e.response?.status) && Boolean(e.response.data)) {
-                    throw new Error(e.response.data.errors[0].message)
+                    throw new Error(e.response.data.message)
                 } else if (e.response?.status === 401 && e.response.data) {
                     throw new Error('Invalid credentials!')
                 } else if (e.response?.status === 429) {

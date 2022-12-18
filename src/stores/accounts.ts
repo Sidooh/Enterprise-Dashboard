@@ -5,15 +5,28 @@ import client from "@/utils/client";
 
 export const useAccountStore = defineStore("account", {
     state: () => ({
+        account: <Account>{},
         accounts: <Account[]>[],
     }),
 
     actions: {
         async fetchAccounts() {
             try {
-                const { data } = await client.get('accounts')
+                const { data } = await client.get('/accounts')
 
                 this.accounts = data.data
+
+                return data.data
+            } catch (e) {
+                logger.error(e)
+            }
+        },
+        async fetchAccount(id: number) {
+            try {
+                const { data } = await client.get(`/accounts/${id}`)
+
+                logger.info(data.data)
+                this.account = data.data
 
                 return data.data
             } catch (e) {

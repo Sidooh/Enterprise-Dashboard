@@ -4,6 +4,9 @@
         <Modal id="disburse-voucher">
             <template #title>Disburse Voucher</template>
             <template #body>
+                <FormKit v-if="!voucherTypeId" type="select" name="voucher_type" placeholder="Select voucher type"
+                         :options="voucherTypeStore.voucher_types.map(t => ({label:t.name, value:t.id}))"
+                         :classes="{input:'form-control', outer:'col-md-12 mb-3'}" validation="required"/>
                 <FormKit type="number" min="100" :max="floatStore.float_account.balance" name="amount"
                          placeholder="Enter amount to disburse"
                          :validation="`required|min:100|max:${floatStore.float_account.balance}`"
@@ -31,7 +34,7 @@ import { faCloudversify } from '@fortawesome/free-brands-svg-icons'
 import { useFloatStore } from "@/stores/float";
 import { useVoucherTypeStore } from "@/stores/voucher-types";
 
-const props = defineProps<{ voucherTypeId: number, accountId?: number }>()
+const props = defineProps<{ voucherTypeId?: number, accountId?: number }>()
 const emit = defineEmits<{ (e: 'init', modal: BSModal): void, (e: 'created'): void }>()
 
 const floatStore = useFloatStore();
@@ -44,7 +47,9 @@ const submitVoucherDisbursement = async (formData: FormKitGroupValue, node?: For
 
         if (!props.accountId) return toast({ titleText: 'Invalid account!' })
 
-        await voucherTypeStore.disburse(props.voucherTypeId, props.accountId, Number(formData.amount))
+        const voucherTypeId = props.voucherTypeId ?? Number(formData.voucher_type)
+
+        await voucherTypeStore.disburse(voucherTypeId, props.accountId, Number(formData.amount))
 
         state.modal?.hide()
         node?.reset()
@@ -62,6 +67,7 @@ onMounted(() => {
 
     emit('init', state.modal)
 
-    console.log(floatStore.fetchAccount())
+    floatStore.fetchAccount()
+    voucherTypeStore.fetchVoucherTypes()
 })
 </script>
