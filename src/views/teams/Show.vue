@@ -3,7 +3,8 @@
         <div class="col-9">
             <div class="card">
                 <div class="card-body">
-                    <DataTable title="Team Accounts" :columns="columns" :data="store.team?.accounts"/>
+                    <DataTable :key="tableKey" title="Team Accounts" :columns="columns" :data="store.team?.accounts"
+                               :on-create-row="() => createTeamAccountModal?.show()"/>
                 </div>
             </div>
         </div>
@@ -21,39 +22,70 @@
             </div>
         </div>
     </div>
+
+    <CreateTeamAccountModal @init="modal => createTeamAccountModal = modal" @created="() => tableKey+=1" :team-id="id"/>
+    <VoucherDisburseModal @init="modal => voucherDisburseModal = modal" :account-id="accountId"/>
 </template>
 
 <script setup lang="ts">
 import { RouterLink, useRoute } from "vue-router";
-import { h } from "vue";
+import { h, ref } from "vue";
 import { CellContext, createColumnHelper } from "@tanstack/vue-table";
-import { Team, VoucherType } from "@/utils/types";
-import TableDate from "@/components/TableDate.vue";
+import { Account } from "@/utils/types";
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 import { faEye } from "@fortawesome/free-regular-svg-icons";
 import DataTable from "@/components/datatable/DataTable.vue";
 import { useTeamStore } from "@/stores/teams";
+import CreateTeamAccountModal from "@/components/modals/CreateTeamAccountModal.vue";
+import Phone from "@/components/Phone.vue";
+import Tooltip from "@/components/Tooltip.vue";
+import { faCircleDollarToSlot, faTrash } from "@fortawesome/free-solid-svg-icons";
+import VoucherDisburseModal from "@/components/modals/VoucherDisburseModal.vue";
 
 const store = useTeamStore()
-const { id } = useRoute().params
+const id = Number(useRoute().params.id)
+const createTeamAccountModal = ref()
+const voucherDisburseModal = ref()
+const accountId = ref<number>()
+const tableKey = ref(0);
 
-const columnHelper = createColumnHelper<Team>()
+const columnHelper = createColumnHelper<Account>()
 const columns = [
     columnHelper.accessor('name', {
         header: () => 'Name',
     }),
-    columnHelper.accessor('created_at', {
-        header: 'Created At',
-        cell: ({ row }: CellContext<Team, string>) => h(TableDate, { date: row.original.created_at })
+    columnHelper.accessor('phone', {
+        header: 'Phone number',
+        cell: info => h(Phone, { phone: info.getValue() })
     }),
     {
         id: 'actions',
         header: '',
-        cell: ({ row }: CellContext<VoucherType, string>) => h(
-            RouterLink,
-            { to: { name: 'vouchers.show', params: { id: row.original.id } } },
-            () => h(FontAwesomeIcon, { icon: faEye })
-        )
+        cell: ({ row }: CellContext<Account, string>) => h('div', { class: 'd-flex justify-content-evenly' }, [
+            h(
+                RouterLink,
+                { to: { name: 'accounts.show', params: { id: row.original.id } } },
+                () => h(FontAwesomeIcon, { icon: faEye })
+            ),
+            h(
+                Tooltip,
+                {
+                    class: 'cursor-pointer text-success',
+                    title: 'Disburse',
+                    placement: 'right',
+                    onClick: () => {
+                        voucherDisburseModal.value?.show()
+                        accountId.value = row.original.id
+                    }
+                },
+                { default: () => h(FontAwesomeIcon, { icon: faCircleDollarToSlot }) }
+            ),
+            h(
+                RouterLink,
+                { to: { name: 'accounts.show', params: { id: row.original.id } }, class: 'text-danger' },
+                () => h(FontAwesomeIcon, { icon: faTrash })
+            )
+        ])
     },
 ]
 

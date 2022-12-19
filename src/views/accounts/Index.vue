@@ -27,6 +27,14 @@ import CreateAccountModal from "@/components/modals/CreateAccountModal.vue";
 import Tooltip from "@/components/Tooltip.vue";
 import VoucherDisburseModal from "@/components/modals/VoucherDisburseModal.vue";
 
+const state = reactive<{ modal?: BSModal }>({ modal: undefined })
+
+const store = useAccountStore();
+const tableKey = ref(0);
+const createAccountModal = ref()
+const voucherDisburseModal = ref()
+const accountId = ref<number>()
+
 const columnHelper = createColumnHelper<Account>()
 const columns = [
     columnHelper.accessor('name', {
@@ -69,13 +77,6 @@ const columns = [
         ])
     },
 ]
-const state = reactive<{ modal?: BSModal }>({ modal: undefined })
-
-const store = useAccountStore();
-const tableKey = ref(0);
-const createAccountModal = ref()
-const voucherDisburseModal = ref()
-const accountId = ref<number>()
 
 onMounted(() => {
     store.fetchAccounts()

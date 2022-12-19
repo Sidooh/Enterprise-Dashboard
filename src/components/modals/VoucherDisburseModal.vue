@@ -68,6 +68,6 @@ onMounted(() => {
     emit('init', state.modal)
 
     floatStore.fetchAccount()
-    voucherTypeStore.fetchVoucherTypes()
+    if (!props.voucherTypeId) voucherTypeStore.fetchVoucherTypes()
 })
 </script>
