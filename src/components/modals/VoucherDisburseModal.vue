@@ -54,7 +54,7 @@ const submitVoucherDisbursement = async (formData: FormKitGroupValue, node?: For
         state.modal?.hide()
         node?.reset()
 
-        toast({ titleText: 'Account Created Successfully!' })
+        toast({ titleText: 'Voucher Disbursed!' })
 
         emit('created')
     } catch (err: any) {

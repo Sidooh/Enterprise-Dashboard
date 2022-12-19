@@ -3,7 +3,8 @@
         <div class="col-9">
             <div class="card">
                 <div class="card-body">
-                    <DataTable title="Vouchers" :columns="columns" :data="store.voucher_type?.vouchers"/>
+                    <DataTable :key="tableKey" title="Vouchers" :columns="columns"
+                               :data="store.voucher_type?.vouchers"/>
                 </div>
             </div>
         </div>
@@ -30,7 +31,8 @@
         </div>
     </div>
 
-    <VoucherDisburseModal @init="modal => voucherDisburseModal = modal" :account-id="accountId" :voucher-type-id="id"/>
+    <VoucherDisburseModal @created="tableKey+=1" @init="modal => voucherDisburseModal = modal" :account-id="accountId"
+                          :voucher-type-id="id"/>
 </template>
 
 <script setup lang="ts">
@@ -52,6 +54,7 @@ const store = useVoucherTypeStore()
 const id = Number(useRoute().params.id)
 const voucherDisburseModal = ref()
 const accountId = ref<number>()
+const tableKey = ref(0);
 
 const columnHelper = createColumnHelper<Voucher>()
 const columns = [
