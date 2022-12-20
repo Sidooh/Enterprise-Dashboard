@@ -10,16 +10,16 @@
         </div>
         <div class="col">
             <div class="card">
-                <h5 class="card-header text-center bg-primary">{{ store.voucher_type.name }} VOUCHER</h5>
+                <h5 class="card-header text-center bg-primary">{{ store.voucher_type?.name }} VOUCHER</h5>
                 <div class="card-body">
                     <ul class="list-group list-group-flush">
                         <li class="list-group-item">
                             <h6 class="m-0"><b>Voucher is Locked</b></h6>
-                            <small>{{ store.voucher_type.is_locked ? 'True' : 'False' }}</small>
+                            <small>{{ store.voucher_type?.is_locked ? 'True' : 'False' }}</small>
                         </li>
                         <li class="list-group-item">
                             <h6 class="m-0"><b>Voucher limit amount</b></h6>
-                            <small>KSH {{ store.voucher_type.limit_amount }}</small>
+                            <small>KSH {{ store.voucher_type?.limit_amount }}</small>
                         </li>
                         <li class="list-group-item">
                             <h6 class="m-0"><b>Number of vouchers</b></h6>
