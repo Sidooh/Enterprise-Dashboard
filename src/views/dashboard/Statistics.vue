@@ -18,9 +18,9 @@
         </div>
         <div class="col-md-4 col-xxl-12">
             <div class="card text-center h-100">
-                <div class="card-body position-relative d-flex justify-content-evenly">
+                <div class="card-body position-relative d-flex justify-content-center">
                     <count-up :end-val="store.dash_stats.vouchers_disbursed"/>
-                    <count-up :end-val="store.dash_stats.vouchers_disbursed" :options="{prefix:'KES '}"/>
+                    (<count-up :end-val="store.dash_stats.vouchers_disbursed" :options="{prefix:'KES '}"/>)
                 </div>
                 <div class="card-footer bg-primary text-white border-top-0">
                     Voucher Disbursements
