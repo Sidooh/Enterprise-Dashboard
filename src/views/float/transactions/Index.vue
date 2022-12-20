@@ -21,6 +21,9 @@ import { useFloatStore } from "@/stores/float";
 
 const columnHelper = createColumnHelper<FloatTransaction>()
 const columns = [
+    columnHelper.accessor('type', {
+        header: 'Type',
+    }),
     columnHelper.accessor('amount', {
         header: () => 'Amount',
         cell: info => currencyFormat(info.getValue())

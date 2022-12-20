@@ -25,6 +25,7 @@ export type Voucher = Model & {
     balance: number
     account_id: number
     voucher_type_id: number
+    voucher_type: VoucherType
 }
 
 export type VoucherType = Model & {
@@ -66,6 +67,8 @@ export type Account = Model & {
     phone: number
     role: string
     status: Status
+    teams: Team[]
+    vouchers: Voucher[]
 }
 
 export type Team = Model & {

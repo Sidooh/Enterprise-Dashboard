@@ -10,7 +10,7 @@
         </div>
         <div class="col">
             <div class="card">
-                <h5 class="card-header text-center bg-primary">{{ store.voucher_type?.name }} VOUCHER</h5>
+                <h5 class="card-header text-center text-light bg-primary">{{ store.voucher_type?.name }} VOUCHER</h5>
                 <div class="card-body">
                     <ul class="list-group list-group-flush">
                         <li class="list-group-item">
@@ -65,6 +65,10 @@ const columns = [
     columnHelper.accessor('created_at', {
         header: 'Created At',
         cell: ({ row }: CellContext<Voucher, string>) => h(TableDate, { date: row.original.created_at })
+    }),
+    columnHelper.accessor('updated_at', {
+        header: 'Last Updated At',
+        cell: ({ row }: CellContext<Voucher, string>) => h(TableDate, { date: row.original.updated_at })
     }),
     {
         id: 'actions',

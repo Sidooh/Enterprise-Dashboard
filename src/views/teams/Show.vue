@@ -10,7 +10,7 @@
         </div>
         <div class="col">
             <div class="card">
-                <h5 class="card-header text-center bg-primary">{{ store.team.name }}</h5>
+                <h5 class="card-header text-center text-light bg-primary">{{ store.team.name }}</h5>
                 <div class="card-body">
                     <ul class="list-group list-group-flush">
                         <li class="list-group-item">
