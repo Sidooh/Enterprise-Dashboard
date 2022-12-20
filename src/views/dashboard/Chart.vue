@@ -1,9 +1,10 @@
 <template>
     <div class="col-xxl-9">
         <div class="card overflow-hidden h-100">
-            <div class="card-body d-flex flex-column justify-content-between" style="height:200px">
+            <div class="card-body d-flex flex-column justify-content-between"
+                 style="height:200px; background-image: linear-gradient(-45deg, rgb(15, 27, 76), rgb(245, 183, 0))">
                 <div class="align-items-center g-0 row">
-                    <h5 class="col">Vouchers Disbursed</h5>
+                    <h5 class="col text-primary fw-bold">Vouchers Disbursed</h5>
                     <div class="col-auto">
                         <select class="form-select form-select-sm" v-model="voucherType">
                             <option v-for="(vt, i) in Object.keys(store.chart_datasets)" :key="`chart-opt-${i}`"
@@ -30,20 +31,20 @@ const store = useEnterpriseStore();
 
 onMounted(() => {
     console.log(store.chart_datasets[voucherType.value])
+    Chart.defaults.color = '#eee'
+    Chart.defaults.font.weight = '700'
+    Chart.defaults.font.family = "'Avenir', sans-serif"
+
     chart.value = new Chart(chartEl.value.getContext('2d'), {
         type: 'line',
         data: {
             labels: store.chart_datasets[voucherType.value].labels,
             datasets: [{
-                label: '#amount',
+                label: '#amt',
                 data: store.chart_datasets[voucherType.value].data,
-                backgroundColor: [
-                    'rgba(75, 192, 192, 0.2)',
-                ],
-                borderColor: [
-                    'rgba(75, 192, 192, 1)',
-                ],
-                borderWidth: 1,
+                backgroundColor: ['#000'],
+                borderColor: ['rgba(255, 255, 255, 1)'],
+                borderWidth: 2,
                 tension: 0.3
             }]
         },
@@ -60,6 +61,12 @@ onMounted(() => {
                     beginAtZero: true,
                     grid: {
                         display: false
+                    }
+                },
+                x: {
+                    grid: {
+                        drawBorder: false,
+                        color: 'rgba(250, 250, 250, .3)'
                     }
                 }
             }
