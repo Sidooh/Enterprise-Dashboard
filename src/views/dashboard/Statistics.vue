@@ -20,13 +20,22 @@
         </div>
         <div class="col-md-4 col-xxl-12">
             <div class="card text-center h-100">
-                <div class="card-body position-relative d-flex justify-content-center">
-                    <count-up :end-val="store.dash_stats.vouchers_disbursed"/>
-                    <count-up :end-val="store.dash_stats.vouchers_disbursed" :options="{prefix:'(KES ', suffix:') '}"/>
+                <div class="card-body position-relative d-flex justify-content-evenly">
+                    <count-up :end-val="store.dash_stats.disbursed_vouchers_count"/>
+                    <count-up :end-val="store.dash_stats.disbursed_vouchers_amount" :options="{prefix:'KES '}"/>
+                    <span class="cursor-pointer position-absolute top-0 end-0 me-2 mt-1"
+                          @click="() => voucherDisburseModal?.show()">
+                        <Tooltip title="Disburse Voucher" placement="left">
+                            <font-awesome-icon :icon="faCirclePlus" class="text-warning"/>
+                        </Tooltip>
+                    </span>
                 </div>
-                <div class="card-footer bg-primary text-white border-top-0">
-                    Voucher Disbursements
-                </div>
+                <button
+                    :class="`card-footer btn bg-${voucherDisbursementsBtnHover?'warning':'primary'} text-white border-top-0`"
+                    @mouseover="voucherDisbursementsBtnHover=true" @mouseleave="voucherDisbursementsBtnHover=false"
+                    @click="() => voucherDisburseModal?.show()">
+                    {{ voucherDisbursementsBtnHover ? 'Disburse Voucher' : 'Voucher Disbursements' }}
+                </button>
             </div>
         </div>
         <div class="col-md-4 col-xxl-12">
@@ -51,6 +60,7 @@
 
     <FloatTopUpModal @init="modal => floatTopUpModal = modal"/>
     <CreateAccountModal @init="modal => createAccountModal = modal" @created="() => store.fetchDashboardStatistics()"/>
+    <VoucherDisburseModal @init="modal => voucherDisburseModal = modal"/>
 </template>
 
 <script setup lang="ts">
@@ -62,11 +72,14 @@ import CountUp from 'vue-countup-v3'
 import FloatTopUpModal from "@/components/modals/FloatTopUpModal.vue";
 import CreateAccountModal from "@/components/modals/CreateAccountModal.vue";
 import Tooltip from "@/components/Tooltip.vue";
+import VoucherDisburseModal from "@/components/modals/VoucherDisburseModal.vue";
 
 const createAccountModal = ref(),
-    floatTopUpModal = ref()
-const floatAmountBtnHover = ref(false)
-const accountBtnHover = ref(false)
+    floatTopUpModal = ref(),
+    voucherDisburseModal = ref()
+const floatAmountBtnHover = ref(false),
+    accountBtnHover = ref(false),
+    voucherDisbursementsBtnHover = ref(false)
 
 const store = useEnterpriseStore();
 

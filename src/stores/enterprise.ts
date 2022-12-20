@@ -10,7 +10,8 @@ import { TransactionType } from "@/utils/enums";
 type DashboardStats = {
     float_balance: number
     accounts_count: number
-    vouchers_disbursed: number
+    disbursed_vouchers_count: number
+    disbursed_vouchers_amount: number
 }
 
 export const useEnterpriseStore = defineStore("enterprise", {
@@ -30,8 +31,7 @@ export const useEnterpriseStore = defineStore("enterprise", {
                         isVoucherCredit = vT.type === TransactionType.CREDIT
 
                     return isForLastSixMonths && isVoucherCredit
-                })
-                    .map((d: VoucherTransaction) => ({ ...d, date: moment(d.created_at).format('MMM YY') }))
+                }).map((d: VoucherTransaction) => ({ ...d, date: moment(d.created_at).format('MMM YY') }))
 
                 const grouped = groupBy(data, 'voucher.voucher_type.name'),
                     voucherTypes = Object.keys(grouped);
@@ -56,11 +56,7 @@ export const useEnterpriseStore = defineStore("enterprise", {
 
                 this.chart_datasets['ALL'] = getDatasets(data)
 
-                voucherTypes.forEach(vT => {
-                    this.chart_datasets[vT] = getDatasets(grouped[vT])
-                })
-
-                console.log(this.chart_datasets)
+                voucherTypes.forEach(vT => this.chart_datasets[vT] = getDatasets(grouped[vT]))
             }
         },
         async fetchDashboardStatistics() {

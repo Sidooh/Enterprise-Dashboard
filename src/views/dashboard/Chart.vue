@@ -2,7 +2,7 @@
     <div class="col-xxl-9">
         <div class="card overflow-hidden h-100">
             <div class="card-body d-flex flex-column justify-content-between"
-                 style="height:200px; background-image: linear-gradient(-45deg, rgba(15, 27, 76, 1), rgba(245, 183, 0, 1))">
+                 style="height:300px; background-image: linear-gradient(-45deg, rgba(15, 27, 76, 1), rgba(245, 183, 0, 1))">
                 <div class="align-items-center g-0 row justify-content-end">
                     <div class="col-auto">
                         <select class="form-select form-select-sm px-2" v-model="voucherType">
@@ -29,7 +29,6 @@ const chart = shallowRef()
 const store = useEnterpriseStore();
 
 onMounted(() => {
-    console.log(store.chart_datasets[voucherType.value])
     Chart.defaults.color = '#eee'
     Chart.defaults.font.weight = '700'
     Chart.defaults.font.family = "'Avenir', sans-serif"
@@ -54,8 +53,8 @@ onMounted(() => {
                 title: {
                     display: true,
                     text: 'Vouchers Disbursed in the last 6 Months',
-                    font:{
-                        size:17
+                    font: {
+                        size: 17
                     }
                 },
                 legend: {

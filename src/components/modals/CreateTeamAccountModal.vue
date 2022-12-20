@@ -7,7 +7,8 @@
                 <div class="row">
                     <FormKit type="select" name="account_id" placeholder="Select account to add"
                              :options="accountStore.accounts.map(t => ({label:`${t.phone}: ${t.name}`, value:t.id}))"
-                             :classes="{input:'form-control', outer:'col-md-12 mb-3'}" validation="required"/>
+                             :classes="{input:'form-control', outer:'col-md-12 mb-3'}" validation="required"
+                             validation-label="Account"/>
                 </div>
             </template>
             <template #footer>

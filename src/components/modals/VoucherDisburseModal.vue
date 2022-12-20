@@ -4,9 +4,14 @@
         <Modal id="disburse-voucher">
             <template #title>Disburse Voucher</template>
             <template #body>
-                <FormKit v-if="!voucherTypeId" type="select" name="voucher_type" placeholder="Select voucher type"
+                <FormKit v-if="!accountId" type="select" name="account_id" placeholder="Select account"
+                         :options="accountStore.accounts.map(t => ({label:`${t.phone}: ${t.name}`, value:t.id}))"
+                         :classes="{input:'form-control', outer:'col-md-12 mb-3'}" validation="required"
+                         validation-label="Account"/>
+                <FormKit v-if="!voucherTypeId" type="select" name="voucher_type" placeholder="Select voucher"
                          :options="voucherTypeStore.voucher_types.map(t => ({label:t.name, value:t.id}))"
-                         :classes="{input:'form-control', outer:'col-md-12 mb-3'}" validation="required"/>
+                         :classes="{input:'form-control', outer:'col-md-12 mb-3'}" validation="required"
+                         validation-label="Voucher"/>
                 <FormKit type="number" min="100" :max="floatStore.float_account.balance" name="amount"
                          placeholder="Enter amount to disburse"
                          :validation="`required|min:100|max:${floatStore.float_account.balance}`"
@@ -33,10 +38,12 @@ import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 import { faCloudversify } from '@fortawesome/free-brands-svg-icons'
 import { useFloatStore } from "@/stores/float";
 import { useVoucherTypeStore } from "@/stores/voucher-types";
+import { useAccountStore } from "@/stores/accounts";
 
 const props = defineProps<{ voucherTypeId?: number, accountId?: number }>()
 const emit = defineEmits<{ (e: 'init', modal: BSModal): void, (e: 'created'): void }>()
 
+const accountStore = useAccountStore();
 const floatStore = useFloatStore();
 const voucherTypeStore = useVoucherTypeStore();
 const state = reactive<{ modal?: BSModal }>({ modal: undefined })
@@ -45,11 +52,13 @@ const submitVoucherDisbursement = async (formData: FormKitGroupValue, node?: For
     try {
         node?.clearErrors()
 
-        if (!props.accountId) return toast({ titleText: 'Invalid account!' })
-
+        const accountId = props.accountId ?? Number(formData.account_id)
         const voucherTypeId = props.voucherTypeId ?? Number(formData.voucher_type)
 
-        await voucherTypeStore.disburse(voucherTypeId, props.accountId, Number(formData.amount))
+        if (!accountId) return toast({ titleText: 'Invalid account!' })
+        if (!voucherTypeId) return toast({ titleText: 'Invalid voucher!' })
+
+        await voucherTypeStore.disburse(voucherTypeId, accountId, Number(formData.amount))
 
         state.modal?.hide()
         node?.reset()
@@ -68,6 +77,7 @@ onMounted(() => {
     emit('init', state.modal)
 
     floatStore.fetchAccount()
+    if (!props.accountId) accountStore.fetchAccounts()
     if (!props.voucherTypeId) voucherTypeStore.fetchVoucherTypes()
 })
 </script>
