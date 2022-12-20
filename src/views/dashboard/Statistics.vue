@@ -18,18 +18,19 @@
         </div>
         <div class="col-md-4 col-xxl-12">
             <div class="card text-center h-100">
-                <div class="card-body position-relative">
+                <div class="card-body position-relative d-flex justify-content-evenly">
+                    <count-up :end-val="store.dash_stats.vouchers_disbursed"/>
                     <count-up :end-val="store.dash_stats.vouchers_disbursed" :options="{prefix:'KES '}"/>
                 </div>
                 <div class="card-footer bg-primary text-white border-top-0">
-                    Vouchers Disbursed
+                    Voucher Disbursements
                 </div>
             </div>
         </div>
         <div class="col-md-4 col-xxl-12">
             <div class="card text-center h-100">
                 <div class="card-body position-relative">
-                    <count-up :end-val="store.dash_stats.accounts_count" :options="{prefix:'KES '}"/>
+                    <count-up :end-val="store.dash_stats.accounts_count"/>
                     <span class="cursor-pointer position-absolute top-0 end-0 me-2 mt-1"
                           @click="() => createAccountModal?.show()">
                         <Tooltip title="Create Account" placement="left">

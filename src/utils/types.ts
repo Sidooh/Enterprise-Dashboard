@@ -37,7 +37,7 @@ export type VoucherType = Model & {
 }
 
 export type VoucherTransaction = Model & {
-    type: number
+    type: string
     amount: number
     description: string
     status: Status

@@ -3,10 +3,10 @@
         <div class="card overflow-hidden h-100">
             <div class="card-body d-flex flex-column justify-content-between"
                  style="height:200px; background-image: linear-gradient(-45deg, rgb(15, 27, 76), rgb(245, 183, 0))">
-                <div class="align-items-center g-0 row">
-                    <h5 class="col text-primary fw-bold">Vouchers Disbursed</h5>
+                <div class="align-items-center g-0 row justify-content-end">
+                    <!--                    <h5 class="col text-primary fw-bold">Vouchers Disbursed</h5>-->
                     <div class="col-auto">
-                        <select class="form-select form-select-sm" v-model="voucherType">
+                        <select class="form-select form-select-sm px-2" v-model="voucherType">
                             <option v-for="(vt, i) in Object.keys(store.chart_datasets)" :key="`chart-opt-${i}`"
                                     :value="vt">{{ vt }} Disbursements
                             </option>
@@ -40,7 +40,7 @@ onMounted(() => {
         data: {
             labels: store.chart_datasets[voucherType.value].labels,
             datasets: [{
-                label: '#amt',
+                label: 'Amount',
                 data: store.chart_datasets[voucherType.value].data,
                 backgroundColor: ['#000'],
                 borderColor: ['rgba(255, 255, 255, 1)'],
@@ -52,9 +52,19 @@ onMounted(() => {
             responsive: true,
             maintainAspectRatio: false,
             plugins: {
-                legend: {
-                    align: 'end',
+                title: {
+                    display: true,
+                    text: 'Vouchers Disbursed in the last 6 Months',
+                    font:{
+                        size:17
+                    }
                 },
+                legend: {
+                    display: false
+                }
+            },
+            interaction: {
+                intersect: false,
             },
             scales: {
                 y: {

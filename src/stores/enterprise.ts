@@ -5,6 +5,7 @@ import { FloatTransaction, VoucherTransaction } from "@/utils/types";
 import client from "@/utils/client";
 import { groupBy } from "@/utils/helpers";
 import moment from "moment";
+import { TransactionType } from "@/utils/enums";
 
 type DashboardStats = {
     float_balance: number
@@ -24,7 +25,12 @@ export const useEnterpriseStore = defineStore("enterprise", {
             const { data: res } = await client.get('/voucher-transactions')
 
             if (res.status) {
-                const data: VoucherTransaction[] = res.data.filter((vT: VoucherTransaction) => moment(vT.created_at).isAfter(moment().subtract(6, 'M')))
+                const data: VoucherTransaction[] = res.data.filter((vT: VoucherTransaction) => {
+                    const isForLastSixMonths = moment(vT.created_at).isAfter(moment().subtract(6, 'M')),
+                        isVoucherCredit = vT.type === TransactionType.CREDIT
+
+                    return isForLastSixMonths && isVoucherCredit
+                })
                     .map((d: VoucherTransaction) => ({ ...d, date: moment(d.created_at).format('MMM YY') }))
 
                 const grouped = groupBy(data, 'voucher.voucher_type.name'),
