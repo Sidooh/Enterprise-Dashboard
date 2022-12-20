@@ -11,16 +11,18 @@
                         </Tooltip>
                     </span>
                 </div>
-                <div class="card-footer bg-primary text-white border-top-0">
-                    Float Amount
-                </div>
+                <button :class="`card-footer btn bg-${floatAmountBtnHover?'warning':'primary'} text-white border-top-0`"
+                        @mouseover="floatAmountBtnHover=true" @mouseleave="floatAmountBtnHover=false"
+                        @click="() => floatTopUpModal?.show()">
+                    {{ floatAmountBtnHover ? 'Top Up Float' : 'Float Amount' }}
+                </button>
             </div>
         </div>
         <div class="col-md-4 col-xxl-12">
             <div class="card text-center h-100">
                 <div class="card-body position-relative d-flex justify-content-center">
                     <count-up :end-val="store.dash_stats.vouchers_disbursed"/>
-                    (<count-up :end-val="store.dash_stats.vouchers_disbursed" :options="{prefix:'KES '}"/>)
+                    <count-up :end-val="store.dash_stats.vouchers_disbursed" :options="{prefix:'(KES ', suffix:') '}"/>
                 </div>
                 <div class="card-footer bg-primary text-white border-top-0">
                     Voucher Disbursements
@@ -38,9 +40,11 @@
                         </Tooltip>
                     </span>
                 </div>
-                <div class="card-footer bg-primary text-white border-top-0">
-                    Accounts
-                </div>
+                <button :class="`card-footer btn bg-${accountBtnHover?'warning':'primary'} text-white border-top-0`"
+                        @mouseover="accountBtnHover=true" @mouseleave="accountBtnHover=false"
+                        @click="() => createAccountModal?.show()">
+                    {{ accountBtnHover ? 'Create Account' : 'Accounts' }}
+                </button>
             </div>
         </div>
     </div>
@@ -59,8 +63,10 @@ import FloatTopUpModal from "@/components/modals/FloatTopUpModal.vue";
 import CreateAccountModal from "@/components/modals/CreateAccountModal.vue";
 import Tooltip from "@/components/Tooltip.vue";
 
-const createAccountModal = ref()
-const floatTopUpModal = ref()
+const createAccountModal = ref(),
+    floatTopUpModal = ref()
+const floatAmountBtnHover = ref(false)
+const accountBtnHover = ref(false)
 
 const store = useEnterpriseStore();
 
