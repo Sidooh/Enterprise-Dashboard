@@ -5,7 +5,7 @@ import client from "@/utils/client";
 
 export const useVoucherTypeStore = defineStore("voucher-type", {
     state: () => ({
-        voucher_type: <VoucherType>{},
+        voucher_type: <VoucherType | undefined>undefined,
         voucher_types: <VoucherType[]>[],
     }),
 
@@ -53,14 +53,16 @@ export const useVoucherTypeStore = defineStore("voucher-type", {
         async disburse(voucherTypeId: number, account_id: number, amount: number) {
             try {
                 const { data } = await client.post(`/voucher-types/${voucherTypeId}/disburse`, {
-                    account_id,
-                    amount
+                    account_id, amount
                 })
 
                 logger.info(data)
-                if(data.status) {
-                    let i = this.voucher_type.vouchers.findIndex(v => v.account_id === account_id)
-                    this.voucher_type.vouchers[i].balance += Number(data.data.amount)
+                if (data.status) {
+                    if (this.voucher_type) {
+                        let i = this.voucher_type.vouchers?.findIndex(v => v.account_id === account_id)
+
+                        if (this.voucher_type) this.voucher_type.vouchers[i].balance += Number(data.data.amount)
+                    }
                 }
 
                 return data.data

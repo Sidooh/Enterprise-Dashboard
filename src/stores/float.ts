@@ -16,8 +16,6 @@ export const useFloatStore = defineStore("float", {
 
                 this.float_account = data.data
 
-                logger.info(this.float_account)
-
                 return data.data
             } catch (e) {
                 logger.error(e)

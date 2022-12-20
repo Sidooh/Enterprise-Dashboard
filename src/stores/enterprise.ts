@@ -3,6 +3,8 @@ import { logger } from "@/utils/logger";
 import Swal from "sweetalert2";
 import { FloatTransaction, VoucherTransaction } from "@/utils/types";
 import client from "@/utils/client";
+import { groupBy } from "@/utils/helpers";
+import moment from "moment";
 
 type DashboardStats = {
     float_balance: number
@@ -12,19 +14,55 @@ type DashboardStats = {
 
 export const useEnterpriseStore = defineStore("enterprise", {
     state: () => ({
+        chart_datasets: <{ [k: string]: { labels: string[], data: number[] } }>{},
         dash_stats: <DashboardStats>{},
         recent_voucher_transactions: <VoucherTransaction[]>[],
         recent_float_transactions: <FloatTransaction[]>[],
     }),
     actions: {
+        async fetchChartData() {
+            const { data: res } = await client.get('/voucher-transactions')
+
+            if (res.status) {
+                const data: VoucherTransaction[] = res.data.filter((vT: VoucherTransaction) => moment(vT.created_at).isAfter(moment().subtract(6, 'M')))
+                    .map((d: VoucherTransaction) => ({ ...d, date: moment(d.created_at).format('MMM YY') }))
+
+                const grouped = groupBy(data, 'voucher.voucher_type.name'),
+                    voucherTypes = Object.keys(grouped);
+
+                const getDatasets = (rawData: any) => {
+                    const byMonth = groupBy(rawData, 'date');
+
+                    Object.keys(byMonth).forEach(m => {
+                        byMonth[m] = byMonth[m].reduce((prev: number, current: VoucherTransaction) => prev + current.amount, 0)
+                    })
+
+                    let labels = [], data = []
+                    for (let i = 5; i >= 0; i--) {
+                        const month = moment().subtract(i, 'M').format('MMM YY')
+
+                        labels.push(month)
+                        data.push(!byMonth[month] ? 0 : byMonth[month])
+                    }
+
+                    return { labels, data }
+                }
+
+                this.chart_datasets['ALL'] = getDatasets(data)
+
+                voucherTypes.forEach(vT => {
+                    this.chart_datasets[vT] = getDatasets(grouped[vT])
+                })
+
+                console.log(this.chart_datasets)
+            }
+        },
         async fetchDashboardStatistics() {
             try {
                 // await new Promise(r => setTimeout(r, 3000));
                 const { data } = await client.get('/dashboard/statistics')
 
                 this.dash_stats = data.data
-
-                logger.info(this.dash_stats)
 
                 return data.data
             } catch (e) {
@@ -38,8 +76,6 @@ export const useEnterpriseStore = defineStore("enterprise", {
 
                 this.recent_voucher_transactions = data.data
 
-                logger.info(this.recent_voucher_transactions)
-
                 return data.data
             } catch (e) {
                 logger.error(e)
@@ -52,8 +88,6 @@ export const useEnterpriseStore = defineStore("enterprise", {
 
                 this.recent_float_transactions = data.data
 
-                logger.info(this.recent_float_transactions)
-
                 return data.data
             } catch (e) {
                 logger.error(e)
@@ -62,8 +96,6 @@ export const useEnterpriseStore = defineStore("enterprise", {
         creditFloat: async (amount: number, phone: number) => {
             try {
                 const { data } = await client.post('/float-account/credit', { amount, phone })
-
-                logger.info(data)
 
                 await Swal.fire({
                     icon: "info",

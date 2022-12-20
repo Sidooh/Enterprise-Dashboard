@@ -22,7 +22,6 @@ import { Account } from "@/utils/types";
 import { faCircleDollarToSlot, faTrash } from "@fortawesome/free-solid-svg-icons";
 import { Modal as BSModal } from "bootstrap";
 import { useAccountStore } from "@/stores/accounts";
-import { logger } from "@/utils/logger";
 import CreateAccountModal from "@/components/modals/CreateAccountModal.vue";
 import Tooltip from "@/components/Tooltip.vue";
 import VoucherDisburseModal from "@/components/modals/VoucherDisburseModal.vue";
@@ -80,8 +79,6 @@ const columns = [
 
 onMounted(() => {
     store.fetchAccounts()
-
-    logger.info(store.accounts)
 })
 </script>
 
