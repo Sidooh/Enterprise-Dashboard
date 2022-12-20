@@ -1,14 +1,26 @@
 import { defineStore } from "pinia";
-import { FloatTransaction } from "@/utils/types";
+import { FloatAccount, FloatTransaction } from "@/utils/types";
 import { logger } from "@/utils/logger";
 import client from "@/utils/client";
 
 export const useFloatStore = defineStore("float", {
     state: () => ({
+        float_account: <FloatAccount>{},
         transactions: <FloatTransaction[]>[],
     }),
 
     actions: {
+        async fetchAccount() {
+            try {
+                const { data } = await client.get('/float-account')
+
+                this.float_account = data.data
+
+                return data.data
+            } catch (e) {
+                logger.error(e)
+            }
+        },
         async fetchTransactions() {
             try {
                 const { data } = await client.get('/float-account/transactions')

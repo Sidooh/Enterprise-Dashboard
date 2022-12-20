@@ -1,38 +1,53 @@
 <template>
-    <div class="card">
-        <div class="card-body">
-            <DataTable title="Accounts" :key="tableKey" :columns="columns" :data="store.accounts"
-                       :on-create-row="() => createAccountModal?.show()"/>
+    <div class="row">
+        <div class="col-9">
+            <div class="card">
+                <div class="card-body">
+                    <DataTable :key="tableKey" title="Team Accounts" :columns="columns" :data="store.team?.accounts"
+                               :on-create-row="() => createTeamAccountModal?.show()"/>
+                </div>
+            </div>
+        </div>
+        <div class="col">
+            <div class="card">
+                <h5 class="card-header text-center bg-primary">{{ store.team.name }}</h5>
+                <div class="card-body">
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item">
+                            <h6 class="m-0"><b>Number of accounts</b></h6>
+                            <small>{{ store.team?.accounts?.length ?? 0 }}</small>
+                        </li>
+                    </ul>
+                </div>
+            </div>
         </div>
     </div>
 
-    <CreateAccountModal @init="modal => createAccountModal = modal" @created="() => tableKey+=1"/>
+    <CreateTeamAccountModal @init="modal => createTeamAccountModal = modal" @created="() => tableKey+=1" :team-id="id"/>
     <VoucherDisburseModal @init="modal => voucherDisburseModal = modal" :account-id="accountId"/>
 </template>
 
 <script setup lang="ts">
-import DataTable from "@/components/datatable/DataTable.vue";
-import Phone from "@/components/Phone.vue";
+import { RouterLink, useRoute } from "vue-router";
+import { h, ref } from "vue";
 import { CellContext, createColumnHelper } from "@tanstack/vue-table";
-import { h, onMounted, reactive, ref } from "vue";
-import { RouterLink } from "vue-router";
+import { Account } from "@/utils/types";
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 import { faEye } from "@fortawesome/free-regular-svg-icons";
-import { Account } from "@/utils/types";
-import { faCircleDollarToSlot, faTrash } from "@fortawesome/free-solid-svg-icons";
-import { Modal as BSModal } from "bootstrap";
-import { useAccountStore } from "@/stores/accounts";
-import CreateAccountModal from "@/components/modals/CreateAccountModal.vue";
+import DataTable from "@/components/datatable/DataTable.vue";
+import { useTeamStore } from "@/stores/teams";
+import CreateTeamAccountModal from "@/components/modals/CreateTeamAccountModal.vue";
+import Phone from "@/components/Phone.vue";
 import Tooltip from "@/components/Tooltip.vue";
+import { faCircleDollarToSlot, faTrash } from "@fortawesome/free-solid-svg-icons";
 import VoucherDisburseModal from "@/components/modals/VoucherDisburseModal.vue";
 
-const state = reactive<{ modal?: BSModal }>({ modal: undefined })
-
-const store = useAccountStore();
-const tableKey = ref(0);
-const createAccountModal = ref()
+const store = useTeamStore()
+const id = Number(useRoute().params.id)
+const createTeamAccountModal = ref()
 const voucherDisburseModal = ref()
 const accountId = ref<number>()
+const tableKey = ref(0);
 
 const columnHelper = createColumnHelper<Account>()
 const columns = [
@@ -42,9 +57,6 @@ const columns = [
     columnHelper.accessor('phone', {
         header: 'Phone number',
         cell: info => h(Phone, { phone: info.getValue() })
-    }),
-    columnHelper.accessor('role', {
-        header: 'Role',
     }),
     {
         id: 'actions',
@@ -77,9 +89,7 @@ const columns = [
     },
 ]
 
-onMounted(() => {
-    store.fetchAccounts()
-})
+await store.fetchTeam(Number(id))
 </script>
 
 <style scoped>

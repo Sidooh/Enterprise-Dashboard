@@ -37,10 +37,15 @@ export type VoucherType = Model & {
 }
 
 export type VoucherTransaction = Model & {
-    type: number
+    type: string
     amount: number
     description: string
     status: Status
+}
+
+export type FloatAccount = Model & {
+    account_id: number
+    balance: number
 }
 
 export type FloatTransaction = Model & {
@@ -66,4 +71,5 @@ export type Account = Model & {
 export type Team = Model & {
     name: string
     status: Status
+    accounts: Account[]
 }

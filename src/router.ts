@@ -6,6 +6,8 @@ import Auth from '@/components/layouts/Auth.vue'
 import Dashboard from './views/dashboard/Index.vue'
 import Profile from './views/Profile.vue'
 import ShowVoucherType from './views/voucher-types/Show.vue'
+import ShowTeam from './views/teams/Show.vue'
+import ShowAccount from './views/accounts/Show.vue'
 
 const router = createRouter({
     history: createWebHistory(import.meta.env.BASE_URL),
@@ -59,23 +61,31 @@ const router = createRouter({
         },
         {
             path: '/accounts',
-            component: () => import('@/views/accounts/Index.vue'),
             children: [
+                {
+                    path: '',
+                    name: 'accounts',
+                    component: () => import('@/views/accounts/Index.vue')
+                },
                 {
                     path: ':id',
                     name: 'accounts.show',
-                    component: () => import('@/views/accounts/Index.vue')
+                    component: ShowAccount
                 }
             ], meta: { auth: true }
         },
         {
             path: '/teams',
-            component: () => import('@/views/teams/Index.vue'),
             children: [
+                {
+                    path: '',
+                    name: 'teams',
+                    component: () => import('@/views/teams/Index.vue')
+                },
                 {
                     path: ':id',
                     name: 'teams.show',
-                    component: () => import('@/views/teams/Index.vue')
+                    component: ShowTeam
                 }
             ], meta: { auth: true }
         },

@@ -3,7 +3,8 @@
         <div class="col-9">
             <div class="card">
                 <div class="card-body">
-                    <DataTable title="Vouchers" :columns="columns" :data="store.voucher_type?.vouchers"/>
+                    <DataTable :key="tableKey" title="Vouchers" :columns="columns"
+                               :data="store.voucher_type?.vouchers"/>
                 </div>
             </div>
         </div>
@@ -18,7 +19,7 @@
                         </li>
                         <li class="list-group-item">
                             <h6 class="m-0"><b>Voucher limit amount</b></h6>
-                            <small>KSH {{ store.voucher_type.limit_amount}}</small>
+                            <small>KSH {{ store.voucher_type.limit_amount }}</small>
                         </li>
                         <li class="list-group-item">
                             <h6 class="m-0"><b>Number of vouchers</b></h6>
@@ -29,22 +30,31 @@
             </div>
         </div>
     </div>
+
+    <VoucherDisburseModal @created="tableKey+=1" @init="modal => voucherDisburseModal = modal" :account-id="accountId"
+                          :voucher-type-id="id"/>
 </template>
 
 <script setup lang="ts">
 import { RouterLink, useRoute } from "vue-router";
 import { useVoucherTypeStore } from "@/stores/voucher-types";
-import { h } from "vue";
+import { h, ref } from "vue";
 import { CellContext, createColumnHelper } from "@tanstack/vue-table";
-import { Voucher, VoucherType } from "@/utils/types";
+import { Voucher } from "@/utils/types";
 import { currencyFormat } from "@/utils/helpers";
 import TableDate from "@/components/TableDate.vue";
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 import { faEye } from "@fortawesome/free-regular-svg-icons";
 import DataTable from "@/components/datatable/DataTable.vue";
+import { faCircleDollarToSlot } from "@fortawesome/free-solid-svg-icons";
+import Tooltip from "@/components/Tooltip.vue";
+import VoucherDisburseModal from "@/components/modals/VoucherDisburseModal.vue";
 
 const store = useVoucherTypeStore()
-const { id } = useRoute().params
+const id = Number(useRoute().params.id)
+const voucherDisburseModal = ref()
+const accountId = ref<number>()
+const tableKey = ref(0);
 
 const columnHelper = createColumnHelper<Voucher>()
 const columns = [
@@ -59,15 +69,30 @@ const columns = [
     {
         id: 'actions',
         header: '',
-        cell: ({ row }: CellContext<VoucherType, string>) => h(
-            RouterLink,
-            { to: { name: 'vouchers.show', params: { id: row.original.id } } },
-            () => h(FontAwesomeIcon, { icon: faEye })
-        )
+        cell: ({ row }: CellContext<Voucher, string>) => h('div', { class: 'd-flex justify-content-evenly' }, [
+            h(
+                RouterLink,
+                { to: { name: 'vouchers.show', params: { id: row.original.id } } },
+                () => h(FontAwesomeIcon, { icon: faEye })
+            ),
+            h(
+                Tooltip,
+                {
+                    class: 'cursor-pointer text-success',
+                    title: 'Disburse',
+                    placement: 'right',
+                    onClick: () => {
+                        voucherDisburseModal.value?.show()
+                        accountId.value = row.original.account_id
+                    }
+                },
+                { default: () => h(FontAwesomeIcon, { icon: faCircleDollarToSlot }) }
+            )
+        ])
     },
 ]
 
-await store.fetchVoucherType(Number(id))
+await store.fetchVoucherType(id)
 </script>
 
 <style scoped>

@@ -19,7 +19,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <h2>Sign Up</h2>
+                            <h2>Create New Enterprise</h2>
 
                             <div
                                 class="card-body px-0 d-flex flex-column justify-content-center align-items-center">
@@ -93,7 +93,7 @@
                                                 <font-awesome-icon :icon="faLeftLong" class="me-2"/>
                                                 Back
                                             </FormKit>
-                                            <FormKit type="submit" input-class="btn btn-sm btn-primary ms-2"
+                                            <FormKit type="submit" input-class="btn btn-primary ms-2"
                                                      :disabled="!valid">
                                                 Verify
                                                 <font-awesome-icon :icon="faCloudversify" class="ms-1"/>
@@ -138,7 +138,6 @@ import useSteps from "@/hooks/useSteps";
 import { RegistrationData, useAuthStore } from "@/stores/auth";
 import { toast } from "@/utils/helpers";
 import router from "@/router";
-import { logger } from "@/utils/logger";
 
 const { steps, activeStep, setStep, stepPlugin, checkStepValidity } = useSteps()
 
@@ -155,7 +154,7 @@ const submitCredentials = async (formData: FormKitGroupValue, node?: FormKitNode
     } catch (err: any) {
         if (node) node.props.disabled = false
 
-        await toast({
+        toast({
             html: 'Unable to sign you up. Kindly contact <a href="mailto:@customersupport@sidooh.co.ke">Customer support</a>',
             icon: 'error'
         })
@@ -167,9 +166,7 @@ const submitVerification = async (formData: FormKitGroupValue, node?: FormKitNod
         const data = formData.verify as { phone_otp: number, email_otp: number }
         node?.clearErrors()
 
-        const res = await useAuthStore().verifyUser(Number(data.phone_otp), Number(data.email_otp))
-
-        logger.log(res)
+        await useAuthStore().verifyUser(Number(data.phone_otp), Number(data.email_otp))
 
         toast({ titleText: 'Registration Successful!' })
 
@@ -177,7 +174,7 @@ const submitVerification = async (formData: FormKitGroupValue, node?: FormKitNod
     } catch (err: any) {
         node?.setErrors(err.formErrors, err.fieldErrors)
 
-        await toast({
+        toast({
             html: 'Unable to verify you. Kindly contact <a href="mailto:@customersupport@sidooh.co.ke">Customer support</a>',
             icon: 'error'
         })

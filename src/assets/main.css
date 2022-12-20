@@ -68,6 +68,19 @@ table td.actions .btn {
     transform: scale(.7);
 }
 
+.btn {
+    --bs-btn-padding-y: 0.25rem;
+    --bs-btn-padding-x: 0.5rem;
+    --bs-btn-font-size: 0.875rem;
+    --bs-btn-border-radius: 0.25rem;
+}
+.btn-sm {
+    --bs-btn-padding-y: 0.1rem;
+    --bs-btn-padding-x: 0.4rem;
+    --bs-btn-font-size: 0.675rem;
+    --bs-btn-border-radius: 0.2rem;
+}
+
 .form-select{
     background-image: none;
 }

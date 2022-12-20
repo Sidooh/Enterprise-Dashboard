@@ -46,7 +46,7 @@ client.interceptors.response.use(response => {
 
         const errorMessage = error.response.data.message
 
-        error.response.data.message = errorMessage.length > 200
+        error.response.data.message = errorMessage?.length > 200
             ? JSON.parse(errorMessage.split('code :').pop()).error.message.split(':')[0]
             : errorMessage
 

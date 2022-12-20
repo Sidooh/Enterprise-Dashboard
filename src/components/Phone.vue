@@ -10,7 +10,7 @@ import { getTelcoFromPhone } from "@/utils/helpers";
 
 const props = defineProps<{ phone?: string | number }>();
 const telco = getTelcoFromPhone(String(props.phone));
-let color = 'secondary',
+let color = '#648381',
     phoneNumber = props.phone ?? 'N/A';
 
 if (telco === Telco.SAFARICOM) {

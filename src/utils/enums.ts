@@ -17,3 +17,8 @@ export enum Telco {
     SAFARICOM = 'SAFARICOM',
     TELKOM = 'TELKOM',
 }
+
+export enum TransactionType {
+    CREDIT = 'CREDIT',
+    DEBIT = 'DEBIT'
+}
