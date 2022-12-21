@@ -43,9 +43,6 @@ const columns = [
         header: 'Phone number',
         cell: info => h(Phone, { phone: info.getValue() })
     }),
-    columnHelper.accessor('role', {
-        header: 'Role',
-    }),
     {
         id: 'actions',
         header: '',
