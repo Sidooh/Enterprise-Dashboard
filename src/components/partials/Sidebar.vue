@@ -19,9 +19,9 @@
             <div class="sidebar-content scrollbar d-flex justify-content-between">
                 <ul class="sidebar-nav mb-3 flex-column">
                     <li class="nav-item accordion" id="accordionExample">
-                        <div v-for="(link, i) in navLinks" :key="`nav-link-${i}`">
+                        <div v-for="(link, i) in navLinks" :key="`nav-link-${i}`" class="mb-5">
                             <div v-if="link.label" class="row sidebar-label-wrapper mt-3 mb-2">
-                                <div class="col-auto sidebar-label">{{ link.label }}</div>
+                                <div class="col-auto sidebar-label fw-bolder">{{ link.label }}</div>
                                 <div class="col ps-0">
                                     <hr class="mb-0 sidebar-divider">
                                 </div>
@@ -88,7 +88,7 @@
 
                 <ul class="sidebar-nav mt-3 flex-column">
                     <li class="nav-item">
-                        <a class="nav-link cursor-pointer" @click="logout">
+                        <a class="nav-link cursor-pointer" @click="() => useAuthStore().logout()">
                             <div class="d-flex align-items-center">
                                 <span class="nav-link-icon"><font-awesome-icon :icon="faDoorOpen"/></span>
                                 <span class="nav-link-text ps-1">Sign Out</span>
@@ -111,6 +111,7 @@ import { getItemFromStore, setItemToStore } from "@/utils/helpers";
 
 const navLinks: NavLinkType[] = [
     {
+        label: 'Home',
         children: [
             {
                 to: '/',
@@ -213,9 +214,19 @@ onMounted(() => {
     }
 
     HTMLClassList[isNavbarVerticalCollapsed.value ? 'add' : 'remove']('sidebar-collapsed')
-})
 
-const logout = () => useAuthStore().logout()
+    setTimeout(() => {
+        const activeNavLink = document.getElementsByClassName('nav-active').item(0)
+
+        if (activeNavLink) {
+            const accordionUl = activeNavLink.closest('ul.collapse'),
+                accordionA = accordionUl?.previousElementSibling
+
+            accordionA?.classList.remove('collapsed')
+            accordionUl?.classList.add('show')
+        }
+    }, 300)
+})
 </script>
 
 <style scoped>

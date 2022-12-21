@@ -43,7 +43,11 @@ onMounted(() => {
                 backgroundColor: ['#000'],
                 borderColor: ['rgba(255, 255, 255, 1)'],
                 borderWidth: 2,
-                tension: 0.3
+                tension: 0.3,
+                pointStyle: 'star',
+                pointHoverRadius: 10,
+                pointBorderWidth: 5,
+                pointBorderColor: 'var(--bs-primary)'
             }]
         },
         options: {
@@ -52,9 +56,17 @@ onMounted(() => {
             plugins: {
                 title: {
                     display: true,
-                    text: 'Vouchers Disbursed in the last 6 Months',
+                    text: 'Vouchers Disbursed',
                     font: {
                         size: 17
+                    }
+                },
+                subtitle: {
+                    display: true,
+                    text: 'Last 6 Months',
+                    color: 'var(--bs-primary)',
+                    font: {
+                        weight: '600'
                     }
                 },
                 legend: {

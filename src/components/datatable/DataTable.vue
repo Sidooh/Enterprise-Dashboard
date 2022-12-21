@@ -1,7 +1,7 @@
 <template>
     <div class="row justify-content-between">
         <div class="col mb-3">
-            <h6 class="mb-0 text-nowrap py-2 py-xl-0">
+            <h6 class="mb-0 text-nowrap py-2 py-xl-0 fw-bold">
                 {{ selectedRowsCount ? `You have selected ${selectedRowsCount} ${tableTitle}` : title }}
             </h6>
         </div>
