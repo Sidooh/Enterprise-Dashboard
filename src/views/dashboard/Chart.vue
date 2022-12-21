@@ -2,7 +2,7 @@
     <div class="col-xxl-9">
         <div class="card overflow-hidden h-100">
             <div class="card-body d-flex flex-column justify-content-between"
-                 style="height:300px; background-image: linear-gradient(-45deg, rgba(15, 27, 76, 1), rgba(245, 183, 0, 1))">
+                 style="height:300px; background-image: linear-gradient(-45deg, rgba(15, 27, 76, 1), rgba(15, 27, 76, 1))">
                 <div class="align-items-center g-0 row justify-content-end">
                     <div class="col-auto">
                         <select class="form-select form-select-sm px-2" v-model="voucherType">
@@ -47,7 +47,7 @@ onMounted(() => {
                 pointStyle: 'star',
                 pointHoverRadius: 10,
                 pointBorderWidth: 5,
-                pointBorderColor: 'var(--bs-primary)'
+                pointBorderColor: 'rgb(45, 57, 106)',
             }]
         },
         options: {
@@ -64,7 +64,7 @@ onMounted(() => {
                 subtitle: {
                     display: true,
                     text: 'Last 6 Months',
-                    color: 'var(--bs-primary)',
+                    color: '#aaa',
                     font: {
                         weight: '600'
                     }
@@ -86,7 +86,7 @@ onMounted(() => {
                 x: {
                     grid: {
                         drawBorder: false,
-                        color: 'rgba(250, 250, 250, .3)'
+                        color: 'rgba(250, 250, 250, .3)',
                     }
                 }
             }

@@ -3,7 +3,7 @@
         <div class="col-md-4 col-xxl-12">
             <div class="card text-center h-100">
                 <div class="card-body position-relative">
-                    <count-up :end-val="store.dash_stats.float_balance" :options="{prefix:'KES '}"/>
+                    <h4><count-up :end-val="store.dash_stats.float_balance" :options="{prefix:'KES '}"/></h4>
                     <span class="cursor-pointer position-absolute top-0 end-0 me-2 mt-1"
                           @click="() => floatTopUpModal?.show()">
                         <Tooltip title="Top Up Float" placement="left">
@@ -20,9 +20,9 @@
         </div>
         <div class="col-md-4 col-xxl-12">
             <div class="card text-center h-100">
-                <div class="card-body position-relative d-flex justify-content-evenly">
-                    <count-up :end-val="store.dash_stats.disbursed_vouchers_count"/>
-                    <count-up :end-val="store.dash_stats.disbursed_vouchers_amount" :options="{prefix:'KES '}"/>
+                <div class="card-body position-relative">
+                    <h4><count-up :end-val="store.dash_stats.disbursed_vouchers_amount" :options="{prefix:'KES '}"/></h4>
+<!--                    <h4><count-up :end-val="store.dash_stats.disbursed_vouchers_count"/></h4>-->
                     <span class="cursor-pointer position-absolute top-0 end-0 me-2 mt-1"
                           @click="() => voucherDisburseModal?.show()">
                         <Tooltip title="Disburse Voucher" placement="left">
@@ -41,7 +41,7 @@
         <div class="col-md-4 col-xxl-12">
             <div class="card text-center h-100">
                 <div class="card-body position-relative">
-                    <count-up :end-val="store.dash_stats.accounts_count"/>
+                    <h4><count-up :end-val="store.dash_stats.accounts_count"/></h4>
                     <span class="cursor-pointer position-absolute top-0 end-0 me-2 mt-1"
                           @click="() => createAccountModal?.show()">
                         <Tooltip title="Create Account" placement="left">

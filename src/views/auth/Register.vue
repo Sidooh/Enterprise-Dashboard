@@ -118,8 +118,9 @@
 
                         <div class="text-center">
                             <i>
-                                <small class="text-center opacity-75">Sidooh, Makes You Money with Every
-                                    Purchase!</small>
+                                <small class="text-center opacity-75">
+                                    Sidooh, Makes You Money with Every Purchase!
+                                </small>
                             </i>
                         </div>
                     </article>

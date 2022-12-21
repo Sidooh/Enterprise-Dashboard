@@ -44,6 +44,20 @@ small, .small {
     border: none;
 }
 
+.divider-content-center {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    -ms-transform: translateX(-50%) translateY(-50%);
+    transform: translateX(-50%) translateY(-50%);
+    padding-left: .5rem;
+    padding-right: .5rem;
+    background-color: #fff;
+    font-size: .8333333333rem;
+    color: var(--bs-gray-500);
+    white-space: nowrap
+}
+
 .table > :not(caption) > * > * {
     padding: .2rem .5rem;
     font-size: 11pt;
@@ -74,6 +88,7 @@ table td.actions .btn {
     --bs-btn-font-size: 0.875rem;
     --bs-btn-border-radius: 0.25rem;
 }
+
 .btn-sm {
     --bs-btn-padding-y: 0.1rem;
     --bs-btn-padding-x: 0.4rem;
@@ -81,7 +96,7 @@ table td.actions .btn {
     --bs-btn-border-radius: 0.2rem;
 }
 
-.form-select{
+.form-select {
     background-image: none;
 }
 
@@ -123,13 +138,16 @@ table td.actions .btn {
     border-right-color: transparent;
     margin-right: 0.75em;
 }
+
 [data-type=checkbox] .formkit-options, [data-type=radio] .formkit-options {
     margin: .7rem 0;
     padding: 0;
 }
+
 .formkit-option {
     list-style-type: none;
 }
+
 [data-type=checkbox] .formkit-wrapper, [data-type=radio] .formkit-wrapper {
     display: flex;
     align-items: center;
