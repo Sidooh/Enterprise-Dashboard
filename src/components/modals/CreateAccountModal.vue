@@ -13,6 +13,15 @@
                              :options="{admin:'Admin', employee:'Employee'}"
                              :classes="{input:'form-control', outer:'col-md-6 mb-3'}" validation="required"/>
                 </div>
+
+
+                <div class="position-relative my-4">
+                    <hr/>
+                    <div class="divider-content-center">OR</div>
+                </div>
+
+                <file-pond name="accounts" ref="pond" label-idle="Drop file containing accounts"
+                           accepted-file-types="text/csv"/>
             </template>
             <template #footer>
                 <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Close</button>
@@ -35,6 +44,11 @@ import Modal from "@/components/Modal.vue";
 import { Modal as BSModal } from "bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 import { faCloudversify } from '@fortawesome/free-brands-svg-icons'
+import vueFilePond from 'vue-filepond';
+import FilePondPluginFileValidateType from 'filepond-plugin-file-validate-type';
+import 'filepond/dist/filepond.min.css';
+
+const FilePond = vueFilePond(FilePondPluginFileValidateType);
 
 const emit = defineEmits<{ (e: 'init', modal: BSModal): void, (e: 'created'): void }>()
 
