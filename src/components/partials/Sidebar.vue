@@ -281,7 +281,7 @@ onMounted(() => {
     content: "";
     position: absolute;
     height: .125rem;
-    background-color: var(--bs-gray-700);
+    background-color: var(--sidooh-gray-700);
     left: 0;
     -webkit-transition: all .2s ease-in-out;
     -o-transition: all .2s ease-in-out;
@@ -301,7 +301,7 @@ onMounted(() => {
     -webkit-transition: all .2s ease-in-out;
     -o-transition: all .2s ease-in-out;
     transition: all .2s ease-in-out;
-    background-color: var(--bs-gray-700);
+    background-color: var(--sidooh-gray-700);
 }
 
 .sidebar .sidebar-collapse .sidebar-content {
@@ -533,7 +533,7 @@ onMounted(() => {
     .sidebar .accordion-item:has(ul):has(.nav-active) > a,
     .sidebar.sidebar-expand-xl div > .nav-link.nav-active {
         background-color: #E6E5F0;
-        border-left: 2px solid var(--bs-primary);
+        border-left: 2px solid var(--sidooh-primary);
         padding-left: .5rem;
     }
 
@@ -551,7 +551,7 @@ onMounted(() => {
         border-left: 0;
         background-color: transparent;
         padding-left: 0;
-        color: var(--bs-warning);
+        color: var(--sidooh-warning);
         font-weight: 700;
     }
 

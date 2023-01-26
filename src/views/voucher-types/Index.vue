@@ -31,10 +31,8 @@
 </template>
 
 <script setup lang="ts">
-import DataTable from "@/components/datatable/DataTable.vue";
 import Modal from "@/components/Modal.vue";
 import { CellContext, createColumnHelper } from "@tanstack/vue-table";
-import { currencyFormat, toast } from "@/utils/helpers";
 import { h, onMounted, reactive, ref } from "vue";
 import { RouterLink } from "vue-router";
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
@@ -44,17 +42,15 @@ import { Modal as BSModal } from 'bootstrap'
 import { faCloudversify } from '@fortawesome/free-brands-svg-icons'
 import { FormKitGroupValue, FormKitNode } from "@formkit/core";
 import { useVoucherTypeStore } from "@/stores/voucher-types";
-import TableDate from "@/components/TableDate.vue";
-import { logger } from "@/utils/logger";
+import { currencyFormat, DataTable, TableDate, toast } from "@nabcellent/sui-vue";
 
 const columnHelper = createColumnHelper<VoucherType>()
 const columns = [
     columnHelper.accessor('name', {
         header: () => 'Name',
     }),
-    columnHelper.accessor('is_locked', {
+    columnHelper.accessor(r => String(Boolean(r.is_locked)).toUpperCase(), {
         header: 'Is Locked',
-        cell: info => String(Boolean(info.getValue())).toUpperCase()
     }),
     columnHelper.accessor('limit_amount', {
         header: () => 'Limit',
@@ -102,8 +98,6 @@ onMounted(() => {
     state.modal = new BSModal('#create-voucher-type', {})
 
     store.fetchVoucherTypes()
-
-    logger.info(store.voucher_types)
 })
 </script>
 

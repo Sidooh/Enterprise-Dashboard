@@ -41,14 +41,11 @@ import { useVoucherTypeStore } from "@/stores/voucher-types";
 import { h, ref } from "vue";
 import { CellContext, createColumnHelper } from "@tanstack/vue-table";
 import { Voucher } from "@/utils/types";
-import { currencyFormat } from "@/utils/helpers";
-import TableDate from "@/components/TableDate.vue";
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 import { faEye } from "@fortawesome/free-regular-svg-icons";
-import DataTable from "@/components/datatable/DataTable.vue";
 import { faCircleDollarToSlot } from "@fortawesome/free-solid-svg-icons";
-import Tooltip from "@/components/Tooltip.vue";
 import VoucherDisburseModal from "@/components/modals/VoucherDisburseModal.vue";
+import { currencyFormat, DataTable, TableDate, Tooltip } from "@nabcellent/sui-vue";
 
 const store = useVoucherTypeStore()
 const id = Number(useRoute().params.id)

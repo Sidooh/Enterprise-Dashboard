@@ -1,11 +1,11 @@
 import { defineStore } from "pinia";
 import { VoucherType } from "@/utils/types";
-import { logger } from "@/utils/logger";
+import { logger } from "@nabcellent/sui-vue";
 import client from "@/utils/client";
 
 export const useVoucherTypeStore = defineStore("voucher-type", {
     state: () => ({
-        voucher_type: <VoucherType | undefined>undefined,
+        voucher_type: <VoucherType>{},
         voucher_types: <VoucherType[]>[],
     }),
 
@@ -26,6 +26,7 @@ export const useVoucherTypeStore = defineStore("voucher-type", {
         async fetchVoucherTypes() {
             try {
                 const { data } = await client.get('voucher-types')
+                logger.info(data.data)
 
                 this.voucher_types = data.data
 

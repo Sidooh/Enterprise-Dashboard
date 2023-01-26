@@ -4,9 +4,8 @@ import App from './App.vue'
 import router from './router'
 import { defaultConfig, plugin } from '@formkit/vue'
 
-import 'bootstrap/dist/css/bootstrap.min.css'
+import '@nabcellent/sui-vue/dist/style.min.css'
 import './assets/main.css'
-// import 'bootstrap/dist/js/bootstrap.min.js'
 
 createApp(App).use(createPinia()).use(router).use(plugin, defaultConfig({
     config: {

@@ -26,11 +26,8 @@
 </template>
 
 <script setup lang="ts">
-import DataTable from "@/components/datatable/DataTable.vue";
-import StatusBadge from "@/components/StatusBadge.vue";
 import { CellContext, createColumnHelper } from "@tanstack/vue-table";
 import { h, onMounted, reactive, ref } from "vue";
-import { Status } from "@/utils/enums";
 import { RouterLink } from "vue-router";
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 import { faEye } from "@fortawesome/free-regular-svg-icons";
@@ -40,8 +37,8 @@ import { faCloudversify } from '@fortawesome/free-brands-svg-icons'
 import Modal from "@/components/Modal.vue";
 import { Modal as BSModal } from "bootstrap";
 import { FormKitGroupValue, FormKitNode } from "@formkit/core";
-import { toast } from "@/utils/helpers";
 import { useTeamStore } from "@/stores/teams";
+import { DataTable, Status, StatusBadge, toast } from "@nabcellent/sui-vue";
 
 const columnHelper = createColumnHelper<Team>()
 const columns = [

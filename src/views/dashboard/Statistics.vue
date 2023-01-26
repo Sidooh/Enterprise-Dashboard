@@ -71,8 +71,8 @@ import { useEnterpriseStore } from "@/stores/enterprise";
 import CountUp from 'vue-countup-v3'
 import FloatTopUpModal from "@/components/modals/FloatTopUpModal.vue";
 import CreateAccountModal from "@/components/modals/CreateAccountModal.vue";
-import Tooltip from "@/components/Tooltip.vue";
 import VoucherDisburseModal from "@/components/modals/VoucherDisburseModal.vue";
+import { Tooltip } from "@nabcellent/sui-vue";
 
 const createAccountModal = ref(),
     floatTopUpModal = ref(),

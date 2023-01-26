@@ -1,6 +1,6 @@
 import { defineStore } from "pinia";
 import { Team } from "@/utils/types";
-import { logger } from "@/utils/logger";
+import { logger } from "@nabcellent/sui-vue";
 import client from "@/utils/client";
 
 export const useTeamStore = defineStore("team", {

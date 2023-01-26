@@ -1,6 +1,6 @@
-import { Status } from "@/utils/enums";
 import { RouteLocationRaw } from "vue-router";
 import { IconDefinition } from "@fortawesome/free-solid-svg-icons";
+import { Model, Status } from "@nabcellent/sui-vue";
 
 export type NavLinkChildType = {
     name: string
@@ -12,12 +12,6 @@ export type NavLinkChildType = {
 export type NavLinkType = {
     label?: string
     children: NavLinkChildType[]
-}
-
-export type Model = {
-    id?: number
-    created_at?: string
-    updated_at?: string
 }
 
 export type Voucher = Model & {
@@ -75,4 +69,8 @@ export type Team = Model & {
     name: string
     status: Status
     accounts: Account[]
+}
+
+export type AccountRequest = Account & {
+    accounts?: Account[]
 }

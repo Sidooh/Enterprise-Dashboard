@@ -24,7 +24,7 @@
 
 <script setup lang="ts">
 import { FormKitGroupValue, FormKitNode } from "@formkit/core";
-import { toast } from "@/utils/helpers";
+import { toast } from "@nabcellent/sui-vue";
 import { useAccountStore } from "@/stores/accounts";
 import { onMounted, reactive } from "vue";
 import Modal from "@/components/Modal.vue";

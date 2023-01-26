@@ -7,10 +7,7 @@
 </template>
 
 <script setup lang="ts">
-import DataTable from "@/components/datatable/DataTable.vue";
-import TableDate from "@/components/TableDate.vue";
 import { CellContext, createColumnHelper } from "@tanstack/vue-table";
-import { currencyFormat } from "@/utils/helpers";
 import { h, onMounted } from "vue";
 import { RouterLink } from "vue-router";
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
@@ -18,6 +15,7 @@ import { faEye } from "@fortawesome/free-regular-svg-icons";
 import { FloatTransaction } from "@/utils/types";
 import moment from "moment";
 import { useFloatStore } from "@/stores/float";
+import { currencyFormat, DataTable, TableDate } from "@nabcellent/sui-vue";
 
 const columnHelper = createColumnHelper<FloatTransaction>()
 const columns = [

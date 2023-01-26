@@ -7,17 +7,15 @@
 </template>
 
 <script setup lang="ts">
-import DataTable from "@/components/datatable/DataTable.vue";
 import { CellContext, createColumnHelper } from "@tanstack/vue-table";
 import { FloatTransaction } from "@/utils/types";
-import { currencyFormat } from "@/utils/helpers";
 import moment from "moment";
 import { h } from "vue";
-import TableDate from "@/components/TableDate.vue";
 import { RouterLink } from "vue-router";
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 import { faEye } from "@fortawesome/free-regular-svg-icons";
 import { useEnterpriseStore } from "@/stores/enterprise";
+import { currencyFormat, DataTable, TableDate } from "@nabcellent/sui-vue";
 
 const store = useEnterpriseStore();
 

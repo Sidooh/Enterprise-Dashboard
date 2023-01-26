@@ -18,13 +18,14 @@
 .step-header {
     display: flex;
     align-items: center;
+    justify-content: space-between;
 }
 
 .step-header .step {
     width: 2rem;
-    height: 1rem;
+    height: .5rem;
     background-color: #0F1B4C;
-    border-radius: 1rem;
+    border-radius: 3rem;
     margin: 1rem 0;
 }
 
@@ -136,12 +137,12 @@ article header {
 }
 
 section {
+    padding: 0!important;
     width: 100%;
     border-radius: 0 !important;
 }
 
 section h2 {
-    font-size: 1.6rem;
     color: #070068;
     margin: 0;
 }

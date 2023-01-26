@@ -1,6 +1,6 @@
 import { defineStore } from "pinia";
-import { Account } from "@/utils/types";
-import { logger } from "@/utils/logger";
+import { Account, AccountRequest } from "@/utils/types";
+import { logger } from "@nabcellent/sui-vue";
 import client from "@/utils/client";
 
 export const useAccountStore = defineStore("account", {
@@ -33,9 +33,13 @@ export const useAccountStore = defineStore("account", {
                 logger.error(e)
             }
         },
-        async create(account: Account) {
+        async create(requestData: AccountRequest) {
             try {
-                const { data } = await client.post('/accounts', account)
+                let url = '/accounts'
+
+                if (requestData?.accounts?.length) url += '/bulk'
+
+                const { data } = await client.post(url, requestData)
 
                 this.accounts.push(data.data)
 

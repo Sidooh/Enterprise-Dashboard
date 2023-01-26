@@ -11,8 +11,6 @@
 </template>
 
 <script setup lang="ts">
-import DataTable from "@/components/datatable/DataTable.vue";
-import Phone from "@/components/Phone.vue";
 import { CellContext, createColumnHelper } from "@tanstack/vue-table";
 import { h, onMounted, reactive, ref } from "vue";
 import { RouterLink } from "vue-router";
@@ -23,8 +21,8 @@ import { faCircleDollarToSlot, faTrash } from "@fortawesome/free-solid-svg-icons
 import { Modal as BSModal } from "bootstrap";
 import { useAccountStore } from "@/stores/accounts";
 import CreateAccountModal from "@/components/modals/CreateAccountModal.vue";
-import Tooltip from "@/components/Tooltip.vue";
 import VoucherDisburseModal from "@/components/modals/VoucherDisburseModal.vue";
+import { DataTable, PhoneNumber, Tooltip } from "@nabcellent/sui-vue";
 
 const state = reactive<{ modal?: BSModal }>({ modal: undefined })
 
@@ -41,7 +39,7 @@ const columns = [
     }),
     columnHelper.accessor('phone', {
         header: 'Phone number',
-        cell: info => h(Phone, { phone: info.getValue() })
+        cell: info => h(PhoneNumber, { phone: info.getValue() })
     }),
     {
         id: 'actions',

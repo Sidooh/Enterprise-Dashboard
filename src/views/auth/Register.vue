@@ -4,25 +4,25 @@
             <div class="col-auto col-xl-11">
                 <FormKit type="form" :plugins="[stepPlugin]" :actions="false" :incomplete-message="false">
                     <article>
-                        <section class="card shadow-sm px-3">
-                            <div class="pt-3">
-                                <img class="me-2" src="/sidooh.png" alt="" width="100">
-                            </div>
-                            <div class="step-header">
-                                <div class="d-flex">
-                                    <div class="step"
-                                         :class="{'active':activeStep === stepName, 'bg-danger text-light':checkStepValidity(stepName)}"
-                                         v-for="(_, stepName) in steps" :key="stepName">
-                                        <font-awesome-icon v-if="checkStepValidity(stepName)"
-                                                           :icon="faCircleExclamation"
-                                                           class="small exclaim text-danger"/>
+                        <section class="card shadow-sm p-2">
+                            <div class="card-header">
+                                <div class="step-header">
+                                    <img class="me-2" src="/sidooh.png" alt="" width="100">
+                                    <div class="d-flex">
+                                        <div class="step"
+                                             :class="{'active':activeStep === stepName, 'bg-danger text-light':checkStepValidity(stepName)}"
+                                             v-for="(_, stepName) in steps" :key="stepName">
+                                            <font-awesome-icon v-if="checkStepValidity(stepName)"
+                                                               :icon="faCircleExclamation"
+                                                               class="small exclaim text-danger"/>
+                                        </div>
                                     </div>
                                 </div>
+                                <h5>Enterprise Sign Up</h5>
                             </div>
-                            <h2>Create New Enterprise</h2>
 
                             <div
-                                class="card-body px-0 d-flex flex-column justify-content-center align-items-center">
+                                class="card-body d-flex flex-column justify-content-center align-items-center">
                                 <section v-show="activeStep === 'auth'">
                                     <FormKit type="form" #default="{ value, state: { valid } }"
                                              :plugins="[stepPlugin]" @submit="submitCredentials"
@@ -137,8 +137,8 @@ import { faCloudversify } from '@fortawesome/free-brands-svg-icons'
 import type { FormKitGroupValue, FormKitNode } from "@formkit/core";
 import useSteps from "@/hooks/useSteps";
 import { RegistrationData, useAuthStore } from "@/stores/auth";
-import { toast } from "@/utils/helpers";
 import router from "@/router";
+import { toast } from "@nabcellent/sui-vue";
 
 const { steps, activeStep, setStep, stepPlugin, checkStepValidity } = useSteps()
 

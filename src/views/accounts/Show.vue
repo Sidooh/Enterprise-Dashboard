@@ -21,7 +21,7 @@
                         <li class="list-group-item">
                             <h6 class="m-0"><b>Phone Number</b></h6>
                             <small>
-                                <Phone :phone="store.account.phone"/>
+                                <PhoneNumber :phone="store.account.phone"/>
                             </small>
                         </li>
                     </ul>
@@ -48,16 +48,12 @@ import { RouterLink, useRoute } from "vue-router";
 import { h, ref } from "vue";
 import { CellContext, createColumnHelper } from "@tanstack/vue-table";
 import { Team, Voucher, VoucherType } from "@/utils/types";
-import TableDate from "@/components/TableDate.vue";
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 import { faCircleDollarToSlot } from "@fortawesome/free-solid-svg-icons";
 import { faEye } from "@fortawesome/free-regular-svg-icons";
 import { useAccountStore } from "@/stores/accounts";
-import Phone from "@/components/Phone.vue";
 import VoucherDisburseModal from "@/components/modals/VoucherDisburseModal.vue";
-import DataTable from "@/components/datatable/DataTable.vue";
-import { currencyFormat } from "@/utils/helpers";
-import Tooltip from "@/components/Tooltip.vue";
+import { currencyFormat, DataTable, PhoneNumber, TableDate, Tooltip } from "@nabcellent/sui-vue";
 
 const store = useAccountStore()
 const id = Number(useRoute().params.id)

@@ -1,7 +1,7 @@
 <template>
     <div class="card">
         <div class="card-body">
-            <DataTable title="Float Requests" :columns="columns" :data="tableData" :on-create-row="handleCreateRow"/>
+            <DataTable title="Float Requests" :columns="columns" :data="tableData" :on-create-row="state.modal?.show"/>
         </div>
     </div>
 
@@ -27,13 +27,8 @@
 </template>
 
 <script setup lang="ts">
-import DataTable from "@/components/datatable/DataTable.vue";
-import StatusBadge from "@/components/StatusBadge.vue";
-import TableDate from "@/components/TableDate.vue";
 import { CellContext, createColumnHelper } from "@tanstack/vue-table";
-import { currencyFormat } from "@/utils/helpers";
 import { h, onMounted, reactive } from "vue";
-import { Status } from "@/utils/enums";
 import { RouterLink } from "vue-router";
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 import { faEye } from "@fortawesome/free-regular-svg-icons";
@@ -43,8 +38,7 @@ import Modal from "@/components/Modal.vue";
 import { Modal as BSModal } from "bootstrap";
 import { FormKitGroupValue, FormKitNode } from "@formkit/core";
 import { faCloudversify } from '@fortawesome/free-brands-svg-icons'
-import { logger } from "@/utils/logger";
-
+import { currencyFormat, DataTable, logger, Status, StatusBadge, TableDate } from "@nabcellent/sui-vue";
 
 const columnHelper = createColumnHelper<FloatRequest>()
 const columns = [
@@ -104,12 +98,6 @@ const state = reactive<{ modal?: BSModal }>({
 onMounted(() => {
     state.modal = new BSModal('#create-float-request', {})
 })
-
-const handleCreateRow = () => {
-    logger.log('weee')
-
-    state.modal?.show()
-}
 
 const submitNewFloatRequest = async (formData: FormKitGroupValue, node?: FormKitNode) => {
     try {

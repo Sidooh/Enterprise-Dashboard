@@ -4,73 +4,9 @@ td {
     vertical-align: middle;
 }
 
-small, .small {
-    font-size: 75%
-}
-
-.container, .container-fluid, .container-sm, .container-md, .container-lg, .container-xl, .container-xxl {
-    position: relative
-}
-
-.avatar {
-    position: relative;
-    display: inline-block;
-}
-
-.avatar-xl {
-    height: 2rem;
-    width: 2rem;
-}
-
-.avatar img {
-    display: block;
-}
-
-.avatar img, .avatar .avatar-name {
-    width: 100%;
-    height: 100%;
-}
-
-.avatar img {
-    -o-object-fit: cover;
-    object-fit: cover;
-}
-
-.cursor-pointer {
-    cursor: pointer
-}
-
-.card {
-    border: none;
-}
-
-.divider-content-center {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    -ms-transform: translateX(-50%) translateY(-50%);
-    transform: translateX(-50%) translateY(-50%);
-    padding-left: .5rem;
-    padding-right: .5rem;
-    background-color: #fff;
-    font-size: .8333333333rem;
-    color: var(--bs-gray-500);
-    white-space: nowrap
-}
-
 .table > :not(caption) > * > * {
     padding: .2rem .5rem;
     font-size: 11pt;
-}
-
-table td.actions .btn {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-size: 9pt;
-    width: 1.7rem;
-    height: 1.7rem;
-    padding: 4px;
 }
 
 .no-gutters {
@@ -80,24 +16,6 @@ table td.actions .btn {
 
 .btn-close {
     transform: scale(.7);
-}
-
-.btn {
-    --bs-btn-padding-y: 0.25rem;
-    --bs-btn-padding-x: 0.5rem;
-    --bs-btn-font-size: 0.875rem;
-    --bs-btn-border-radius: 0.25rem;
-}
-
-.btn-sm {
-    --bs-btn-padding-y: 0.1rem;
-    --bs-btn-padding-x: 0.4rem;
-    --bs-btn-font-size: 0.675rem;
-    --bs-btn-border-radius: 0.2rem;
-}
-
-.form-select {
-    background-image: none;
 }
 
 
@@ -112,8 +30,8 @@ table td.actions .btn {
 }
 
 .formkit-message {
-    --bs-text-opacity: 1;
-    color: rgba(var(--bs-danger-rgb), var(--bs-text-opacity)) !important;
+    --sidooh-text-opacity: 1;
+    color: rgba(var(--sidooh-danger-rgb), var(--sidooh-text-opacity)) !important;
     font-size: 75%;
     list-style: none;
 }
@@ -162,92 +80,4 @@ table td.actions .btn {
     100% {
         transform: rotate(360deg);
     }
-}
-
-.badge-soft-primary {
-    color: var(--badge-soft-primary-color);
-    background-color: var(--badge-soft-primary-background-color)
-}
-
-.badge-soft-primary[href]:hover, .badge-soft-primary[href]:focus {
-    text-decoration: none;
-    color: var(--badge-soft-primary-color);
-    background-color: var(--badge-soft-primary-background-color)
-}
-
-.badge-soft-secondary {
-    color: var(--badge-soft-secondary-color);
-    background-color: var(--badge-soft-secondary-background-color)
-}
-
-.badge-soft-secondary[href]:hover, .badge-soft-secondary[href]:focus {
-    text-decoration: none;
-    color: var(--badge-soft-secondary-color);
-    background-color: var(--badge-soft-secondary-background-color)
-}
-
-.badge-soft-success {
-    color: var(--badge-soft-success-color);
-    background-color: var(--badge-soft-success-background-color)
-}
-
-.badge-soft-success[href]:hover, .badge-soft-success[href]:focus {
-    text-decoration: none;
-    color: var(--badge-soft-success-color);
-    background-color: var(--badge-soft-success-background-color)
-}
-
-.badge-soft-info {
-    color: var(--badge-soft-info-color);
-    background-color: var(--badge-soft-info-background-color)
-}
-
-.badge-soft-info[href]:hover, .badge-soft-info[href]:focus {
-    text-decoration: none;
-    color: var(--badge-soft-info-color);
-    background-color: var(--badge-soft-info-background-color)
-}
-
-.badge-soft-warning {
-    color: var(--badge-soft-warning-color);
-    background-color: var(--badge-soft-warning-background-color)
-}
-
-.badge-soft-warning[href]:hover, .badge-soft-warning[href]:focus {
-    text-decoration: none;
-    color: var(--badge-soft-warning-color);
-    background-color: var(--badge-soft-warning-background-color)
-}
-
-.badge-soft-danger {
-    color: var(--badge-soft-danger-color);
-    background-color: var(--badge-soft-danger-background-color)
-}
-
-.badge-soft-danger[href]:hover, .badge-soft-danger[href]:focus {
-    text-decoration: none;
-    color: var(--badge-soft-danger-color);
-    background-color: var(--badge-soft-danger-background-color)
-}
-
-.badge-soft-light {
-    color: var(--badge-soft-light-color);
-    background-color: var(--badge-soft-light-background-color)
-}
-
-.badge-soft-light[href]:hover, .badge-soft-light[href]:focus {
-    text-decoration: none;
-    color: var(--badge-soft-light-color);
-    background-color: var(--badge-soft-light-background-color)
-}
-
-.badge-soft-dark {
-    color: var(--badge-soft-dark-color);
-    background-color: var(--badge-soft-dark-background-color)
-}
-
-.badge-soft-dark[href]:hover, .badge-soft-dark[href]:focus {
-    text-decoration: none;
-    color: var(--badge-soft-dark-color);
-    background-color: var(--badge-soft-dark-background-color)
 }

@@ -25,7 +25,6 @@
 
 <script setup lang="ts">
 import { FormKitGroupValue, FormKitNode } from "@formkit/core";
-import { toast } from "@/utils/helpers";
 import { onMounted, reactive, ref } from "vue";
 import Modal from "@/components/Modal.vue";
 import { Modal as BSModal } from "bootstrap";
@@ -34,6 +33,7 @@ import { faCloudversify } from '@fortawesome/free-brands-svg-icons'
 import { parsePhoneNumber } from "libphonenumber-js";
 import { useEnterpriseStore } from "@/stores/enterprise";
 import { useAuthStore } from "@/stores/auth";
+import { toast } from "@nabcellent/sui-vue";
 
 const emit = defineEmits<{ (e: 'init', modal: BSModal): void, (e: 'created'): void }>()
 

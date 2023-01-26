@@ -4,24 +4,24 @@
             <div class="col-auto col-xl-9">
                 <FormKit type="form" :plugins="[stepPlugin]" :actions="false" :incomplete-message="false">
                     <article>
-                        <section class="card shadow-sm px-3">
-                            <div class="pt-3">
-                                <img src="/sidooh.png" alt="" width="100">
-                            </div>
-                            <div class="step-header">
-                                <div class="d-flex">
-                                    <div class="step"
-                                         :class="{'active':activeStep === stepName, 'bg-danger text-light':checkStepValidity(stepName)}"
-                                         v-for="(_, stepName) in steps" :key="stepName">
-                                        <font-awesome-icon v-if="checkStepValidity(stepName)"
-                                                           :icon="faCircleExclamation"
-                                                           class="small exclaim text-danger"/>
+                        <section class="card shadow-sm p-2">
+                            <div class="card-header">
+                                <div class="step-header">
+                                    <img src="/sidooh.png" alt="" width="100">
+                                    <div class="d-flex">
+                                        <div class="step"
+                                             :class="{'active':activeStep === stepName, 'bg-danger text-light':checkStepValidity(stepName)}"
+                                             v-for="(_, stepName) in steps" :key="stepName">
+                                            <font-awesome-icon v-if="checkStepValidity(stepName)"
+                                                               :icon="faCircleExclamation"
+                                                               class="small exclaim text-danger"/>
+                                        </div>
                                     </div>
                                 </div>
+                                <h5>Enterprise Sign In</h5>
                             </div>
-                            <h2>Sign In</h2>
                             <div
-                                class="card-body px-0 d-flex flex-column justify-content-center align-items-center">
+                                class="card-body d-flex flex-column justify-content-center align-items-center">
                                 <section v-show="activeStep === 'auth'">
                                     <FormKit type="form" #default="{ value, state: { valid } }"
                                              :plugins="[stepPlugin]" @submit="submitCredentials"
@@ -35,7 +35,7 @@
                                                      validation="required"/>
                                         </FormKit>
 
-                                        <FormKit type="submit" input-class="btn btn-primary ms-auto"
+                                        <FormKit type="submit" input-class="btn btn-sm btn-primary ms-auto"
                                                  :disabled="!valid">
                                             Sign In
                                             <font-awesome-icon :icon="faRightLong" class="ms-1"/>
@@ -55,9 +55,8 @@
                                             </div>
 
                                             <FormKit type="number" name="otp" placeholder="Enter verification OTP"
-                                                     validation="required|number|length:6,6" :validation-messages="{
-                                                            length:'OTP must be 6 characters.'
-                                                         }"/>
+                                                     step="1" min="0" validation="required|number|length:6,6"
+                                                     :validation-messages="{length:'OTP must be 6 characters.'}"/>
 
                                             <div id="resend" class="alert alert-warning small py-1" role="alert">
                                                 Haven't received it?
@@ -113,8 +112,7 @@ import useSteps from "@/hooks/useSteps";
 import { LoginData, useAuthStore, User } from "@/stores/auth";
 import { ref, watch } from "vue";
 import router from "@/router";
-import { toast } from "@/utils/helpers";
-import { logger } from "@/utils/logger";
+import { logger, toast } from "@nabcellent/sui-vue";
 
 const OTPResendTimer = 60
 const timer = ref(OTPResendTimer)

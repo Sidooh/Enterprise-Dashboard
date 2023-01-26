@@ -30,7 +30,6 @@
 
 <script setup lang="ts">
 import { FormKitGroupValue, FormKitNode } from "@formkit/core";
-import { toast } from "@/utils/helpers";
 import { onMounted, reactive } from "vue";
 import Modal from "@/components/Modal.vue";
 import { Modal as BSModal } from "bootstrap";
@@ -39,6 +38,7 @@ import { faCloudversify } from '@fortawesome/free-brands-svg-icons'
 import { useFloatStore } from "@/stores/float";
 import { useVoucherTypeStore } from "@/stores/voucher-types";
 import { useAccountStore } from "@/stores/accounts";
+import { toast } from "@nabcellent/sui-vue";
 
 const props = defineProps<{ voucherTypeId?: number, accountId?: number }>()
 const emit = defineEmits<{ (e: 'init', modal: BSModal): void, (e: 'created'): void }>()

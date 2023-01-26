@@ -34,13 +34,11 @@ import { CellContext, createColumnHelper } from "@tanstack/vue-table";
 import { Account } from "@/utils/types";
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 import { faEye } from "@fortawesome/free-regular-svg-icons";
-import DataTable from "@/components/datatable/DataTable.vue";
 import { useTeamStore } from "@/stores/teams";
 import CreateTeamAccountModal from "@/components/modals/CreateTeamAccountModal.vue";
-import Phone from "@/components/Phone.vue";
-import Tooltip from "@/components/Tooltip.vue";
 import { faCircleDollarToSlot, faTrash } from "@fortawesome/free-solid-svg-icons";
 import VoucherDisburseModal from "@/components/modals/VoucherDisburseModal.vue";
+import { DataTable, PhoneNumber, Tooltip } from "@nabcellent/sui-vue";
 
 const store = useTeamStore()
 const id = Number(useRoute().params.id)
@@ -56,7 +54,7 @@ const columns = [
     }),
     columnHelper.accessor('phone', {
         header: 'Phone number',
-        cell: info => h(Phone, { phone: info.getValue() })
+        cell: info => h(PhoneNumber, { phone: info.getValue() })
     }),
     {
         id: 'actions',

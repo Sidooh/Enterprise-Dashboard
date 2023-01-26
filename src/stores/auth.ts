@@ -1,8 +1,8 @@
 import { defineStore } from "pinia";
-import { logger } from "@/utils/logger";
 import moment from "moment";
-import { JWT } from "@/utils/helpers";
 import client from "@/utils/client";
+import router from "@/router";
+import { JWT, logger } from "@nabcellent/sui-vue";
 
 export type LoginData = { email: string, password: string }
 export type RegistrationData = LoginData & { name: string, country: string, address: string }
@@ -121,10 +121,10 @@ export const useAuthStore = defineStore("auth", {
         logout() {
             this.$reset()
 
-            // localStorage.removeItem('user')
-            // localStorage.removeItem('token')
+            localStorage.removeItem('user')
+            localStorage.removeItem('token')
 
-            // location.reload()
+            router.push({ name: 'login' })
         }
     }
 })
