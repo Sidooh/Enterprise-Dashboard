@@ -1,6 +1,7 @@
 import { RouteLocationRaw } from "vue-router";
 import { IconDefinition } from "@fortawesome/free-solid-svg-icons";
 import { Model, Status } from "@nabcellent/sui-vue";
+import { FilePondFile } from "filepond";
 
 export type NavLinkChildType = {
     name: string
@@ -72,5 +73,5 @@ export type Team = Model & {
 }
 
 export type AccountRequest = Account & {
-    accounts?: Account[]
+    accounts?: FilePondFile
 }

@@ -37,7 +37,7 @@ export const useAccountStore = defineStore("account", {
             try {
                 let url = '/accounts'
 
-                if (requestData?.accounts?.length) url += '/bulk'
+                if (requestData?.accounts) url += '/bulk'
 
                 const { data } = await client.post(url, requestData)
 

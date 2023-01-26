@@ -22,7 +22,8 @@
                 </div>
 
                 <file-pond name="accounts" ref="pond" label-idle="Drop file containing accounts"
-                           accepted-file-types="text/csv" @updatefiles="files => fileWithAccounts = files[0]"/>
+                           accepted-file-types="text/csv"
+                           @updatefiles="(files:FilePondFile[]) => fileWithAccounts = files[0]"/>
             </template>
             <template #footer>
                 <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Close</button>
@@ -37,7 +38,7 @@
 
 <script setup lang="ts">
 import { FormKitGroupValue, FormKitNode } from "@formkit/core";
-import { Account, AccountRequest } from "@/utils/types";
+import { AccountRequest } from "@/utils/types";
 import { useAccountStore } from "@/stores/accounts";
 import { onMounted, reactive, ref } from "vue";
 import Modal from "@/components/Modal.vue";
@@ -48,6 +49,7 @@ import vueFilePond from 'vue-filepond';
 import FilePondPluginFileValidateType from 'filepond-plugin-file-validate-type';
 import 'filepond/dist/filepond.min.css';
 import { toast } from "@nabcellent/sui-vue";
+import { FilePondFile } from "filepond";
 
 const FilePond = vueFilePond(FilePondPluginFileValidateType);
 
@@ -56,7 +58,7 @@ const emit = defineEmits<{ (e: 'init', modal: BSModal): void, (e: 'created'): vo
 const store = useAccountStore();
 const state = reactive<{ modal?: BSModal }>({ modal: undefined })
 
-const fileWithAccounts = ref<Account[]>()
+const fileWithAccounts = ref<FilePondFile>()
 
 const submitNewAccount = async (formData: FormKitGroupValue, node?: FormKitNode) => {
     try {
