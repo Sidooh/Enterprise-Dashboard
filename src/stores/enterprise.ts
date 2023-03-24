@@ -1,10 +1,11 @@
 import { defineStore } from "pinia";
-import { groupBy, logger } from "@nabcellent/sui-vue";
+import { groupBy } from "@nabcellent/sui-vue";
 import Swal from "sweetalert2";
 import { FloatTransaction, VoucherTransaction } from "@/utils/types";
 import client from "@/utils/client";
 import moment from "moment";
 import { TransactionType } from "@/utils/enums";
+import { logger } from "@/utils/logger";
 
 type DashboardStats = {
     float_balance: number

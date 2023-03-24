@@ -1,6 +1,6 @@
 import { defineStore } from "pinia";
 import { VoucherType } from "@/utils/types";
-import { logger } from "@nabcellent/sui-vue";
+import { logger } from "@/utils/logger";
 import client from "@/utils/client";
 
 export const useVoucherTypeStore = defineStore("voucher-type", {

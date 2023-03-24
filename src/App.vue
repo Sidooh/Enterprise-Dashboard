@@ -7,7 +7,7 @@ import { computed, onMounted } from "vue";
 import { useRoute } from "vue-router";
 import DefaultLayout from '@/components/layouts/Default.vue'
 import { useAuthStore } from "@/stores/auth";
-import SimpleBar from 'simplebar'; // or "import SimpleBar from 'simplebar';" if you want to use it manually.
+// import SimpleBar from 'simplebar'; // or "import SimpleBar from 'simplebar';" if you want to use it manually.
 import 'simplebar/dist/simplebar.css';
 
 const route = useRoute()
@@ -17,9 +17,9 @@ const layout = computed(() => route.meta.layout || DefaultLayout)
 onMounted(() => {
     useAuthStore().checkLocalAuth()
 
-    Array.prototype.forEach.call(document.querySelectorAll('.scrollbar-overlay'), el => new SimpleBar(el, {
-        autoHide: true
-    }));
+    // Array.prototype.forEach.call(document.querySelectorAll('.scrollbar-overlay'), el => new SimpleBar(el, {
+    //     autoHide: true
+    // }));
 })
 </script>
 

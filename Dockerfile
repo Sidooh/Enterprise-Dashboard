@@ -5,11 +5,9 @@ ARG VITE_ENTERPRISE_API_URL
 
 WORKDIR /app
 
-RUN ["yarn", "set", "version", "berry"]
-RUN ["yarn", "plugin", "import", "typescript"]
-
-COPY ["package.json", "yarn.lock", "./"]
-COPY [".yarnrc.yml", "."]
+COPY ["package.json", "yarn.lock", ".yarnrc.yml", "./"]
+COPY [".yarn/releases/", "./.yarn/releases/"]
+COPY [".yarn/plugins/", "./.yarn/plugins/"]
 
 RUN yarn install
 

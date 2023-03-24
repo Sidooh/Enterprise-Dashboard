@@ -2,7 +2,8 @@ import { defineStore } from "pinia";
 import moment from "moment";
 import client from "@/utils/client";
 import router from "@/router";
-import { JWT, logger } from "@nabcellent/sui-vue";
+import { JWT } from "@nabcellent/sui-vue";
+import { logger } from "@/utils/logger";
 
 export type LoginData = { email: string, password: string }
 export type RegistrationData = LoginData & { name: string, country: string, address: string }

@@ -112,7 +112,8 @@ import useSteps from "@/hooks/useSteps";
 import { LoginData, useAuthStore, User } from "@/stores/auth";
 import { ref, watch } from "vue";
 import router from "@/router";
-import { logger, toast } from "@nabcellent/sui-vue";
+import { toast } from "@nabcellent/sui-vue";
+import { logger } from "@/utils/logger";
 
 const OTPResendTimer = 60
 const timer = ref(OTPResendTimer)

@@ -85,7 +85,7 @@ onMounted(() => {
                 },
                 x: {
                     grid: {
-                        drawBorder: false,
+                        // drawBorder: false,
                         color: 'rgba(250, 250, 250, .3)',
                     }
                 }

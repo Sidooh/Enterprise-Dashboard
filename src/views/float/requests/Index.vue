@@ -38,7 +38,8 @@ import Modal from "@/components/Modal.vue";
 import { Modal as BSModal } from "bootstrap";
 import { FormKitGroupValue, FormKitNode } from "@formkit/core";
 import { faCloudversify } from '@fortawesome/free-brands-svg-icons'
-import { currencyFormat, DataTable, logger, Status, StatusBadge, TableDate } from "@nabcellent/sui-vue";
+import { currencyFormat, DataTable, Status, StatusBadge, TableDate } from "@nabcellent/sui-vue";
+import { logger } from "@/utils/logger";
 
 const columnHelper = createColumnHelper<FloatRequest>()
 const columns = [
