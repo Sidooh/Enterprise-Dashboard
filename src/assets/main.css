@@ -20,6 +20,10 @@ td {
 
 
 /*===   === === === === ===  FORMKIT */
+.formkit-help {
+    color: var(--sidooh-secondary);
+}
+
 .formkit-input {
     display: flex;
     align-items: center;
@@ -34,27 +38,6 @@ td {
     color: rgba(var(--sidooh-danger-rgb), var(--sidooh-text-opacity)) !important;
     font-size: 75%;
     list-style: none;
-}
-
-[data-type=submit] .formkit-input::before {
-    box-sizing: border-box;
-    content: "";
-    width: 0;
-    margin-right: 0;
-    height: 1.28571428em;
-    border: 0 solid transparent;
-    border-radius: 1.28571428em;
-    transition: width .25s, border .25s, margin-right .25s;
-}
-
-[data-loading] [data-type="submit"] .formkit-input::before,
-[data-type="submit"] .loading.formkit-input::before {
-    -webkit-animation: rotate 0.5s linear infinite;
-    animation: rotate 0.5s linear infinite;
-    width: 1.28571428em;
-    border: 0.1428571429em solid white;
-    border-right-color: transparent;
-    margin-right: 0.75em;
 }
 
 [data-type=checkbox] .formkit-options, [data-type=radio] .formkit-options {

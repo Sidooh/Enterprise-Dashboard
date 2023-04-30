@@ -24,13 +24,13 @@
                             <div
                                 class="card-body d-flex flex-column justify-content-center align-items-center">
                                 <section v-show="activeStep === 'auth'">
-                                    <FormKit type="form" #default="{ value, state: { valid } }"
+                                    <FormKit type="form" #default="{ state: { valid } }"
                                              :plugins="[stepPlugin]" @submit="submitCredentials"
                                              :actions="false" :incomplete-message="false">
                                         <FormKit type="group" id="auth" name="auth" title="Sign Up"
                                                  :config="{classes:{input:'form-control', outer:'mb-3'}}">
-                                            <FormKit name="name" placeholder="Name" validation="required"/>
-                                            <FormKit name="admin_name" placeholder="Admin Name"
+                                            <FormKit name="name" placeholder="Enterprise name" validation="required" autocomplete="off"/>
+                                            <FormKit name="admin_name" placeholder="Admin name"
                                                      validation="required" validation-label="Admin name"/>
 
                                             <div class="row g-2">
@@ -62,7 +62,7 @@
                                         </FormKit>
 
                                         <FormKit type="submit" input-class="btn btn-sm btn-primary ms-auto"
-                                                 :disabled="!valid">
+                                                 :disabled="!valid || isLoading">
                                             Sign Up
                                             <font-awesome-icon :icon="faRightLong" class="ms-1"/>
                                         </FormKit>
@@ -70,7 +70,7 @@
                                 </section>
 
                                 <section v-show="activeStep === 'verify'">
-                                    <FormKit type="form" #default="{ value, state: { valid } }"
+                                    <FormKit type="form" #default="{ state: { valid } }"
                                              :plugins="[stepPlugin]" @submit="submitVerification"
                                              :actions="false" :incomplete-message="false">
                                         <FormKit type="group" id="verify" name="verify" title="Verification"
@@ -139,10 +139,14 @@ import useSteps from "@/hooks/useSteps";
 import { RegistrationData, useAuthStore } from "@/stores/auth";
 import router from "@/router";
 import { toast } from "@nabcellent/sui-vue";
+import { ref } from "vue";
 
+const isLoading = ref(false)
 const { steps, activeStep, setStep, stepPlugin, checkStepValidity } = useSteps()
 
 const submitCredentials = async (formData: FormKitGroupValue, node?: FormKitNode) => {
+    isLoading.value = true
+
     try {
         const data = formData.auth as RegistrationData
         const res: any = await useAuthStore().register(data)
@@ -153,6 +157,8 @@ const submitCredentials = async (formData: FormKitGroupValue, node?: FormKitNode
             setStep(1)
         }
     } catch (err: any) {
+        isLoading.value = false
+
         if (node) node.props.disabled = false
 
         toast({
@@ -163,6 +169,8 @@ const submitCredentials = async (formData: FormKitGroupValue, node?: FormKitNode
 }
 
 const submitVerification = async (formData: FormKitGroupValue, node?: FormKitNode) => {
+    isLoading.value = true
+
     try {
         const data = formData.verify as { phone_otp: number, email_otp: number }
         node?.clearErrors()
@@ -173,6 +181,8 @@ const submitVerification = async (formData: FormKitGroupValue, node?: FormKitNod
 
         await router.push({ name: 'login' })
     } catch (err: any) {
+        isLoading.value = false
+
         node?.setErrors(err.formErrors, err.fieldErrors)
 
         toast({
