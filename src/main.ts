@@ -1,14 +1,16 @@
 import { createApp } from 'vue'
 import { createPinia } from 'pinia'
-
 import App from './App.vue'
 import router from './router'
+import { defaultConfig, plugin } from '@formkit/vue'
 
+import '@nabcellent/sui-vue/dist/style.min.css'
 import './assets/main.css'
 
-const app = createApp(App)
-
-app.use(createPinia())
-app.use(router)
-
-app.mount('#app')
+createApp(App).use(createPinia()).use(router).use(plugin, defaultConfig({
+    config: {
+        classes: {
+            message: 'text-danger small'
+        }
+    }
+})).mount('#app')

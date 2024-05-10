@@ -1,84 +1,58 @@
-<script setup lang="ts">
-import { RouterLink, RouterView } from 'vue-router'
-import HelloWorld from './components/HelloWorld.vue'</script>
-
 <template>
-  <header>
-    <img alt="Vue logo" class="logo" src="@/assets/logo.svg" width="125" height="125" />
-
-    <div class="wrapper">
-      <HelloWorld msg="You did it!" />
-
-      <nav>
-        <RouterLink to="/">Home</RouterLink>
-        <RouterLink to="/about">About</RouterLink>
-      </nav>
-    </div>
-  </header>
-
-  <RouterView />
+    <component :is="layout"/>
 </template>
 
-<style scoped>
-header {
-  line-height: 1.5;
-  max-height: 100vh;
+<script setup lang="ts">
+import { computed, onMounted } from "vue";
+import { useRoute } from "vue-router";
+import DefaultLayout from '@/components/layouts/Default.vue'
+import { useAuthStore } from "@/stores/auth";
+// import SimpleBar from 'simplebar'; // or "import SimpleBar from 'simplebar';" if you want to use it manually.
+import 'simplebar/dist/simplebar.css';
+
+const route = useRoute()
+
+const layout = computed(() => route.meta.layout || DefaultLayout)
+
+onMounted(() => {
+    useAuthStore().checkLocalAuth()
+
+    // Array.prototype.forEach.call(document.querySelectorAll('.scrollbar-overlay'), el => new SimpleBar(el, {
+    //     autoHide: true
+    // }));
+})
+</script>
+
+<style>
+.scrollbar,
+.dataTables_wrapper .dataTables_scroll .dataTables_scrollBody {
+    overflow: auto;
 }
 
-.logo {
-  display: block;
-  margin: 0 auto 2rem;
+.scrollbar::-webkit-scrollbar,
+.dataTables_wrapper .dataTables_scroll .dataTables_scrollBody::-webkit-scrollbar {
+    visibility: hidden;
+    -webkit-appearance: none;
+    width: 6px;
+    height: 6px;
+    background-color: rgba(0, 0, 0, 0)
 }
 
-nav {
-  width: 100%;
-  font-size: 12px;
-  text-align: center;
-  margin-top: 2rem;
+.scrollbar::-webkit-scrollbar-thumb,
+.dataTables_wrapper .dataTables_scroll .dataTables_scrollBody::-webkit-scrollbar-thumb {
+    visibility: hidden;
+    border-radius: 3px;
+    background-color: var(--scrollbar-bg);
 }
 
-nav a.router-link-exact-active {
-  color: var(--color-text);
-}
-
-nav a.router-link-exact-active:hover {
-  background-color: transparent;
-}
-
-nav a {
-  display: inline-block;
-  padding: 0 1rem;
-  border-left: 1px solid var(--color-border);
-}
-
-nav a:first-of-type {
-  border: 0;
-}
-
-@media (min-width: 1024px) {
-  header {
-    display: flex;
-    place-items: center;
-    padding-right: calc(var(--section-gap) / 2);
-  }
-
-  .logo {
-    margin: 0 2rem 0 0;
-  }
-
-  header .wrapper {
-    display: flex;
-    place-items: flex-start;
-    flex-wrap: wrap;
-  }
-
-  nav {
-    text-align: left;
-    margin-left: -1rem;
-    font-size: 1rem;
-
-    padding: 1rem 0;
-    margin-top: 1rem;
-  }
+.scrollbar:hover::-webkit-scrollbar,
+.dataTables_wrapper .dataTables_scroll .dataTables_scrollBody:hover::-webkit-scrollbar,
+.scrollbar:hover::-webkit-scrollbar-thumb,
+.dataTables_wrapper .dataTables_scroll .dataTables_scrollBody:hover::-webkit-scrollbar-thumb,
+.scrollbar:focus::-webkit-scrollbar,
+.dataTables_wrapper .dataTables_scroll .dataTables_scrollBody:focus::-webkit-scrollbar,
+.scrollbar:focus::-webkit-scrollbar-thumb,
+.dataTables_wrapper .dataTables_scroll .dataTables_scrollBody:focus::-webkit-scrollbar-thumb {
+    visibility: visible
 }
 </style>

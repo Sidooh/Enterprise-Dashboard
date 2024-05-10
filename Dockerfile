@@ -5,8 +5,9 @@ ARG VITE_ENTERPRISE_API_URL
 
 WORKDIR /app
 
-COPY package.json ./
-COPY yarn.lock ./
+COPY ["package.json", "yarn.lock", ".yarnrc.yml", "./"]
+COPY [".yarn/releases/", "./.yarn/releases/"]
+COPY [".yarn/plugins/", "./.yarn/plugins/"]
 
 RUN yarn install
 

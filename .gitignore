@@ -34,3 +34,9 @@ coverage
 !.yarn/releases
 !.yarn/sdks
 !.yarn/versions
+
+y.hide
+
+cloud-sql-proxy
+
+.env

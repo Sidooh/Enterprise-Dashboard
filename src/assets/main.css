@@ -1,35 +1,66 @@
 @import "./base.css";
 
-#app {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
-
-  font-weight: normal;
+td {
+    vertical-align: middle;
 }
 
-a,
-.green {
-  text-decoration: none;
-  color: hsla(160, 100%, 37%, 1);
-  transition: 0.4s;
+.table > :not(caption) > * > * {
+    padding: .2rem .5rem;
+    font-size: 11pt;
 }
 
-@media (hover: hover) {
-  a:hover {
-    background-color: hsla(160, 100%, 37%, 0.2);
-  }
+.no-gutters {
+    margin-right: 0;
+    margin-left: 0;
 }
 
-@media (min-width: 1024px) {
-  body {
+.btn-close {
+    transform: scale(.7);
+}
+
+
+/*===   === === === === ===  FORMKIT */
+.formkit-help {
+    color: var(--sidooh-secondary);
+}
+
+.formkit-input {
     display: flex;
-    place-items: center;
-  }
+    align-items: center;
+}
 
-  #app {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    padding: 0 2rem;
-  }
+.formkit-messages {
+    padding-left: .5rem;
+}
+
+.formkit-message {
+    --sidooh-text-opacity: 1;
+    color: rgba(var(--sidooh-danger-rgb), var(--sidooh-text-opacity)) !important;
+    font-size: 75%;
+    list-style: none;
+}
+
+[data-type=checkbox] .formkit-options, [data-type=radio] .formkit-options {
+    margin: .7rem 0;
+    padding: 0;
+}
+
+.formkit-option {
+    list-style-type: none;
+}
+
+[data-type=checkbox] .formkit-wrapper, [data-type=radio] .formkit-wrapper {
+    display: flex;
+    align-items: center;
+}
+
+.formkit-help {
+    font-size: 9pt;
+}
+
+
+@keyframes rotate {
+    100% {
+        transform: rotate(360deg);
+    }
 }
