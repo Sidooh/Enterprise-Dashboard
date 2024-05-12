@@ -2,10 +2,10 @@
     <nav class="sidebar sidebar-expand-xl position-fixed ps-3 bg-white">
         <div class="d-flex align-items-center">
             <div class="toggle-icon-wrapper">
-                <button class="btn sidebar-toggler-humburger-icon sidebar-toggle" data-bs-toggle="tooltip"
+                <button class="btn sidebar-toggle" data-bs-toggle="tooltip"
                         data-bs-placement="left" aria-label="Toggle Navigation"
                         data-bs-original-title="Toggle Navigation">
-                    <span class="sidebar-toggle-icon"><span class="toggle-line"></span></span>
+                    <Menu :size="25"/>
                 </button>
             </div>
             <a class="sidebar-brand" href="/">
@@ -108,6 +108,7 @@ import { onMounted, ref } from "vue";
 import { useAuthStore } from "@/stores/auth";
 import { NavLinkType } from "@/utils/types";
 import { getItemFromStore, setItemToStore } from "@/utils/helpers";
+import { Menu, SquareMenu } from 'lucide-vue-next';
 
 const navLinks: NavLinkType[] = [
     {
@@ -241,67 +242,6 @@ onMounted(() => {
     margin-left: -0.75rem;
     padding-left: .125rem;
     margin-right: 1.25rem;
-}
-
-.sidebar-toggler-humburger-icon {
-    height: 2.5rem;
-    width: 2.5rem;
-    padding: .3125rem;
-    display: -webkit-box;
-    display: -ms-flexbox;
-    display: flex;
-    -webkit-box-pack: center;
-    -ms-flex-pack: center;
-    justify-content: center;
-    -webkit-box-align: center;
-    -ms-flex-align: center;
-    align-items: center;
-    border-radius: 50%;
-    -webkit-box-shadow: none;
-    box-shadow: none
-}
-
-.sidebar-toggle-icon {
-    position: relative;
-    height: .125rem;
-    width: 1.25rem;
-    -webkit-transition: all .2s ease-in-out;
-    -o-transition: all .2s ease-in-out;
-    transition: all .2s ease-in-out;
-    display: block;
-    top: -0.3125rem;
-    padding-right: 0;
-}
-
-.sidebar-toggle-icon:before {
-    top: .3125rem;
-}
-
-.sidebar-toggle-icon:after, .sidebar-toggle-icon:before {
-    content: "";
-    position: absolute;
-    height: .125rem;
-    background-color: var(--sidooh-gray-700);
-    left: 0;
-    -webkit-transition: all .2s ease-in-out;
-    -o-transition: all .2s ease-in-out;
-    transition: all .2s ease-in-out;
-    border-radius: .25rem;
-    width: 100%;
-}
-
-.sidebar-toggle-icon:after {
-    top: .625rem;
-}
-
-.sidebar-toggle-icon .toggle-line {
-    display: block;
-    height: 100%;
-    border-radius: .25rem;
-    -webkit-transition: all .2s ease-in-out;
-    -o-transition: all .2s ease-in-out;
-    transition: all .2s ease-in-out;
-    background-color: var(--sidooh-gray-700);
 }
 
 .sidebar .sidebar-collapse .sidebar-content {
@@ -462,18 +402,6 @@ onMounted(() => {
         display: flex;
     }
 
-    .sidebar-collapsed .sidebar.sidebar-expand-xl .sidebar-toggle-icon {
-        padding-right: .3125rem;
-    }
-
-    .sidebar-collapsed .sidebar.sidebar-expand-xl .sidebar-toggle-icon:before {
-        width: 50%;
-    }
-
-    .sidebar-collapsed .sidebar.sidebar-expand-xl .sidebar-toggle-icon:after {
-        width: 75%;
-    }
-
     .sidebar.sidebar-expand-xl .sidebar-collapse {
         margin-top: -0.3125rem;
         -webkit-transition: width .2s ease;
@@ -506,10 +434,6 @@ onMounted(() => {
 
     .sidebar.sidebar-expand-xl .nav-link {
         padding: .7rem 0;
-    }
-
-    .sidebar-collapsed .sidebar-brand {
-        opacity: 0;
     }
 
     .sidebar-collapsed .sidebar.sidebar-expand-xl {
