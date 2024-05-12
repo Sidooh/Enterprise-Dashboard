@@ -30,7 +30,7 @@ const store = useEnterpriseStore();
 
 onMounted(() => {
     Chart.defaults.color = '#eee'
-    Chart.defaults.font.weight = '700'
+    Chart.defaults.font.weight = 700
     Chart.defaults.font.family = "'Avenir', sans-serif"
 
     chart.value = new Chart(chartEl.value.getContext('2d'), {
@@ -66,7 +66,7 @@ onMounted(() => {
                     text: 'Last 6 Months',
                     color: '#aaa',
                     font: {
-                        weight: '600'
+                        weight: 600
                     }
                 },
                 legend: {
