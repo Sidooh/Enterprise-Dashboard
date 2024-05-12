@@ -1301,6 +1301,7 @@ __metadata:
     filepond: "npm:^4.31.1"
     filepond-plugin-file-validate-type: "npm:^1.2.9"
     libphonenumber-js: "npm:^1.11.1"
+    lucide-vue-next: "npm:^0.378.0"
     moment: "npm:^2.30.1"
     oh-vue-icons: "npm:latest"
     pinia: "npm:^2.1.7"
@@ -2090,6 +2091,15 @@ __metadata:
   version: 7.18.3
   resolution: "lru-cache@npm:7.18.3"
   checksum: 10/6029ca5aba3aacb554e919d7ef804fffd4adfc4c83db00fac8248c7c78811fb6d4b6f70f7fd9d55032b3823446546a007edaa66ad1f2377ae833bd983fac5d98
+  languageName: node
+  linkType: hard
+
+"lucide-vue-next@npm:^0.378.0":
+  version: 0.378.0
+  resolution: "lucide-vue-next@npm:0.378.0"
+  peerDependencies:
+    vue: ">=3.0.1"
+  checksum: 10/067a9d14396dc4e2c4fc29db20fcef661b26fdee4c805dd9d2056b7d10068c291b66046c4b0087f3dbfcaa9416d6897d7edb4303ac4fac0898c020c45ddf476d
   languageName: node
   linkType: hard
 
